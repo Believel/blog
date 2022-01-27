@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+}
+.box {
+  background-color: #49cc90;
+  /* 水平居中  不确定宽度*/
+  /* text-align: center; */
+
+
+  /* flex */
+  /* display: flex;
+  justify-content: center; */
+
+  
+}
+.content {
+  color: #fff;
+  font-size: 30px;
+  /* table + margin 父元素宽度不确定，子元素宽度不确定*/
+  /* display: table;
+  margin: 0 auto; */
+
+  
+}
+
+/* position + transform */
+.box1 {
+  background-color: #49cc90;
+  width: 200px;
+  height: 200px;
+  position: relative;
+}
+.content1 {
+  color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
