@@ -3,9 +3,28 @@
 ## CSS
 
 ## JavaScript
+1. [前端实现对请求的接口返回数据做缓存的最佳实践](https://juejin.cn/post/7057818072702255117)
+
+```js
+.
+├── README.md
+└── my-react-app
+    ├── src
+    │   ├── App.tsx
+    │   ├── demo
+    │   │   └── cacheInterface
+    │   │       ├── 01index.tsx
+    │   │       ├── cacheService.ts
+    │   │       └── index.tsx
+    │   ├── main.tsx
+    ├── tsconfig.json
+    ├── vite.config.ts
+    └── yarn.lock
+```
 
 ## React
 1. [基于creact-react-app创建typescript的应用](https://github.com/Believel/blog/issues/1) | [项目github地址](https://github.com/Believel/react-by-ts)
+
 
 ## Vue
 
