@@ -1,0 +1,14 @@
+.content {
+  display: flex;
+}
+.left ul {
+  margin: 0;
+}
+.left a {
+  background: #e2e2e2;
+  padding: 10px 15px;
+  display: block;
+}
+.left a:hover {
+  background: #c2e0ff;
+}
