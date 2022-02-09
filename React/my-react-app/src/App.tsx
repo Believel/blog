@@ -2,7 +2,9 @@
 // import Demo from './demo/cacheInterface';
 // import ClassContextDemo from './demo/02class-context';
 // import HighComp from './demo/03HighComp';
-import HooksContext from './demo/04HooksContext'
+// import HooksContext from './demo/04HooksContext'
+
+import Demo from './demo/07demo';
 
 function App() {
   return (
@@ -11,7 +13,8 @@ function App() {
       {/* <Demo /> */}
       {/* <ClassContextDemo /> */}
       {/* <HighComp /> */}
-      <HooksContext />
+      {/* <HooksContext /> */}
+      <Demo />
     </div>
   )
 }

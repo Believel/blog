@@ -5,6 +5,8 @@ import Content from '../06ReduxDemo/components/Content';
 
 import Counter from '../06ReduxDemo/components/Counter';
 
+import Todo from '../06ReduxDemo/components/Todo';
+
 export default () => {
   return (
     <div className='redux-container'>
@@ -14,6 +16,8 @@ export default () => {
       <Content />
       <hr/>
       <Counter />
+      <hr/>
+      <Todo />
 
     </div>
   )
