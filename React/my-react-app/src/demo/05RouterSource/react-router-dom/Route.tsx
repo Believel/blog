@@ -1,13 +1,27 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types';
+import React, { Component, ReactNode } from 'react'
+import PropTypes, { ReactComponentLike } from 'prop-types';
 import pathToRegexp  from 'path-to-regexp'; // 将字符串转成正则表达式
 
-export default class Route extends Component {
+interface Props {
+  location: any;
+  history: any;
+  path: string;
+  extra: boolean;
+  component: ReactComponentLike
+  render: (props: any) => ReactNode
+
+}
+export default class Route extends Component<Props> {
+  // 实例属性定义
+  keys: any[];
+  reg: string;
+
+
   static contextTypes = {
     location: PropTypes.object,
     history: PropTypes.object
   }
-  constructor(props) {
+  constructor(props: Props) {
     super(props)
     let {path} = props;
     this.keys = []

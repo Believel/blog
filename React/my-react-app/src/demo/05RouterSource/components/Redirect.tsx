@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Redirect extends Component {
+interface Props {
+  history: any;
+  location: any;
+}
+class Redirect extends Component<Props> {
   static contextTypes = {
     history: PropTypes.object,
     location: PropTypes.object
   }
-  constructor(props) {
+  constructor(props: Props) {
     super(props)
   }
   componentWillMount() {

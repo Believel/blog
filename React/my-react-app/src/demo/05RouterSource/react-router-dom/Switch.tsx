@@ -1,13 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import pathToRegexp  from 'path-to-regexp';
 
-class Switch extends Component {
+interface Props {
+  location: any;
+  history: any;
+  children: ReactElement[]
+}
+class Switch extends Component<Props> {
   static contextTypes = {
     location: PropTypes.object,
     history: PropTypes.object
   }
-  constructor(props) {
+  constructor(props: Props) {
     super(props)
   }
   render() {

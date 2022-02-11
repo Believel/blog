@@ -2,19 +2,27 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import pathToRegexp  from 'path-to-regexp'; // 将字符串转成正则表达式
 
-export default class HashRouter extends Component {
+interface Props {
+  location: any;
+  history: any;
+}
+interface State {
+  location: any;
+}
+export default class HashRouter extends Component<Props, State> {
   // 定义子级的参数类型
   static childContextTypes = {
     location: PropTypes.object,
     history: PropTypes.object
   }
-  constructor(props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       location: {
-      state: {},
-      pathname: window.location.hash.slice(1) || '/'
-    }}
+        state: {},
+        pathname: window.location.hash.slice(1) || '/'
+      }
+    };
   }
   // 定义返回给子级的值
   getChildContext() {
@@ -22,12 +30,12 @@ export default class HashRouter extends Component {
     return {
       location: this.state.location,
       history: {
-        push(path){
+        push(path: any){
           if (typeof path === 'object') {
             // state是保存状态的
             let { pathname, state} = path
             that.setState({
-              location: {...this.state.location, state}
+              location: {...that.state.location, state}
             }, () => {
               window.location.hash = pathname
             })
