@@ -165,3 +165,5 @@ Promise.deferred = function() {
 }
 
 module.exports = Promise
+
+// Promise 只是对于异步操作代码可读性的一种变化，它并没有改变`JS`异步执行的本质，也没有改变JS中存在`callback`的现象

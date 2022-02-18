@@ -6,6 +6,8 @@
 
 import Demo from './demo/07demo';
 
+// import ClockDemo from './demo/clock'
+
 function App() {
   return (
     <div className="App">
@@ -15,6 +17,7 @@ function App() {
       {/* <HighComp /> */}
       {/* <HooksContext /> */}
       <Demo />
+      {/* <ClockDemo /> */}
     </div>
   )
 }
