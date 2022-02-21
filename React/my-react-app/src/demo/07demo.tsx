@@ -1,18 +1,22 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
+// 为何要用合成事件机制：
+// 1. 更好的兼容性和跨平台
+// 2. 全挂载document,减少内存消耗，避免频繁解绑
+// 3. 方便事件的统一管理
 const de = () => {
   const handleClick = (event: any) => {
     event.preventDefault();
     // 合成事件
     console.log('event....', event);
-    console.log('event current', event.currentTarget)
-    console.log('event target', event.target)
+    console.log('event current', event.currentTarget) // a
+    console.log('event target', event.target)  // a
     // 原生事件 DOM 对象
     // 所有事件挂载在   <div id="root"></div>   React 17 之后
     // React 17 之前 挂载在 documemnt 上
-    console.log("native current event", event.nativeEvent.currentTarget)
-    console.log('native event', event.nativeEvent.target)
+    console.log("native current event", event.nativeEvent.currentTarget) // <div id="root"></div>
+    console.log('native event', event.nativeEvent.target) // a
 
   }
   return (
@@ -38,7 +42,7 @@ class Footer extends Component<{render: any}> {
 }
 
 
-export default class Demo extends React.Component<any, S> {
+class Demo extends React.Component<any, S> {
   
   constructor(props: any) {
     super(props);
@@ -132,3 +136,5 @@ export default class Demo extends React.Component<any, S> {
     // )
   }
 }
+
+export default Demo

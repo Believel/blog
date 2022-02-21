@@ -8,5 +8,5 @@ const nums = [ , ,'abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz'];
 
 
 export default function letterCombinations(digits) {
-  
+  return digits
 }
