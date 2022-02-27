@@ -2,6 +2,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import './utils/eventBus'
+import './source/render'
+// import './source/03computed'
+import './source/04watch'
 
 Vue.config.productionTip = false
 

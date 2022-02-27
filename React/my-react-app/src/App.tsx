@@ -1,4 +1,4 @@
-import Counter from './demo/01class-lifecycle';
+// import Counter from './demo/01class-lifecycle';
 // import Demo from './demo/cacheInterface';
 // import ClassContextDemo from './demo/02class-context';
 // import HighComp from './demo/03HighComp';
@@ -10,10 +10,13 @@ import Counter from './demo/01class-lifecycle';
 
 // import ClockDemo from './demo/clock'
 
+// React hooks
+import HooksDemo from './demo/09Hooks'
+
 function App() {
   return (
     <div className="App">
-      <Counter/>
+      {/* <Counter/> */}
       {/* <Demo /> */}
       {/* <ClassContextDemo /> */}
       {/* <HighComp /> */}
@@ -21,6 +24,7 @@ function App() {
       {/* <Demo /> */}
       {/* <ClockDemo /> */}
       {/* <StateDemo /> */}
+      <HooksDemo/>
     </div>
   )
 }
