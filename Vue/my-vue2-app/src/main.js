@@ -6,7 +6,8 @@ import './utils/eventBus'
 // import './source/proxy2'
 // import './source/03computed'
 // import './source/04watch'
-import './source/05otherProxy/index'
+// import './source/05otherProxy/index'
+import './source/06ref'
 
 Vue.config.productionTip = false
 
