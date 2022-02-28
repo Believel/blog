@@ -123,16 +123,76 @@ function trigger (target, key) {
   })
 }
 // !++ watch 本质利用了effect以及 options.scheduler选项
-// watch(obj, () => {
-//   console.log('数据变了')
-// })
-// 修改响应式数据的值，会导致回调函数执行
-obj.foo++
-
-effect(() => {
-  console.log(obj.foo)
-}, {
-  scheduler () {
-    // 当 obj.foo 的值变化是，会执行 scheduler 调度函数
+function watch (source, cb, options = {}) {
+  let getter
+  if (typeof source === 'function') {
+    getter = source
+  } else {
+    getter = () => traverse(source)
   }
+  let oldValue, newValue
+  const job = () => {
+    // 在 scheduler 中重新执行副作用函数，得到的是新值
+    newValue = effectFn()
+    cb(newValue, oldValue)
+    // 更新旧值，不然下一次会得到错误的旧值
+    oldValue = newValue
+  }
+  // 使用 effect 注册副作用函数时，开启 lazy 选项，并把返回值存储到 effectFn 中以便后续手动调用
+  const effectFn = effect(() => getter(), {
+    lazy: true,
+    scheduler: () => {
+      // 在调度函数中判断 flush 是否为 ‘post’,如果是，将其放到微任务队列中执行
+      if (options.flush === 'post') {
+        const p = Promise.resolve()
+        p.then(job)
+      } else {
+        job()
+      }
+    }
+  })
+  if (options.immediate) {
+    job()
+  } else {
+    // 手动调用副作用函数，拿到的值就是旧值
+    oldValue = effectFn()
+  }
+}
+function traverse (value, seen = new Set()) {
+  // 如果要读取的数据是原始值，或者已经被读取过了，那么什么都不做
+  if (typeof value !== 'object' || value === null || seen.has(value)) return
+  // 将数据添加到 seen中，代表遍历地读取过了，避免循环引用引起的死循环
+  seen.add(value)
+  // 暂时不考虑数组等其他结构
+  for (const k in value) {
+    traverse(value[k], seen)
+  }
+  return value
+}
+// 接收一个响应式数据
+// watch(obj, () => {
+//   console.log('数据变化了')
+// })
+// obj.bar++
+
+// watch 接收一个getter函数，
+// 第二个参数回调函数中拿到新旧值：用到 effect中的 lazy 选项
+// watch(() => obj.foo, (newValue, oldValue) => {
+//   console.log('newValue:', newValue)
+//   console.log('oldValue:', oldValue)
+// })
+// obj.foo++
+
+// 立即执行的回调函数
+// 默认情况下，一个 watch 的回调只会在响应式数据发生变化时才执行
+// watch(obj, () => {
+//   console.log('数据变化了')
+// })
+watch(obj, (newvalue, oldvalue) => {
+  console.log('数据变化了', newvalue, oldvalue)
+}, {
+  // 回调函数会在 watch 创建时立即执行一次
+  immediate: true
 })
+
+// 回调函数的执行时机
