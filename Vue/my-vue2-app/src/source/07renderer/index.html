@@ -35,7 +35,7 @@
         patchProps
       } = options
 
-      function mountElement (vnode, container) {
+      function mountElement (vnode, container, anchor = null) {
         // 把真实 DOM 的节点存储在 vnode 对象里面
         const el = vnode.el = createElement(vnode.type)
         if (typeof vnode.children === 'string') {
@@ -51,7 +51,7 @@
             patchProps(el, key, null, vnode.props[key])
           }
         }
-        insert(el, container)
+        insert(el, container, anchor)
       }
       // 卸载
       function unmount (vnode) {
@@ -106,6 +106,56 @@
           // 判断旧子节点是否也是一组子节点
           if (Array.isArray(n1.children)) {
             // 核心的 Diff 算法
+            const oldChildren = n1.children
+            const newChildren = n2.children
+            let lastIndex = 0
+            for (let i = 0; i < newChildren.length; i++) {
+              const newVnode = newChildren[i]
+              let j = 0;
+              // 代表是否在旧的一组子节点中找到可复用的节点
+              // false 代表没找到
+              let find = false;
+              for (j; j < oldChildren.length; j++) {
+                const oldVnode = oldChildren[j]
+                if (newVnode.key === oldVnode.key) {
+                  find = true
+                  patch(oldVnode, newVnode, container)
+                  if (j < lastIndex) {
+                    // 需要移动
+                    const prevNode = newChildren[i - 1]
+                    if (prevNode) {
+                      const anchor = prevNode.el.nextSibling
+                      insert(newVnode.el, container, anchor)
+                    }
+                  } else {
+                    lastIndex = j
+                  }
+                  break
+                }
+              }
+              // 当前 newVnode 是新增节点
+              if (!find) {
+                const prevNode = newChildren[i - 1]
+                let anchor = null
+                if (prevNode) {
+                  // 如果有前一个 vnode 节点，则使用它的下一个兄弟节点作为锚点元素
+                  anchor = prevNode.el.nextSibling
+                } else {
+                  // 说明即将挂载的新节点是第一个子节点
+                  // 这时我们使用容器元素的firstChild 作为锚点
+                  anchor = container.firstChild
+                }
+                patch(null, newVnode, container, anchor)
+              }
+            }
+            // 遍历旧的一组节点, 移除节点
+            for (let i = 0; i < oldChildren.length; i++) {
+              const oldNode = oldChildren[i]
+              const has = newChildren.find(vnode => vnode.key === oldNode.key)
+              if (!has) {
+                unmount(oldNode)
+              }
+            }
           } else {
             // 此时：旧子节点要么是文本子节点，要么不存在
             // 但是无论什么情况，我们都只需要将容器清空，然后将新的一组子节点逐个挂载
@@ -130,9 +180,9 @@
       * n1 旧 vnode
       * n2 新 vnode
       */
-      function patch(n1, n2, container) {
+      function patch(n1, n2, container, anchor = null) {
         if (!n1) {
-          mountElement(n2, container)
+          mountElement(n2, container, anchor)
         } else {
           // 更新
           // 如果 n1 存在，则对比 n1 和 n2 的类型
@@ -146,7 +196,7 @@
           // 描述的是普通标签元素
           if (typeof type === 'string') {
             if (!n1) {
-              mountElement(n2, container)
+              mountElement(n2, container, anchor)
             } else {
               // 更新
               patchElement(n1, n2)
@@ -157,7 +207,7 @@
             // 文本节点
             if (!n1) {
               const el = createElement(n2.children)
-              insert(el, container)
+              insert(el, container, anchor)
             } else {
               // 如果旧vnode存在，只需要使用新文本节点的文本内容更新旧文本节点即可
               const el = n2.el = n1.el
@@ -169,7 +219,7 @@
             // 注释节点
             if (!n1) {
               const el = createComment(n2.children)
-              insert(el, container)
+              insert(el, container, anchor)
             } else {
               const el = n2.el = n1.el
               if (n2.children !== n1.children) {
@@ -370,29 +420,81 @@
     // renderer.render(vnode, document.getElementById('root'))
 
     // 4. 事件冒泡与更新时机问题
-    const bol = ref(false)
-    effect(() => {
-      const vnode = {
-        type: 'div',
-        props: bol.value ? {
-          onClick: () => {
-            alert('父元素 clicked')
-          }
-        } : {},
-        children: [
-          {
-            type: 'p',
-            props: {
-              onClick: () => {
-                bol.value = true
-              }
-            },
-            children: 'text'
-          }
-        ]
-      }
-      renderer.render(vnode, document.getElementById('root'))
-    })
+    // const bol = ref(false)
+    // effect(() => {
+    //   const vnode = {
+    //     type: 'div',
+    //     props: bol.value ? {
+    //       onClick: () => {
+    //         alert('父元素 clicked')
+    //       }
+    //     } : {},
+    //     children: [
+    //       {
+    //         type: 'p',
+    //         props: {
+    //           onClick: () => {
+    //             bol.value = true
+    //           }
+    //         },
+    //         children: 'text'
+    //       }
+    //     ]
+    //   }
+    //   renderer.render(vnode, document.getElementById('root'))
+    // })
+
+    // 5 diff 算法
+    const vnode1 = {
+      type: 'div',
+      children: [
+        {
+          type: 'p',
+          children: 'p1',
+          key: '1'
+        },
+        {
+          type: 'p',
+          children: 'p2',
+          key: '2'
+        },
+        {
+          type: 'p',
+          children: 'p3',
+          key: '3'
+        }
+      ]
+    }
+    const vnode2 = {
+      type: 'div',
+      children: [
+        {
+          type: 'p',
+          children: 'p3',
+          key: '3'
+        },
+        {
+          type: 'p',
+          children: 'p1',
+          key: '1'
+        },
+        {
+          type: 'p',
+          children: 'p4',
+          key: '4'
+        },
+        {
+          type: 'p',
+          children: 'p2',
+          key: '2'
+        }
+      ]
+    }
+
+    renderer.render(vnode1, document.getElementById('root'))
+    setTimeout(() => {
+      renderer.render(vnode2, document.getElementById('root'))
+    }, 2000)
 
 
   </script>

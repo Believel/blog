@@ -1,5 +1,10 @@
 import {Placement} from "./utils";
-
+/**
+ * 创建 fiber
+ * @param {*} vnode
+ * @param {*} returnFiber 父 fiber
+ * @returns 新的 fiber
+ */
 export default function createFiber(vnode, returnFiber) {
   const newFiber = {
     // 原生标签 string

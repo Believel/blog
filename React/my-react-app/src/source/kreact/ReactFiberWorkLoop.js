@@ -1,4 +1,4 @@
-import {isFn, isStr, Placement, Update, updateNode} from "./utils";
+import { isFn, isStr, Placement, Update, updateNode } from "./utils";
 import {
   updateHostComponent,
   updateFunctionComponent,
