@@ -16,7 +16,7 @@
   </style>
 </head>
 <body>
-  <h4>两端diff算法: pathKeyChildren</h4>
+  <h4>快速 Diff 算法: pathKeyChildren</h4>
   <hr/>
   <div id="root"></div>
   <script src="https://unpkg.com/@vue/reactivity@3.0.5/dist/reactivity.global.js"></script>
@@ -137,97 +137,8 @@
 
         }
       }
-      // 两端 diff 算法
-      // |        |
-      // p1 p2 p3 p4
-      // p4 p2 p1 p3
-      // |        |
-
-      // |        |
-      // p1 p2 p3 p4
-      // p2 p4 p1 p3
-      // |        |
+      // 快速 diff 算法
       function pathKeyChildren (n1, n2, container) {
-        const oldChildren = n1.children
-        const newChildren = n2.children
-        let oldStartIndex = 0, oldEndIndex = oldChildren.length - 1;
-        let newStartIndex = 0, newEndIndex = newChildren.length - 1;
-        let oldStartVnode = oldChildren[oldStartIndex], oldEndVnode = oldChildren[oldEndIndex];
-        let newStartVnode = newChildren[newStartIndex], newEndVnode = newChildren[newEndIndex];
-        while(oldStartIndex <= oldEndIndex && newStartIndex <= newEndIndex) {
-          // 增加两个判断分支，如果头尾部节点为 undefeind 则说明该节点已经处理过了，直接跳到下一个位置
-          if (!oldStartVnode) {
-            oldStartVnode = oldChildren[++oldStartIndex]
-          } else if (!oldEndVnode) {
-            oldEndVnode = oldChildren[--oldEndIndex]
-          } else if (oldStartVnode.key === newStartVnode.key) {
-          // 旧节点和新节点的头部节点是同一个节点
-            // 打补丁
-            patch(oldStartVnode, newStartVnode, container)
-            // 更改节点
-            oldStartVnode = oldChildren[++oldStartIndex]
-            newStartVnode = newChildren[++newStartIndex]
-
-          } else if (oldEndVnode.key === newEndVnode.key) {
-          // 旧节点和新节点的尾部节点是同一个节点
-            // 打补丁
-            patch(oldEndVnode, newEndVnode, container)
-            // 更改节点
-            oldEndVnode = oldChildren[--oldEndIndex]
-            newEndVnode = newChildren[--newEndIndex]
-            
-          } else if (oldStartVnode.key === newEndVnode.key) {
-          // 旧节点的头部节点和新节点的尾部节点是同一个节点
-            // 打补丁
-            patch(oldStartVnode, newEndVnode, container)
-            // 将旧头部节点插入到旧尾部节点的后面
-            insert(oldStartVnode.el, container, oldEndVnode.el.nextSibling)
-            // 更改节点
-            oldStartVnode = oldChildren[++oldStartIndex]
-            newEndVnode = newChildren[--newEndIndex]
-            
-          } else if (oldEndVnode.key === newStartVnode.key) {
-          // 旧节点的尾部节点和新节点的头部节点是同一个节点
-            // 打补丁
-            patch(oldEndVnode, newStartVnode, container)
-            // 将旧尾部节点插入到旧头部的节点前面
-            insert(oldEndVnode.el, container, oldStartVnode.el)
-            // 更改节点
-            oldEndVnode = oldChildren[--oldEndIndex]
-            newStartVnode = newChildren[++newStartIndex]
-          } else {
-            // 遍历旧的一组子节点，试图寻找与 newStartVNode 拥有相同 key 键的节点
-            // idxInOld 就是新的一组子节点的头部在旧的一组子节点中的索引
-            const idxInOld = oldChildren.findIndex(node => node.key === newStartVnode.key)
-            if (idxInOld > 0) {
-              // idxInOld 位置对应的 vnode 就是需要移动的节点
-              const vnodeToMove = oldChildren[idxInOld]
-              // 打补丁
-              patch(vnodeToMove, newStartVnode, container)
-              // 将 vnodeToMove.el 移动到头部节点 oldStartVnode.el 之前，因此使用后者作为锚点
-              insert(vnodeToMove.el, container, oldStartVnode.el)
-              // 因为位置 idxInOld 已经移动到了别处，因此将其设置为 undefined
-              oldChildren[idxInOld] = undefined
-            } else {
-              // 将 newStartVnode 作为新节点挂载到头部，使用当前头部节点 oldStartVnode.el 作为锚点
-              patch(null, newStartVnode, container, oldStartVnode.el)
-            }
-            // 更改节点
-            newStartVnode = newChildren[++newStartIndex]
-          }
-        }
-        // 循环结束后检查索引值的情况
-        if (oldEndIndex < oldStartIndex && newStartIndex <= newEndIndex) {
-          // 如果满足条件，则说明有新的节点遗留，需要挂载它们
-          for (let i = newStartIndex; i <= newEndIndex; i++) {
-            patch(null, newChildren[i], container, oldStartVnode.el)
-          }
-        } else if (newEndIndex < newStartIndex && oldStartIndex <= oldEndIndex) {
-          // 移除操作
-          for (let i = oldStartIndex; i <= oldEndIndex; i++) {
-            unmount(oldChildren[i])
-          }
-        }
       }
       // 打补丁
       /**
@@ -416,92 +327,7 @@
       return res.trim();
     }
     
-    // 两端 diff 算法 案例
-    // 1.
-
-    const el = document.getElementById('root')
-    // const vnode = {
-    //   type: 'div',
-    //   children: [
-    //     {
-    //       type: 'p',
-    //       key: 1,
-    //       children: 'p-1'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 2,
-    //       children: 'p-2'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 3,
-    //       children: 'p-3'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 4,
-    //       children: 'p-4'
-    //     }
-    //   ]
-    // }
-    // renderer.render(vnode, el)
-    // 理想状态下
-    // const vnode2 = {
-    //   type: 'div',
-    //   children: [
-    //     {
-    //       type: 'p',
-    //       key: 4,
-    //       children: 'p-4'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 2,
-    //       children: 'p-2'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 1,
-    //       children: 'p-1'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 3,
-    //       children: 'p-3'
-    //     }
-    //   ]
-    // }
-
-    // 非理想状态下
-    // const vnode2 = {
-    //   type: 'div',
-    //   children: [
-    //     {
-    //       type: 'p',
-    //       key: 2,
-    //       children: 'p-2'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 4,
-    //       children: 'p-4'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 1,
-    //       children: 'p-1'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 3,
-    //       children: 'p-3'
-    //     }
-    //   ]
-
-    // }
-
-    // 添加元素
+  //  快速 Diff 算法
     const vnode = {
       type: 'div',
       children: [
@@ -523,57 +349,6 @@
       ]
     }
     renderer.render(vnode, el)
-    // const vnode2 = {
-    //   type: 'div',
-    //   children: [
-    //     {
-    //       type: 'p',
-    //       key: 4,
-    //       children: 'p-4'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 1,
-    //       children: 'p-1'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 3,
-    //       children: 'p-3'
-    //     },
-    //     {
-    //       key: 'p',
-    //       key: 2,
-    //       children: 'p-2'
-    //     }
-    //   ]
-    // }
-    // const vnode2 = {
-    //   type: 'div',
-    //   children: [
-    //     {
-    //       type: 'p',
-    //       key: 4,
-    //       children: 'p-4'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 1,
-    //       children: 'p-1'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 2,
-    //       children: 'p-2'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 3,
-    //       children: 'p-3'
-    //     }
-    //   ]
-    // }
-    // 移除操作
     const vnode2 = {
       type: 'div',
       children: [
@@ -584,6 +359,16 @@
         },
         {
           type: 'p',
+          key: 4,
+          children: 'p-4'
+        },
+        {
+          type: 'p',
+          key: 2,
+          children: 'p-2'
+        },
+        {
+          key: 'p',
           key: 3,
           children: 'p-3'
         }
