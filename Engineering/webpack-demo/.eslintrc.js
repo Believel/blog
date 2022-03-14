@@ -26,7 +26,7 @@ module.exports = {
         "typescript": {}
     }
   }, 
-  "rules": {
+  rules: {
     "no-await-in-loop": 1, // Disallow await inside of loops
     "no-compare-neg-zero": 2, // 不要出现负零，即 -0
     "react/no-children-prop": 0,
@@ -411,4 +411,7 @@ module.exports = {
       }
     ]
   },
+  // 禁用持续查找：默认情况下，ESlint 将在根目录下的所有父文件中查找配置文件。
+  // 该属性的作用是一旦发现了配置文件就停止对父文件夹的查找
+  root: true
 };

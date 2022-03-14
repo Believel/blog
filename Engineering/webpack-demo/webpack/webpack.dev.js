@@ -9,6 +9,7 @@ const ESLintPlugin = require('eslint-webpack-plugin')
 const { srcPath } = require('./paths')
 const config = require('./webpack.common')
 const os = require('os')
+const webpack = require('webpack')
 threadLoader.warmup(
   {
     workers: os.cpus(),
@@ -23,8 +24,11 @@ module.exports = {
   // 入口
   entry: {
     'demo': [
+      // 实时调整react组件
       'react-hot-loader/patch',
+      // 重载开发服务器
       'webpack-dev-server/client?http://0.0.0.0:3999',
+      // 热模块更换的运行时代码
       'webpack/hot/only-dev-server',
       srcPath('../src/index')
     ]
@@ -41,7 +45,8 @@ module.exports = {
   resolve: config.resolve,
   // 本地开发服务器
   devServer: {
-    hot: true,
+    // hot: true,
+    // client: false,
     // webpack 4: contentBase: srcPath('../dist/'),
     // webpack 5
     static: {
@@ -178,6 +183,7 @@ module.exports = {
       // 启用 Eslint 自动修复特性
       fix: true
     }),
+    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       hash: false,
       cache: false,

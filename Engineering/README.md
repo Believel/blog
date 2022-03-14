@@ -26,9 +26,14 @@ npx eslint --init // 进入问题配置页面
 const ESLintPlugin = require('eslint-webpack-plugin');
 module.exports = {
   // ...
-  plugins: [new ESLintPlugin({
-
-  })],
+  plugins: [
+    new ESLintPlugin({
+      // 指定需要检查的扩展名
+      extensions: ['js', 'tsx', 'ts', 'jsx'],
+      // 启用 Eslint 自动修复特性
+      fix: true
+    }),
+  ],
   // ...
 };
 ```
