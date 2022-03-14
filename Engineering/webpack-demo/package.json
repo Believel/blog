@@ -6,9 +6,11 @@
   "scripts": {
     "start": "webpack serve --config webpack/webpack.dev",
     "build": "webpack --config webpack/webpack.prod",
-    "lint": "eslint src --fix --quiet --ext .js,.jsx,.tsx,.ts"
+    "eslint": "eslint src --fix --quiet --ext .js,.jsx,.tsx,.ts"
   },
-  "pre-commit": ["eslint"],
+  "pre-commit": [
+    "eslint"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -27,8 +29,11 @@
     "css-loader": "^6.7.1",
     "eslint": "^8.11.0",
     "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-webpack-plugin": "^3.1.1",
@@ -37,6 +42,7 @@
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
     "mini-css-extract-plugin": "^2.6.0",
+    "prettier": "^2.5.1",
     "react-hot-loader": "^4.13.0",
     "style-loader": "^3.3.1",
     "svg-url-loader": "^7.1.1",

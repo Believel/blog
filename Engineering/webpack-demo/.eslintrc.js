@@ -6,6 +6,7 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'airbnb',
+    'eslint-config-prettier'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -18,7 +19,13 @@ module.exports = {
   plugins: [
     'react',
     '@typescript-eslint',
+    'eslint-plugin-prettier'
   ],
+  "settings": {
+    "import/resolver": {
+        "typescript": {}
+    }
+  }, 
   "rules": {
     "no-await-in-loop": 1, // Disallow await inside of loops
     "no-compare-neg-zero": 2, // 不要出现负零，即 -0
@@ -254,7 +261,7 @@ module.exports = {
     "operator-linebreak": 0, // 有操作符时，是否检测打断的行
     "padded-blocks": 0, // 是否验证空白块
     "require-jsdoc": 0, // 是否需要 jsdoc 来注释代码
-    "semi": [0, "always"], // 总是要求加上分号
+    // "semi": [0, "always"], // 总是要求加上分号
     "semi-spacing": 2, // 分号与代码之间的间隔
     "sort-keys": 0, // 属性是否需要排序
     "sort-vars": 0, // 定义多个变量时，是否按字符顺序来排序，不建议开启该规则
@@ -378,12 +385,12 @@ module.exports = {
     "react/jsx-uses-react": 2,// React声明了而没有被调用
     "react/jsx-uses-vars": 2, // jsx组件被定义而没有被调用
     "react/jsx-wrap-multilines": 2, // 多行 jsx 表达式应该用 () 包裹起来
-    "prettier/prettier": "error",
+    "prettier/prettier": 1,
     '@typescript-eslint/explicit-function-return-type': [
       // 'warn',
       'off', 
       {
-        allowExpressions: true, 
+        allowExpressions: true,
         allowTypedFunctionExpressions: true,
       }
     ],
@@ -395,5 +402,13 @@ module.exports = {
     "@typescript-eslint/camelcase": 0,
     "camelcase": 0,
     "no-eval": 0,
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+          "ts": "never",
+          "tsx": "never"
+      }
+    ]
   },
 };

@@ -81,8 +81,7 @@ module.exports = {
         use: [
           'thread-loader',
           'babel-loader',
-        ],
-        enforce: 'pre'
+        ]
       },
       {
         test: /\.(less|css)$/,
@@ -174,6 +173,9 @@ module.exports = {
   plugins: [
     ...config.plugins,
     new ESLintPlugin({
+      // 指定需要检查的扩展名
+      extensions: ['js', 'tsx', 'ts', 'jsx'],
+      // 启用 Eslint 自动修复特性
       fix: true
     }),
     new HtmlWebpackPlugin({

@@ -1,7 +1,7 @@
 # 工程化
 ## webpack
-1. `loader`: 
-2. `plugins`:
+1. `loader`: 处理其他类型(除了js，json)的文件，并将他们转换成有效的模块，以供应用程序使用，以及添加到依赖图中
+2. `plugins`: 解决 loader 无法实现的其他事
 3. react plus typescript
 ```js
 // 用到的库
@@ -22,10 +22,37 @@ npx eslint --init // 进入问题配置页面
 
 * 安装`npm install eslint-webpack-plugin --save-dev`
 ```js
+// 注意保证：eslint >= 7
 const ESLintPlugin = require('eslint-webpack-plugin');
 module.exports = {
   // ...
-  plugins: [new ESLintPlugin(options)],
+  plugins: [new ESLintPlugin({
+
+  })],
   // ...
 };
+```
+* 安装的其他库：
+
+```js
+//  error  Definition for rule 'prettier/prettier' was not found
+prettier eslint-config-prettier eslint-plugin-prettier prettier
+
+// error  Missing file extension for "@/container/App" 
+1. 安装： eslint-import-resolver-typescript
+2. 在settings中配置
+"settings": {
+    "import/resolver": {
+        "typescript": {}
+    }
+}
+3. 在rules中配置
+"import/extensions": [
+    "error",
+    "ignorePackages",
+    {
+        "ts": "never",
+        "tsx": "never"
+    }
+]
 ```
