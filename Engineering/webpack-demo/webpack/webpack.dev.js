@@ -9,13 +9,14 @@ const ESLintPlugin = require('eslint-webpack-plugin')
 const { srcPath } = require('./paths')
 const config = require('./webpack.common')
 const os = require('os')
-const webpack = require('webpack')
+// const webpack = require('webpack')
+// -- 注释中去掉，应为 webpack5 中 devServer: {hot:true} 已经支持 HMR
 threadLoader.warmup(
   {
     workers: os.cpus(),
     workerParallelJobs: 50
   },
-  ['babel-loader', 'babel-preset-env', 'less-loader']
+  ['babel-loader', 'less-loader']
 )
 
 module.exports = {
@@ -27,9 +28,9 @@ module.exports = {
       // 实时调整react组件
       'react-hot-loader/patch',
       // 重载开发服务器
-      'webpack-dev-server/client?http://0.0.0.0:3999',
+      // -- 'webpack-dev-server/client?http://0.0.0.0:3999',
       // 热模块更换的运行时代码
-      'webpack/hot/only-dev-server',
+      // -- 'webpack/hot/only-dev-server',
       srcPath('../src/index')
     ]
   },
@@ -45,7 +46,7 @@ module.exports = {
   resolve: config.resolve,
   // 本地开发服务器
   devServer: {
-    // hot: true,
+    hot: true,
     // client: false,
     // webpack 4: contentBase: srcPath('../dist/'),
     // webpack 5
@@ -70,9 +71,11 @@ module.exports = {
         // 后端域名
         target: 'http://127.0.0.1:3000/',
         auth: false,
+        // target 参数是域名的话，需要这个参数开启跨域
         changeOrigin: true,
+        // 路径重写，也就是会修改最终请求的 api 路径
         pathRewrite: {
-
+          // '/api/new': ''
         }
       }
     }
@@ -183,7 +186,7 @@ module.exports = {
       // 启用 Eslint 自动修复特性
       fix: true
     }),
-    new webpack.HotModuleReplacementPlugin(),
+    // -- new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       hash: false,
       cache: false,

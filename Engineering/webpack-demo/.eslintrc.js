@@ -26,6 +26,9 @@ module.exports = {
         "typescript": {}
     }
   }, 
+  globals: {
+    __webpack_public_path__: true
+  },
   rules: {
     "no-await-in-loop": 1, // Disallow await inside of loops
     "no-compare-neg-zero": 2, // 不要出现负零，即 -0
