@@ -24,7 +24,7 @@ module.exports = {
   mode: 'development',
   // 入口
   entry: {
-    'demo': [
+    'xxx': [
       // 实时调整react组件
       'react-hot-loader/patch',
       // 重载开发服务器

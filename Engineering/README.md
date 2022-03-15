@@ -61,3 +61,6 @@ prettier eslint-config-prettier eslint-plugin-prettier prettier
     }
 ]
 ```
+5. 生产环境打包：`Error: You forgot to add 'mini-css-extract-plugin'`
+
+> 原因：speed-measure-webpack-plugin 不能和上面插件同时用
