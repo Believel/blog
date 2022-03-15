@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// 压缩 JS, webpack 5自带开箱即用
+// 压缩 JS, webpack 5自带开箱即用，但是如果想自定义需要自己下载使用
 const TerserPlugin = require('terser-webpack-plugin')
 
 // webpack 4, 优化或者压缩 CSS
@@ -17,7 +17,7 @@ const os = require('os')
 // const smp = new SpeedMeasurePlugin()
 const config = require('./webpack.common')
 const { srcPath } = require('./paths')
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 threadLoader.warmup({
   workers: os.cpus(),
@@ -164,7 +164,10 @@ module.exports = {
   },
   plugins: [
     ...config.plugins,
-    // new BundleAnalyzerPlugin(),
+    new BundleAnalyzerPlugin({
+      // analyzerMode: 'disable', // 不启动展示打包报告的http服务器
+      // generateStatsFile: true // 是否生成stats.json文件
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')

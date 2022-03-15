@@ -116,20 +116,31 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif)$/i,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 10000,
-            esMoudles: false,
-            fallback: {
-              loader: 'file-loader',
-              options: {
-                esMoudles: false,
-                name: '[hash].[ext]'
-              }
-            }
+        type: 'asset',
+        generator: {
+          // 输出文件位置以及文件名
+          // webpack5中[ext]自带'.',这个与url-loader配置不同
+          filename: '[name][hash:8][ext]'
+        },
+        parser: {
+          dataUrlCondition: {
+            maxSize: 50 * 1024 // 超过50kb不转base64
           }
         }
+        // use: {
+        //   loader: 'url-loader',
+        //   options: {
+        //     limit: 10000,
+        //     esMoudles: false,
+        //     fallback: {
+        //       loader: 'file-loader',
+        //       options: {
+        //         esMoudles: false,
+        //         name: '[hash].[ext]'
+        //       }
+        //     }
+        //   }
+        // }
       },
       {
         test: /\.svg$/,
