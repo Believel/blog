@@ -19,6 +19,7 @@
   <h4>快速 Diff 算法: pathKeyChildren</h4>
   <hr/>
   <div id="root"></div>
+  <script src="./index.js"></script>
   <script src="https://unpkg.com/@vue/reactivity@3.0.5/dist/reactivity.global.js"></script>
   <script>
     const { effect, ref } = VueReactivity
@@ -183,10 +184,117 @@
           }
         } else {
           // 处理非理想情况
+          // 构造 source 函数：用来存储新的一组子节点中的节点在旧的一组子节点中的位置索引，
+          // 后面将会使用它计算出一个最长递增子序列，并用于辅助完成DOM移动的操作
+          // 新的一组子节点中剩余未处理节点的数量
+          const count = newEnd - j + 1
+          const source = new Array(count)
+          // 每项都用 -1 填充
+          source.fill(-1)
+          // oldStart 和 newStart 分别为起始索引，即j
+          const oldStart = j
+          const newStart = j
 
+          // 判断是否移动
+          let moved = false
+          let pos = 0
+
+          // 这种双层循环会带来性能问题
+          // 遍历旧的一组子节点  
+          // for (let i = oldStart; i <= oldEnd; i++) {
+          //   const oldVnode = oldChildren[i]
+          //   // 遍历新的一组子节点
+          //   for (let k = newStart; k <= newEnd; k++) {
+          //     const newVnode = newChildren[k]
+          //     // 找到拥有相同 key 值的可复用节点
+          //     if (oldVnode.key === newVnode.key) {
+          //       // 调用 patch 进行更新
+          //       patch(oldVnode, newVnode, container)
+          //       // 最后填充 source 数组: 注意未处理节点的索引未必是从0开始的
+          //       source[k - newStart] = i
+          //     }
+          //   }
+          // }
+
+          // 我们采用索引表：节点key:节点位置
+          // 构建索引表
+          const keyIndex = {}
+          for (let i = newStart; i <= newEnd; i++) {
+            keyIndex[newChildren[i].key] = i
+          }
+          // 代表更新过的节点数量
+          let patched = 0
+
+          // 遍历旧的一组子节点中剩余未处理的节点
+          for (let i = oldStart; i <= oldEnd; i++) {
+            oldVnode = oldChildren[i]
+            // 如果更新过的节点数量小于等于需要更新的节点数量，则执行更新
+            if (patched <= count) {
+              // 通过索引表快速找到新的一组子节点中具有相同 key 值的节点位置
+              const k = keyIndex[oldVnode.key]
+              if (typeof k !== 'undefined') {
+                newVnode = newChildren[k]
+                // 调用 patch 函数完成更新
+                patch(oldVnode, newVnode, container)
+                // 每更新一个节点，都将 patched 遍历 +1
+                patched++
+                // 填充 source 数组： 新的子节点在旧节点的位置
+                source[k - newStart] = i
+
+                // 判断节点是否需要移动
+                if (k < pos) {
+                  moved = true
+                } else {
+                  pos = k
+                }
+              } else {
+                // 没找到，卸载
+                unmount(oldVnode)
+              }
+            } else {
+              // 如果更新过的节点数量大于需要更新的节点数量，则卸载多余的节点
+              unmount(oldVnode)
+            }
+            
+          }
+          if (moved) {
+            // 如果 moved 为真，则需要进行 DOM 移动操作
+            // 计算最长递增子序列：
+            // 给定一个数值序列，找到它的一个子序列，并且该子序列中的值是递增的，子序列中的元素在原序列中不一定了连续。
+            // 一个序列可能有很多个递增子序列，其中最长的那一个就称为递增子序列
+            // [0, 8, 4, 12]  -> [0, 4, 12]
+            const seq = getSequence(source)
+            // 指向最长递增子序列的最后一个元素
+            let s = seq.length - 1
+            // 指向新的一组子节点的最后一个元素
+            let i = count - 1
+            for (i; i >= 0; i--) {
+              if (source[i] === -1) {
+                // 说明索引节点是全新的节点
+                // 新节点真实位置索引
+                const pos = i + newStart
+                const newVnode = newChildren[pos]
+                // 下一个节点的位置索引
+                const nextPos = pos + 1
+                const anchor = nextPos < newChildren.length ? newChildren[nextPos].el : null
+                patch(null, newVnode, container, anchor)
+
+              } else if (i !== seq[s]) {
+                // 如果节点的索引 i 不等于 seq[s], 说明该节点需要移动
+                const pos = i + newStart
+                const newVnode = newChildren[pos]
+                const nextPos = pos + 1
+                const anchor = nextPos < newChildren.length ? newChildren[nextPos].el : null
+                // 移动
+                insert(newVnode.el, container, anchor)
+
+              } else {
+                // 该位置的节点不需要移动
+                s--
+              }
+            }
+          }
         }
-
-
       }
       // 打补丁
       /**
