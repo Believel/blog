@@ -22,7 +22,7 @@
   <script src="./index.js"></script>
   <script src="https://unpkg.com/@vue/reactivity@3.0.5/dist/reactivity.global.js"></script>
   <script>
-    const { effect, ref } = VueReactivity
+    const { effect, ref, reactive } = VueReactivity
     // 标识：文本节点
     const Text = Symbol()
     // 标识：注释节点
@@ -51,11 +51,20 @@
         // 通过 vnode 获取组件的选项对象
         const componentOptions = vnode.type
         // 获取组件的渲染函数 render
-        const { render } = componentOptions
-        // 执行渲染函数， 获取组件要渲染的内容，即 render 函数返回的虚拟 DOM
-        const subTree = render()
-        // 最后调用 patch 函数来挂载组件所描述的内容，即 subTree
-        patch(null, subTree, container, anchor)
+        const { render, data } = componentOptions
+        // 调用 data 函数得到原始数据，并调用 reactive 函数将其包装为响应式数据
+        const state = reactive(data())
+        // 将组件的 render 函数调用包装到 effect 内
+        effect(() => {
+          // 执行渲染函数， 获取组件要渲染的内容，即 render 函数返回的虚拟 DOM
+          // 将 this 设置为 state
+          const subTree = render.call(state, state)
+          // 最后调用 patch 函数来挂载组件所描述的内容，即 subTree
+          patch(null, subTree, container, anchor)
+        }, {
+          // 指定副作用函数的调度
+          scheduler: queueJob
+        })
       }
       // 更新组件
       function patchComponent(n1, n2, container, anchor) {
@@ -506,7 +515,7 @@
     name: 'MyComponent',
     data() {
       return {
-        foo: 1
+        foo: 'hello world'
       }
     },
     // 组件的渲染函数，其返回值必须为 vdom
@@ -514,7 +523,7 @@
       // 返回虚拟 DOM
       return {
         type: 'div',
-        children: '我是文本内容'
+        children: `foo的值：${this.foo}`
       }
     }
   }
