@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>组件实现原理</title>
   <style>
     body {
       margin: 50px;
@@ -16,7 +16,7 @@
   </style>
 </head>
 <body>
-  <h4>快速 Diff 算法: pathKeyChildren</h4>
+  <h4>组件实现原理</h4>
   <hr/>
   <div id="root"></div>
   <script src="./index.js"></script>
@@ -46,7 +46,22 @@
         createComment,
         patchProps
       } = options
+      // 挂载组件
+      function mountComponent(vnode, container, anchor) {
+        // 通过 vnode 获取组件的选项对象
+        const componentOptions = vnode.type
+        // 获取组件的渲染函数 render
+        const { render } = componentOptions
+        // 执行渲染函数， 获取组件要渲染的内容，即 render 函数返回的虚拟 DOM
+        const subTree = render()
+        // 最后调用 patch 函数来挂载组件所描述的内容，即 subTree
+        patch(null, subTree, container, anchor)
+      }
+      // 更新组件
+      function patchComponent(n1, n2, container, anchor) {
 
+      }
+      // 挂载元素
       function mountElement (vnode, container, anchor = null) {
         // 把真实 DOM 的节点存储在 vnode 对象里面
         const el = vnode.el = createElement(vnode.type)
@@ -302,59 +317,60 @@
       * n2 新 vnode
       */
       function patch(n1, n2, container, anchor = null) {
-        if (!n1) {
-          mountElement(n2, container, anchor)
-        } else {
-          // 更新
-          // 如果 n1 存在，则对比 n1 和 n2 的类型
-          if (n1 && n1.type !== n2.type) {
-            // 如果新旧 vnode 的类型不同，则直接将旧 vnode 卸载
-            unmount(n1)
-            n1 = null
+        // 如果 n1 存在，则对比 n1 和 n2 的类型
+        if (n1 && n1.type !== n2.type) {
+          // 如果新旧 vnode 的类型不同，则直接将旧 vnode 卸载
+          unmount(n1)
+          n1 = null
+        }
+        // n1 和 n2 所描述的内容相同
+        const { type } = n2
+        // 描述的是普通标签元素
+        if (typeof type === 'string') {
+          if (!n1) {
+            mountElement(n2, container, anchor)
+          } else {
+            // 更新
+            patchElement(n1, n2)
           }
-          // n1 和 n2 所描述的内容相同
-          const { type } = n2
-          // 描述的是普通标签元素
-          if (typeof type === 'string') {
-            if (!n1) {
-              mountElement(n2, container, anchor)
-            } else {
-              // 更新
-              patchElement(n1, n2)
-            }
-          } else if (typeof type === 'object') {
-            // 如果 n2.type 的值的类型是对象，则它描述的是组件
-          } else if (type === Text) {
-            // 文本节点
-            if (!n1) {
-              const el = createElement(n2.children)
-              insert(el, container, anchor)
-            } else {
-              // 如果旧vnode存在，只需要使用新文本节点的文本内容更新旧文本节点即可
-              const el = n2.el = n1.el
-              if (n2.children !== n1.children) {
-                setText(el, n2.children)
-              }
-            }
-          } else if (type === Comment) {
-            // 注释节点
-            if (!n1) {
-              const el = createComment(n2.children)
-              insert(el, container, anchor)
-            } else {
-              const el = n2.el = n1.el
-              if (n2.children !== n1.children) {
-                setText(el, n2.children)
-              }
-            }
-          } else if (type === Frament) {
-            if (!n1) {
-              n2.children.forEach(c => patch(null, c, container))
-            } else {
-              patchChildren(n1, n2, container)
+        } else if (typeof type === 'object') {
+          // 如果 n2.type 的值的类型是对象，则它描述的是组件
+          if (!n1) {
+            // 挂载组件
+            mountComponent(n2, container, anchor)
+          } else {
+            // 更新组件
+            patchComponent(n1, n2, anchor)
+          }
+        } else if (type === Text) {
+          // 文本节点
+          if (!n1) {
+            const el = createElement(n2.children)
+            insert(el, container, anchor)
+          } else {
+            // 如果旧vnode存在，只需要使用新文本节点的文本内容更新旧文本节点即可
+            const el = n2.el = n1.el
+            if (n2.children !== n1.children) {
+              setText(el, n2.children)
             }
           }
-          
+        } else if (type === Comment) {
+          // 注释节点
+          if (!n1) {
+            const el = createComment(n2.children)
+            insert(el, container, anchor)
+          } else {
+            const el = n2.el = n1.el
+            if (n2.children !== n1.children) {
+              setText(el, n2.children)
+            }
+          }
+        } else if (type === Frament) {
+          if (!n1) {
+            n2.children.forEach(c => patch(null, c, container))
+          } else {
+            patchChildren(n1, n2, container)
+          }
         }
       }
       // 渲染函数
@@ -483,130 +499,31 @@
       return res.trim();
     }
     
-  //  快速 Diff 算法
+  //  组件实现原理
   const el = document.getElementById('root')
-    // const vnode = {
-    //   type: 'div',
-    //   children: [
-    //     {
-    //       type: 'p',
-    //       key: 1,
-    //       children: 'p-1'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 2,
-    //       children: 'p-2'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 3,
-    //       children: 'p-3'
-    //     }
-    //   ]
-    // }
-    // renderer.render(vnode, el)
-    // const vnode2 = {
-    //   type: 'div',
-    //   children: [
-    //     {
-    //       type: 'p',
-    //       key: 1,
-    //       children: 'p-1'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 4,
-    //       children: 'p-4'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 2,
-    //       children: 'p-2'
-    //     },
-    //     {
-    //       type: 'p',
-    //       key: 3,
-    //       children: 'p-3'
-    //     }
-    //   ]
-    // }
-    // 判断是否需要进行 DOM 移动操作
-    const vnode = {
-      type: 'div',
-      children: [
-        {
-          type: 'p',
-          key: 1,
-          children: 'p-1'
-        },
-        {
-          type: 'p',
-          key: 2,
-          children: 'p-2'
-        },
-        {
-          type: 'p',
-          key: 3,
-          children: 'p-3'
-        },
-        {
-          type: 'p',
-          key: 4,
-          children: 'p-4'
-        },
-        {
-          type: 'p',
-          key: 6,
-          children: 'p-6'
-        },
-        {
-          type: 'p',
-          key: 5,
-          children: 'p-5'
-        },
-        
-      ]
+  const MyComponent = {
+    // 组件名称， 可选
+    name: 'MyComponent',
+    data() {
+      return {
+        foo: 1
+      }
+    },
+    // 组件的渲染函数，其返回值必须为 vdom
+    render() {
+      // 返回虚拟 DOM
+      return {
+        type: 'div',
+        children: '我是文本内容'
+      }
     }
-    renderer.render(vnode, el)
-    const vnode2 = {
-      type: 'div',
-      children: [
-        {
-          type: 'p',
-          key: 1,
-          children: 'p-1'
-        },
-        {
-          type: 'p',
-          key: 3,
-          children: 'p-3'
-        },
-        {
-          type: 'p',
-          key: 4,
-          children: 'p-4'
-        },
-        {
-          type: 'p',
-          key: 2,
-          children: 'p-2'
-        },
-        {
-          type: 'p',
-          key: 7,
-          children: 'p-7'
-        },
-        {
-          type: 'p',
-          key: 5,
-          children: 'p-5'
-        }
-      ]
-    }
-    setTimeout(() => {
-      renderer.render(vnode2, el)
-    }, 3000)
+  }
+  const vnode = {
+    // 描述组件，type 属性存储组件的选项对象
+    type: MyComponent
+  }
+  renderer.render(vnode, el)
+  
 
   </script>
 </body>
