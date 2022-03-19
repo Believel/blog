@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h4>你好吗</h4>
+  <script>
+    // 1. 数组扁平化
+    const arr = [1, [2], [3, [4]]]
+    // console.log(arr.flat(2))
+    function myFlat(arr) {
+      return arr.reduce((result, current) => {
+        return result.concat(Array.isArray(current)? myFlat(current): current)
+      }, [])
+    }
+    console.log(myFlat(arr, []))
+
+    // 2. interface vs type
+    // &：都可以描述一个对象或函数；都可以扩展 extends
+    // interface : 指定字段为可选，能够声明合并
+    // type: 定义基本类型，联合类型，元祖类型
+
+    // 3. 
+    // 数组结构：null 值不生效；引用的变量必须已经声明
+    
+
+    // 默认值生效的条件是，对象的属性值严格等于 undefined
+    // let x; // 将一个声明的变量用于结构赋值，必须非常小心
+    // {x} = { x :1} // SyntaxError: syntax error
+
+    // 正确的写法
+    let x;
+    ({x} = {x: 1})
+
+    // 4. webpack 优化
+     // 4.1 速度：alias, external, loader exclude, 
+     // 4.2 体积：生成上：压缩js, 压缩css,提取css, tree-shaking, splitChunks, 按需加载
+    
+    // 5. webpack thread-loader 原理配置
+
+    // 6. 首屏渲染的优化
+    // 懒加载， 图片， webpack
+
+    // 7. 原型链
+    // 每个对象都有__proto__ 属性，如果自身属性不存在的话就会往对象的__proto__ 上找，直到为null为止，才停止找
+    // 函数都有 prototype 属性
+
+    // 8. 闭包
+
+    // 函数内部返回一个函数调用 
+
+    // 9. 继承的几种方式
+
+    // 10. webpack5 介绍下
+      // 通过持久化硬盘魂村能力来提升构建性能
+      // 通过更好的 Tree Shaking 能力和代码的生成逻辑来优化产物的大小
+      // 改善 web 平台的兼容性能力
+
+      // webpack-dev-server 的 HMR能力
+      // 内置静态资源的构建能力：
+
+    // 11. react.lazy 实现原理
+      // 
+
+    // 12. 大文件上传
+
+    // 13. 从 React 角度如何做页面渲染、性能方面的优化
+
+    // 14. 职业规划
+
+    // 15. 有看过哪些源码
+  </script>
+</body>
+</html>
