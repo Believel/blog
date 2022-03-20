@@ -48,10 +48,24 @@ Function.prototype.myApply = function(context, args) {
   return this.myCall(context, ...args)
 }
 
+// Function.prototype.myBind = function(context, ...args) {
+//   const that = this;
+//   return function() {
+//     return that.myCall(context, ...args);
+//   }
+// }
+
 Function.prototype.myBind = function(context, ...args) {
+  if (typeof this !== 'function') {
+    throw new TypeError('Error')
+  }
   const that = this;
-  return function() {
-    return that.myCall(context, ...args);
+  return function F() {
+    // 返回一个函数， 我们可以 new F(), 所以需要判断
+    if (this instanceof F) {
+      return new that(...args, ...arguments)
+    }
+    return that.myCall(context, args.concat(...arguments));
   }
 }
 
