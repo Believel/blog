@@ -15,6 +15,11 @@
   <a href="#">new</a>
   <a href="#">deepClone</a>
   <a href="#">debounce</a>
+  <ul id="ul">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+  </ul>
   <!-- <script src="./01instanceof.js"></script> -->
   <!-- <script src="./02this.js"></script> -->
   <!-- <script src="./04promise.js"></script> -->
@@ -22,5 +27,23 @@
   <!-- <script src="./06myNew.js"></script> -->
   <script src="./07debounce.js"></script>
 
+  <script>
+    // 浏览器知识点
+    window.onload = () => {
+      let ul = document.getElementById('ul')
+      // 默认是 false， 支持冒泡
+      ul.addEventListener('click', event => {
+        console.log(event.target)
+      }, false)
+    }
+
+    // DNS: 是域名系统（Domain Name System）,是因特网的一项核心服务，它作为可以将域名和IP地址相互映射的一个分布式数据库，能够使人更方便的访问互联网，而不用去记住能够被机器直接读取的IP数串。
+    // 定级域： .com  .cn, .edu,..   
+    // 主域名：aliyun.com, bkjk.com  托管一级域名
+    // 子域名： example.aliyun.com, test.bkjk.com  托管二级域名
+    // 子域名的子域： www.example.aliyun.com   托管三级域名
+ 
+
+  </script>
 </body>
 </html>
