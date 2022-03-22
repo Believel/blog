@@ -15,17 +15,21 @@
   <a href="#">new</a>
   <a href="#">deepClone</a>
   <a href="#">debounce</a>
+  <a href="#">throttle</a>
   <ul id="ul">
     <li>1</li>
     <li>2</li>
     <li>3</li>
   </ul>
+
+  <ul id="once"></ul>
   <!-- <script src="./01instanceof.js"></script> -->
   <!-- <script src="./02this.js"></script> -->
   <!-- <script src="./04promise.js"></script> -->
   <!-- <script src="./05Regex.js"></script> -->
   <!-- <script src="./06myNew.js"></script> -->
-  <script src="./07debounce.js"></script>
+  <!-- <script src="./07debounce.js"></script> -->
+  <script src="./10eventloop.js"></script>
 
   <script>
     // 浏览器知识点
@@ -43,6 +47,31 @@
     // 子域名： example.aliyun.com, test.bkjk.com  托管二级域名
     // 子域名的子域： www.example.aliyun.com   托管三级域名
  
+    // 如何渲染几万条数据并不卡住界面
+    // setTimeout(() => {
+    //   const total = 100000
+    //   const once = 20
+    //   const loopCount = total / once
+    //   let ur = document.getElementById('once')
+    //   let countOfRender = 0
+    //   function add () {
+    //     const fragment = document.createDocumentFragment()
+    //     for (let i = 0; i < once; i++) {
+    //       const li = document.createElement('li')
+    //       li.innerText = Math.floor(Math.random() * total)
+    //       fragment.appendChild(li)
+    //     }
+    //     ur.appendChild(fragment)
+    //     countOfRender += 1
+    //     loop()
+    //   }
+    //   function loop () {
+    //     if (countOfRender < loopCount) {
+    //       window.requestAnimationFrame(add)
+    //     }
+    //   }
+    //   loop()
+    // }, 0)
 
   </script>
 </body>
