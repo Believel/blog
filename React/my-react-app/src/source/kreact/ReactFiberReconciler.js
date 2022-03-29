@@ -1,7 +1,7 @@
 import createFiber from "./createFiber";
 import {renderWithHooks} from "./hooks";
 import {isArray, isStr, Update, updateNode} from "./utils";
-
+// 更新原生标签
 export function updateHostComponent(wip) {
   if (!wip.stateNode) {
     wip.stateNode = document.createElement(wip.type);
@@ -10,7 +10,7 @@ export function updateHostComponent(wip) {
 
   reconcileChildren(wip, wip.props.children);
 }
-
+// 更新组件
 export function updateFunctionComponent(wip) {
   renderWithHooks(wip);
 
@@ -21,7 +21,12 @@ export function updateFunctionComponent(wip) {
 
 // 1 2 3 4
 // 2 3 4
-// 协调子节点
+/**
+ * 协调子节点
+ * @param {*} returnFiber 父fiber
+ * @param {*} children 
+ * @returns 
+ */
 function reconcileChildren(returnFiber, children) {
   if (isStr(children)) {
     return;

@@ -3,25 +3,26 @@
 // 一旦执行栈为空，Event Loop就会从Task队列中拿出需要执行的代码放入到执行栈中执行，所以本质上来说JS的异步还是同步行为
 
 // 不同的任务源会分配到不同的 Task 队列中，
-// 任务源可以分为微任务（microtask | jobs）：process.nextTick、promise、Object.observe、MutationObserver
+// 任务源可以分为微任务（microtask | jobs）：process.nextTick、Promise、Object.observe(已废弃)、MutationObserver(html5)
 // 宏任务（macrotask | task）：script、setTimeout、setInterval、setImmediate、I/O、UI rendering
+// case1  start
+// console.log('script start')
 
-console.log('script start')
+// setTimeout(function() {
+//   console.log('setTimeout')
+// }, 0)
 
-setTimeout(function() {
-  console.log('setTimeout')
-}, 0)
+// new Promise(resove => {
+//   console.log('Promise')
+//   resove()
+// }).then(function() {
+//   console.log('promise1')
+// }).then(function() {
+//   console.log('promise2')
+// })
 
-new Promise(resove => {
-  console.log('Promise')
-  resove()
-}).then(function() {
-  console.log('promise1')
-}).then(function() {
-  console.log('promise2')
-})
-
-console.log('script end')
+// console.log('script end')
+// case1 end
 
 // script start
 // Promise
@@ -39,3 +40,97 @@ console.log('script end')
 // 3. 执行所有微任务
 // 4. 必要的话渲染 UI
 // 5. 然后开始下一轮 Event loop，执行宏任务中的异步代码
+
+
+// 其中每一个任务的执行，无论是宏任务还是微任务，都是借助函数调用栈来完成。
+// case 2:
+// setTimeout(function() {
+//   console.log('timeout1')
+// })
+// new Promise(function(resolve) {
+//   console.log('promise1')
+//   for (var i = 0; i < 10; i++) {
+//     i = 9 && resolve()
+//   }
+//   console.log('promise2')
+// }).then(function() {
+//   console.log('then1')
+// })
+// console.log('global1')
+
+// promise1 promise2 global1 then1  timeout1
+
+
+// case 3:
+console.log('global1')
+setTimeout(function() {
+  console.log('timeout1')
+  process.nextTick(function() {
+    console.log('timeout1_nextTick')
+
+  })
+  new Promise(function(resolve) {
+    console.log('timeout1_promise')
+    resolve()
+  }).then(function() {
+    console.log('timeout1_then')
+  })
+})
+
+setImmediate(function() {
+  console.log('immediate1');
+  process.nextTick(function() {
+      console.log('immediate1_nextTick');
+  })
+  new Promise(function(resolve) {
+      console.log('immediate1_promise');
+      resolve();
+  }).then(function() {
+      console.log('immediate1_then')
+  })
+})
+
+process.nextTick(function() {
+  console.log('glob1_nextTick');
+})
+
+new Promise(function(resolve) {
+  console.log('glob1_promise');
+  resolve();
+}).then(function() {
+  console.log('glob1_then')
+})
+
+setTimeout(function() {
+  console.log('timeout2');
+  process.nextTick(function() {
+      console.log('timeout2_nextTick');
+  })
+  new Promise(function(resolve) {
+      console.log('timeout2_promise');
+      resolve();
+  }).then(function() {
+      console.log('timeout2_then')
+  })
+})
+process.nextTick(function() {
+  console.log('glob2_nextTick');
+})
+new Promise(function(resolve) {
+  console.log('glob2_promise');
+  resolve();
+}).then(function() {
+  console.log('glob2_then')
+})
+setImmediate(function() {
+  console.log('immediate2');
+  process.nextTick(function() {
+      console.log('immediate2_nextTick');
+  })
+  new Promise(function(resolve) {
+      console.log('immediate2_promise');
+      resolve();
+  }).then(function() {
+      console.log('immediate2_then')
+  })
+})
