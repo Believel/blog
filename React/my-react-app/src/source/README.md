@@ -56,6 +56,12 @@ https://mp.weixin.qq.com/s/9Pox7ovRn4voXbShTAJrXg
 
 ```
 
+## Diff 算法
+
+1. 混淆概念
+  * `current fiber`:如果该`DOM节点`已在页面中，`current fiber`代表该`DOM节点`对应的`Fiber节点`
+  * `workInProgress Fiber`:如果该`DOM节点`将在本次更新中渲染到页面中，`workInprogress fiber` 代表该DOM节点对应的`Fiber节点`
+
 
 
 

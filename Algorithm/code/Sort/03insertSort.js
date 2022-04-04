@@ -13,7 +13,6 @@ export default function insertSort (arr) {
       arr[preIndex + 1] = arr[preIndex];
       preIndex--;
     }
-    // TODO ??
     arr[preIndex + 1] = current
   }
   return arr;

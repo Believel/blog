@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 树：特性
+    // 除了根节点，所有的节点都有一个父节点
+    // 每一个节点都可以有若干个子节点，如果没有子节点，那么就称此节点为叶子节点
+    // 一个节点所拥有的叶子节点的个数被称为该节点的度，因此叶子节点的度为0
+    // 在所有节点中，最大的度为整棵树的度
+    // 树的最大层次被称为树的深度
+
+
+    // 二叉树
+    // 左子树上所有节点的值均小于或者等于它的根节点的值
+    // 右子树上所有节点的值均大于或者等于它的根节点的值
+    // 左、右子树也分别为二叉搜索树
+    class Node {
+      constructor(data) {
+        this.left = null
+        this.right = null
+        this.value = data
+      }
+      // 根据一个父节点插入一个子节点
+      insertNode (root, newNode) {
+        if (newNode.value < root.value ) {
+          (!root.left) ? root.left = newNode : this.insertNode(root.left, newNode)
+        } else {
+          (!root.right) ? root.right = newNode : this.insertNode(root.right, newNode)
+        }
+      }
+      // 插入一个新节点
+      insert (value) {
+        let newNode = new Node(value)
+        if (!this.root) {
+          this.root = newNode
+        } else {
+          this.insertNode(this.root, newNode)
+        }
+      }
+      // 根据一个父节点移除一个子节点
+      removeNode () {
+
+      }
+      // 移除一个节点
+      remove () {
+
+      }
+      // 获取子节点的最小值
+      findMinNode () {
+
+      }
+      // 根据一个父节点查找子节点
+      searchNode () {
+
+      }
+
+      // 查找节点
+      search () {
+
+      }
+      // 前序遍历
+      preOrder () {
+
+      }
+      // 中序遍历
+      InOrder () {
+
+      }
+      // 后续遍历
+      postOrder () {
+
+      }
+    }
+  </script>
+</body>
+</html>
