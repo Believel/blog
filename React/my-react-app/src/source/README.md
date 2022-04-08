@@ -33,7 +33,7 @@ https://mp.weixin.qq.com/s/9Pox7ovRn4voXbShTAJrXg
 1. Fiber 含义
   * 作为架构来说，之前 React15的Reconciler采用递归的方式执行，数据保存在递归调用栈中，所以被称为`stack reconciler`.React16中Reconciler采用`fiber 节点`实现，称为`Fiber Reconciler`
   * 作为静态的数据结构来说，每个`Fiber节点`对应一个`React element`，保存了该组件的类型（函数组件、类组件、原生组件）、对应的DOM节点等信息
-  * 最为动态的工作单元来说，每个`Fiber节点`保存了本次更新中该组件改变的状态、要执行的工作（需要被删除、被插入页面中、被更新）
+  * 作为动态的工作单元来说，每个`Fiber节点`保存了本次更新中该组件改变的状态、要执行的工作（需要被删除、被插入页面中、被更新）
 2. 
 
 
@@ -63,6 +63,10 @@ https://mp.weixin.qq.com/s/9Pox7ovRn4voXbShTAJrXg
   * `workInProgress Fiber`:如果该`DOM节点`将在本次更新中渲染到页面中，`workInprogress fiber` 代表该DOM节点对应的`Fiber节点`
 
 
+## useState 是怎么做缓存的
+
+
+## 怎么解决 useState 闭包的问题
 
 
 

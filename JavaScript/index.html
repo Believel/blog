@@ -73,6 +73,22 @@
     //   loop()
     // }, 0)
 
+
+    function twoSum (nums, target) {
+  let result = []
+  for (let i = 0; i < nums.length; i++) {
+    const value = target - nums[i];
+    if (nums.includes(value)) {
+      const j = nums.findIndex(v => v === value)
+      if (j !== i) {
+        result = [i, j];
+      }
+    }
+  }
+  return result
+}
+
+console.log(twoSum([2, 7, 11, 15], 9))
   </script>
 </body>
 </html>
