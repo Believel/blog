@@ -7,7 +7,8 @@
     "start": "webpack serve --config webpack/webpack.dev",
     "build": "webpack --config webpack/webpack.prod",
     "analyzer": "webpack --progress --config webpack/webpack.analyzer",
-    "eslint": "eslint src --fix --quiet --ext .js,.jsx,.tsx,.ts"
+    "eslint": "eslint src --fix --quiet --ext .js,.jsx,.tsx,.ts",
+    "demo": "webpack --config webpack-source/webpack.config"
   },
   "pre-commit": [
     "eslint"
