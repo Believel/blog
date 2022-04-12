@@ -8,6 +8,7 @@ import {
 let wipRoot = null;
 let wip = null;
 
+// 更新 fiber
 export function scheduleUpdateOnFiber(fiber) {
   fiber.alternate = {...fiber};
 
@@ -19,7 +20,10 @@ function performUnitOfWork() {
   // 1. 处理当前的任务
   // todo
   const {type} = wip;
+  // 是字符串，更新原生标签
   if (isStr(type)) {
+    // 1. 更新 props  stateNode
+    // 2. 协调子 fiber： 主要是更新孩子节点上的父filber,child fiber,sibling fiber形成一颗链表树
     updateHostComponent(wip);
   } else if (isFn(type)) {
     updateFunctionComponent(wip);

@@ -1,10 +1,12 @@
 import {scheduleUpdateOnFiber} from "./ReactFiberWorkLoop";
-
+// 当前正在工作的 fiber
 let currentlyRendingFiber = null;
+// 当前正在工作的 hook, 相当于一个伪 hook
 let workInProressHook = null;
-
+// 初始化全局变量
 export function renderWithHooks(wip) {
   currentlyRendingFiber = wip;
+  // 头 hook
   currentlyRendingFiber.memeorizedState = null;
   workInProressHook = null;
 }
@@ -13,7 +15,7 @@ export function renderWithHooks(wip) {
 // workInProressHook
 function updateWorkInProgressHook() {
   let hook;
-  // todo
+  // ! 如何获取每一个 hook api 对应的 hook?
   let current = currentlyRendingFiber.alternate;
   //更新
   if (current) {
@@ -54,6 +56,8 @@ export function useReducer(reducer, initalState) {
   const dispatch = (action) => {
     hook.memeorizedState = reducer(hook.memeorizedState);
 
+    // 更新 当前fiber会重新渲染页面，因而 useReducer函数会重新执行
+    // 更新 fiber的时候会对 fiber.alternate = {...fiber} 记住老的fiber节点
     scheduleUpdateOnFiber(currentlyRendingFiber);
   };
   return [hook.memeorizedState, dispatch];
