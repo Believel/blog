@@ -19,6 +19,18 @@
       }
       return fn
     }
+
+    // 柯里化：将多个参数合成一个处理
+
+    function add2(x) {
+      let sum = x
+      let temp = (y) => {
+        sum = sum + y;
+        return temp
+      }
+      tem.toString = () => sum
+      return temp
+    }
   </script>
 </body>
 </html>
