@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function * a() {
+      console.log("第一个中间件 before 1");
+      yield *b()
+      console.log("第一个中间件 after 2");
+    }
+
+    function * b() {
+      console.log("第二个中间件 before 3");
+      yield *c();
+      console.log("第二个中间件 after 4")
+    }
+
+    function * c() {
+      console.log("业务逻辑处理");
+    }
+
+    function *hello() {
+      yield * a()
+    }
+
+    const it1 = hello();
+    console.log(it1.next())
+  </script>
+</body>
+</html>

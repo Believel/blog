@@ -30,7 +30,7 @@
   <!-- <script src="./06myNew.js"></script> -->
   <!-- <script src="./07debounce.js"></script> -->
   <!-- <script src="./10eventloop.js"></script> -->
-  <script src="./12deepClone.js"></script>
+  <!-- <script src="./12deepClone.js"></script> -->
   <script>
     // 浏览器知识点
     window.onload = () => {
@@ -75,20 +75,75 @@
 
 
     function twoSum (nums, target) {
-  let result = []
-  for (let i = 0; i < nums.length; i++) {
-    const value = target - nums[i];
-    if (nums.includes(value)) {
-      const j = nums.findIndex(v => v === value)
-      if (j !== i) {
-        result = [i, j];
+      let result = []
+      for (let i = 0; i < nums.length; i++) {
+        const value = target - nums[i];
+        if (nums.includes(value)) {
+          const j = nums.findIndex(v => v === value)
+          if (j !== i) {
+            result = [i, j];
+          }
+        }
       }
+      return result
     }
-  }
-  return result
-}
+    // console.log(twoSum([2, 7, 11, 15], 9))
 
-console.log(twoSum([2, 7, 11, 15], 9))
+    // 1. 合并两个有序数组
+    // 给定两个有序整数数组 nums1 和 nums2, 请将 nums2 合并到nums1中，使num1成为一个有序数组
+    const nums1 = [1, 2, 3, 0, 0, 0], m = 3;
+    const nums2 = [2, 5, 6], n = 3;
+    function num (nums1, m, nums2, n) {
+      let len1 = m - 1,
+          len2 = n - 1,
+          len = m + n - 1;
+      while (len2 >= 0) {
+        if (len1 < 0) {
+          nums1[len--] = nums2[len2--]
+          continue
+        }
+        nums1[len--] = nums1[len1] >= nums2[len2] ? nums1[len1--] : nums2[len2--]
+      }
+      return nums1
+    }
+
+    console.log(num(nums1, 3, nums2, n))
+
+    // 2. 数组扁平化、去重、排序
+    const arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9], [11, 12, [12, 13, [14]]]]
+    // 编写一个程序将数组扁平化并去除其中重复部分数据，最终得到一个升序且不重复的数组
+    console.log([...new Set(arr.flat(Infinity))])
+    console.log(JSON.stringify(arr).replace(/\[|\]/g, '').split(',').map(v => Number(v)).sort((a, b) => a - b ))
+
+    function flat(arr) {
+      let result = []
+      arr.forEach(v => {
+        if (Array.isArray(v)) {
+          result = result.concat(arguments.callee(v))
+        } else {
+          result.push(v)
+        }
+
+      });
+      return result
+    }
+    function flat2(arr, n) {
+      return n > 0 ? arr.reduce((prev, next) => {
+        return prev.concat(Array.isArray(next) ? flat2(next, n - 1): next)
+      }, []) : arr.slice()
+    }
+    console.log(flat2(arr, 2))
+
+
+    // 3. console.log(twoSum([2, 7, 11, 15], 9))
+
+    // 16. 实现一个函数，判断输入是不是回文字符串
+
+    // 51. 介绍一下快排原理以及时间复杂度，并实现一个快排
+    // 1. 首先从序列中选取一个数作为基准数
+    // 2. 将比这个数大的数全部放到它的右边，把小于或者等于它的数全部放到它的左边
+    // 3. 然后分别对基准的左右两边重复以上的操作，直到数组完全排序
+
   </script>
 </body>
 </html>
