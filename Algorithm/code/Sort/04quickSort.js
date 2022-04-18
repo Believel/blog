@@ -24,5 +24,5 @@ export default function quickSort (arr) {
       right.push(value)
     }
   }
-  return quickSort(left).concat([middle, quickSort(right)])
+  return quickSort(left).concat(middle, quickSort(right))
 }

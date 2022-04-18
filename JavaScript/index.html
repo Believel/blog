@@ -107,13 +107,13 @@
       return nums1
     }
 
-    console.log(num(nums1, 3, nums2, n))
+    // console.log(num(nums1, 3, nums2, n))
 
     // 2. 数组扁平化、去重、排序
     const arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9], [11, 12, [12, 13, [14]]]]
     // 编写一个程序将数组扁平化并去除其中重复部分数据，最终得到一个升序且不重复的数组
-    console.log([...new Set(arr.flat(Infinity))])
-    console.log(JSON.stringify(arr).replace(/\[|\]/g, '').split(',').map(v => Number(v)).sort((a, b) => a - b ))
+    // console.log([...new Set(arr.flat(Infinity))])
+    // console.log(JSON.stringify(arr).replace(/\[|\]/g, '').split(',').map(v => Number(v)).sort((a, b) => a - b ))
 
     function flat(arr) {
       let result = []
@@ -132,18 +132,13 @@
         return prev.concat(Array.isArray(next) ? flat2(next, n - 1): next)
       }, []) : arr.slice()
     }
-    console.log(flat2(arr, 2))
-
-
-    // 3. console.log(twoSum([2, 7, 11, 15], 9))
+    // console.log(flat2(arr, 2))
 
     // 16. 实现一个函数，判断输入是不是回文字符串
-
-    // 51. 介绍一下快排原理以及时间复杂度，并实现一个快排
-    // 1. 首先从序列中选取一个数作为基准数
-    // 2. 将比这个数大的数全部放到它的右边，把小于或者等于它的数全部放到它的左边
-    // 3. 然后分别对基准的左右两边重复以上的操作，直到数组完全排序
-
+    const isPalindrome = (str) => {
+      return str.split('').reverse().join('') === str
+    }
   </script>
+  <script src="./huawei.js"></script>
 </body>
 </html>
