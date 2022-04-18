@@ -6,8 +6,8 @@ import Animation from './components/Animation.vue'
 </script>
 
 <template>
-  <!-- <HelloWorld msg="Hello Vue 3 + Vite" /> -->
-  <Animation />
+  <HelloWorld msg="Hello Vue 3 + Vite" />
+  <!-- <Animation /> -->
 </template>
 
 <style>
