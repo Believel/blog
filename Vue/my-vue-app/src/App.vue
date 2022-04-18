@@ -6,7 +6,14 @@ import Animation from './components/Animation.vue'
 </script>
 
 <template>
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+  <h1>Hello App</h1>
+  <!-- 路由导航 -->
+  <router-link to="/"> Home </router-link>
+  <router-link to="/animation"></router-link>
+  <!-- 路由出口 -->
+  <!-- 路由匹配到的组件将渲染在这里 -->
+  <router-view></router-view>
+  <!-- <HelloWorld msg="Hello Vue 3 + Vite" /> -->
   <!-- <Animation /> -->
 </template>
 

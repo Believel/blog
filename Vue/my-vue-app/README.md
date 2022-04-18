@@ -11,3 +11,7 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 ```js
 yarn add vuex@next --save
 ```
+# vue-router4
+```js
+npm install vue-router@4
+```
