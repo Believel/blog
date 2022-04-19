@@ -58,15 +58,15 @@ function base(str) {
 // console.log(base('OXBAA'))
 
 // 6. 质数因子
+
+// 9. 提取不重复的整数
 const str = 9876673;
-let map = {}
-const sum = String(str).split('').reduce((prev, next, index) => {
-  console.log("prev", prev)
-    if (!map[next]) {
-        map[next] = true
-        return `${prev}${next}`
-    } else {
-        return prev
-    }
-})
-console.log(Number(sum))
+const sum = String(str).split('').reduceRight((prev, next) => {
+   if (!prev.includes(next)) {
+    prev.push(next)
+   }
+   return prev
+}, [])
+// console.log(Number(sum.join('')))
+
+// 10. 字符个数统计
