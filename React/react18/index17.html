@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add React in One Minute</title>
+  </head>
+  <body>
+
+    <h2>Add React in One Minute</h2>
+    <p>This page demonstrates using React with no build tooling.</p>
+    <p>React is loaded as a script tag.</p>
+
+    <!-- We will put our React component inside this div. -->
+    <div id="root"></div>
+
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+
+    <script>
+      'use strict';
+      console.log('react version:', React.version)
+
+      const e = React.createElement;
+
+      class LikeButton extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = { count: 0 };
+        }
+        // 
+        // handleClick = () => {
+          // 同步，没有批量处理
+        //   setTimeout(() => {
+        //     // react 17 这里的两次setState并没有批量处理，React会render两次
+        //     this.setState({
+        //       count: this.state.count + 1
+        //     })
+        //     this.setState({
+        //       count: this.state.count + 1
+        //     })
+        //     console.log('count', this.state.count)
+        //   }, 0)
+        // }
+        // 合成事件：异步， 有批量更新
+        handleClick = () => {
+          // react 17 这里的两次setState并没有批量处理，React会render两次
+          this.setState({
+            count: this.state.count + 1
+          })
+          this.setState({
+            count: this.state.count + 1
+          })
+          console.log('count', this.state.count)
+        }
+        
+
+
+        render() {
+          console.log('render')
+          return e(
+            'button',
+            { onClick: this.handleClick },
+            this.state.count
+          );
+        }
+      }
+
+      const domContainer = document.getElementById('root');
+      ReactDOM.render(e(LikeButton), domContainer);
+    </script>
+
+  </body>
+</html>
