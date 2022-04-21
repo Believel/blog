@@ -1,12 +1,25 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+// 路由实例
+const router = useRouter()
+// 返回当前路由地址
+const route = useRoute()
 const show = ref(true)
 const open = ref(false)
+onMounted(() => {
+  // 获取当前路由地址上的参数
+  console.log(route.params.id)
+})
+const goHome = () => {
+  router.push('/')
+}
 </script>
 
 <template>
   <h3>Transition 动画</h3>
   <button @click="show=!show">切换淡入/淡出</button>
+  <button @click="goHome">跳到home</button>
   <Transition name="slide-fade">
     <p v-if="show">你好</p>
   </Transition>
