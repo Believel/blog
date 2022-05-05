@@ -2,12 +2,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import './utils/eventBus'
-// import './source/render'
+import './source/render'
 // import './source/proxy2'
 // import './source/03computed'
 // import './source/04watch'
 // import './source/05otherProxy/index'
-import './source/06ref'
+// import './source/06ref'
 
 Vue.config.productionTip = false
 

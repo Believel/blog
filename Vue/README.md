@@ -16,3 +16,16 @@
     * 后者对于数组不能监听到数据的变化
     * Proxy 的代理是针对整个对象的，而不是针对对象的某个属性的，因此不像Object.defineProperty必须遍历对象的每个属性，Proxy只需要做一层代理就可以监听同级结构下的所有属性变化，当然对于深层结构，递归还是需要进行的
     * proxy 支持代理数组的变化
+2. `<keep-alive>`
+  * 此组件是一个抽象组件，他的实现是通过自定义`render`函数并且利用了插槽，并且`<keep-alive>`缓存了`vnode`
+  * 在patch过程中对于已经缓存的组件不会执行`mounted`,所以又提供了`activated`和`deactivated`钩子函数
+  * `<keep-alive>`组件`props`有`include`、`exclude`、`max`
+
+3. `computed`
+  * 计算属性适合用在模板渲染中，某个值是依赖了其它的响应式对象甚至是计算属性计算而来的
+4. `watch`
+  * 侦听属性适合用于观测某个值的变化去完成一段复杂的业务逻辑。
+
+5. `nextTick`
+  * 数据变化到DOM的重新渲染是一个异步过程，发生在下一个tick
+  

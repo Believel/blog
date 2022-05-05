@@ -42,3 +42,50 @@
 # 前端工程化
 1. [jenkins配置publish over ssh报错](https://github.com/Believel/blog/issues/3)
 2. [jenkins实现前端自动化工作流](https://github.com/Believel/blog/issues/4)
+
+
+```js
+Promise.myAll = function(arr = []) {
+  if (arr.length === 0) Promise.resolve()
+  return new Promise((resolve, reject)=> {
+    let res = []
+    let allCount = arr.length
+    for (let i =0; i < arr.length; i++) {
+      arr[i].then((curRes) => {
+        res.push(curRes)
+        if (res.length === allCount) {
+          return resolve(res)
+        }
+      }).catch(err => {
+        return reject(err)
+      })
+    }
+  })
+}
+
+const isValid = (s) => {
+  if (!s) return true
+  const leftToRight = {
+    '(' : ')',
+    '[' : ']',
+    '{' : '}'
+  }
+  const stack = []
+  for (let i = 0; i < s.length; i==) {
+    const ch = s[i]
+    // 左括号
+    if (leftToRight[ch]) {
+      stack.push(ch)
+    } else {
+      // 右括号开始匹配
+      // 1. 如果栈内没有左括号，直接false
+      // 2. 有数据但是栈顶不是当前的右括号
+      if (!stack.length || leftToRight[stack.pop()]) {
+        return false
+      }
+    }
+  }
+  // 最后检查栈内有没有元素，有说明还有未匹配则不符合
+  return !stack.length
+}
+```

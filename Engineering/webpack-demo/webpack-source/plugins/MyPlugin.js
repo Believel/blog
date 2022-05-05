@@ -43,6 +43,6 @@ class MyPlugin {
 module.exports = MyPlugin
 
 // 工作流程如下
-// 1. wenpack 启动，执行new MyPlugin(options), 初始化插件并获取实例
+// 1. webpack 启动，执行new MyPlugin(options), 初始化插件并获取实例
 // 2. 初始化compiler对象，调用 myPlugin.apply(compiler) 给插件传入 compiler 对象
 // 3. 插件实例获取compiler,通过compiler监听webpack广播的事件，通过compiler对象操作webpack
