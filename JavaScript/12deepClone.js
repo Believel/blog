@@ -1,5 +1,21 @@
 
  // 比较 for in , for of , Object.keys 区别
+//  for in
+// 1. 遍历对象及其原型链上可枚举的属性
+// 2. 如果遍历数组，处理遍历其元素外，还会遍历开发者对数组对象自定义的可枚举属性及其原型链上的可枚举属性
+// 3. 遍历对象返回的属性名和遍历数组返回的索引都是string类型
+// 4. 某些情况下，可能按随机顺序遍历数组元素；
+
+// for of
+// 1. es6中添加的循环遍历语法
+// 2. 支持遍历数组，类数组对象，字符串，Map对象，Set对象
+// 3. 不支持变量普通对象
+// 4. 遍历输出结果为自身的值
+
+// Object.keys
+// 1. 返回对象自身可枚举属性组成的数组
+// 2. 不会遍历对象原型链上的属性以及 Symbol 属性
+// 3. 对数组的遍历顺序和 for in 一致
  Array.prototype.getLength = function () {
   return this.length
 }
@@ -13,9 +29,9 @@ Object.defineProperty(arr, 'age', {
   configurable: true
 })
 
-// for (let i in  arr) {
-//   console.log(i)
-// }
+for (let i in  arr) {
+  // console.log(i)
+}
 
 
 // 深拷贝
@@ -31,19 +47,23 @@ const target = {
   // 可以 拷贝
   d: test
 }
-console.log('JSON', JSON.parse(JSON.stringify(target)))
+// console.log('JSON', JSON.parse(JSON.stringify(target))) // { d: {name: 'zpp}}
 
 
 const source = {
+  a: undefined,
+  b: function() {},
+  c: Symbol('a'),
+  d: { e: 11},
   // 这个不可以
   name: test
 }
 
-const b = Object.assign({}, target)
-console.log('Object.assign', b)
+const b = Object.assign({}, source)
+// console.log('Object.assign', b)
 // 测试数据
-// b.d.name = '222'
-// console.log('1111', target)
+// b.name.name = '222'
+// console.log('1111', source)
 
 
 // 测试数据
@@ -80,7 +100,6 @@ function deepClone(obj) {
       newObj[item] = new Set([...currentValue])
     } else if (currentValue instanceof Map) {
       newObj[item] = new Map([...currentValue])
-
     } else {
       newObj[item] = deepClone(currentValue)
     }
@@ -89,7 +108,5 @@ function deepClone(obj) {
   return newObj
 }
 
-
-console.log('deepClone', deepClone(data))
-
-
+const newObj =  deepClone(data)
+// console.log('deepClone', newObj )

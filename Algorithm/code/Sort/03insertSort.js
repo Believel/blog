@@ -5,7 +5,7 @@
 export default function insertSort (arr) {
   const len = arr.length;
   let preIndex, current;
-  for (let i = 1; i < arr; i++) {
+  for (let i = 1; i < len; i++) {
     preIndex = i - 1;
     current = arr[i]
     // 找插入已排序的
