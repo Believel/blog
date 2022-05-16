@@ -15,10 +15,19 @@ class Sub extends React.Component<{count: number}> {
     console.log('sub constructor')
     super(props)
   }
-  componentWillReceiveProps(nextProps: { count: number}) {
-    // 组件从父组件接收到新的 props 之前调用
-    console.log("sub componentWillReceiveProps", nextProps)
+  state = {}
+  // 16.3 新增：目的是为了让props能更新到组件内部state中
+  // 场景1：无条件的根据prop来更新内部state,也就是只有传入prop值，就更新state
+  // 场景2：只有prop值和state值不同时才更新state值
+  static getDerivedStateFromProps(nextProps: { count: number}, state: {}) {
+    
+    return null
   }
+  // 17 删除了
+  // componentWillReceiveProps(nextProps: { count: number}) {
+  //   // 组件从父组件接收到新的 props 之前调用
+  //   console.log("sub componentWillReceiveProps", nextProps)
+  // }
   shouldComponentUpdate(nextProps: { count: number}) {
     // 控制组件是否重新渲染
     console.log("sub shouldComponentUpdate", nextProps)
@@ -27,9 +36,14 @@ class Sub extends React.Component<{count: number}> {
   componentDidMount() {
     console.log("sub componentDidMount")
   }
-  componentDidUpdate() {
+  // 17.componentWillUpdate删除，
+  // 16.3新增：在组件更新获取快照，一般结合componentDidUpdate使用，他的返回值作为第三个参数传递给componentDidUpdate
+  getSnapshotBeforeUpdate() {
+    return 1
+  }
+  componentDidUpdate(prevProps: {count: number}, prevState: {}, snapshot: any) {
     // 组件重新渲染并且把更改变更到真实的 DOM 以后调用
-    console.log("sub componentDidUpdate")
+    console.log("sub componentDidUpdate", snapshot)
   }
   render() {
     // 调用setState方法的时候走
@@ -53,10 +67,15 @@ export default class Counter extends React.Component<Props, State> {
   readonly state = {
     count: this.props.count
   }
-  componentWillMount() {
-    // 组件挂载开始之前， 也就是组件调用render方法之前调用。
-    console.log('1. componentWillMount 组件将要挂载')
-  }
+  // 16.3 删除了
+  // componentWillMount() {
+  //   // 组件挂载开始之前， 也就是组件调用render方法之前调用。
+  //   console.log('1. componentWillMount 组件将要挂载')
+  // }
+  // 17
+  // UNSAFE_componentWillMount() {
+  //   console.log('组件将要挂载')
+  // }
 
 
   handleClick = () => {
@@ -91,3 +110,13 @@ export default class Counter extends React.Component<Props, State> {
 
 
 }
+// 16.3之前
+// 挂载阶段：constructor---->componentWillMount---->render---->componentDidMount
+// 更新阶段：componentWillReceiveProps---->shouldComponentUpdate---->render---->componentDidUpdate
+// 卸载阶段：componentWillUnmount
+
+
+// 16.3之后
+// 挂载阶段： constructor -> getDerivedStateFromProps -> render -> componentDidMount
+// 更新阶段： getDerivedStateFromProps -> shouldComponentUpdate -> render -> getSnapshotBeforeUpdate -> componentDidUpdate
+// 卸载阶段： componentWillUnmount

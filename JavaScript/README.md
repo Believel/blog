@@ -117,3 +117,14 @@ if (true) {
 * 处理请求
 * 接受响应
 * 渲染页面
+
+
+## 正则表达式，千分位分隔符
+```js
+function thousand(num) {
+  // $& 最后匹配的字符
+  // exp1(?=exp2) 查找exp2前面的exp1
+  return (num+'').replace(/\d(?=(\d{3})+$)/g, "$&,")
+}
+console.log(thousand(1234567))
+```

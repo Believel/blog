@@ -39,9 +39,11 @@
   * 全等比较 -- 高效，但不易命中
   * 浅比较 -- 不高效，但易命中   -- 就是用性能优化API(React.memo, shouldComponentUpdate, useMemo, useCallback)
 
-### 优化方法
+## 优化方法
 1. 寻找项目中的性能损耗严重的子树
 2. 在子树的根节点使用性能优化API
 3. 子树中运用变与不变分离原则
 
-### 调用setState之后发生什么？
+## React17生命周期
+1. v17版本删除了`componentWillMount`,`componentWillReceiveProps`,`componentWillUpdate`
+2. 16.3新增生命周期：`getDerivedStateFromProps`,`getSnapshotBeforeUpdate`

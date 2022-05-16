@@ -16,13 +16,6 @@
   <a href="#">deepClone</a>
   <a href="#">debounce</a>
   <a href="#">throttle</a>
-  <ul id="ul">
-    <li>1</li>
-    <li>2</li>
-    <li>3</li>
-  </ul>
-
-  <ul id="once"></ul>
   <!-- <script src="./01instanceof.js"></script> -->
   <!-- <script src="./02this.js"></script> -->
   <!-- <script src="./04promise.js"></script> -->
@@ -32,15 +25,6 @@
   <!-- <script src="./10eventloop.js"></script> -->
   <!-- <script src="./12deepClone.js"></script> -->
   <script>
-    // 浏览器知识点
-    window.onload = () => {
-      let ul = document.getElementById('ul')
-      // 默认是 false， 支持冒泡
-      ul.addEventListener('click', event => {
-        console.log(event.target)
-      }, false)
-    }
-
     // DNS: 是域名系统（Domain Name System）,是因特网的一项核心服务，它作为可以将域名和IP地址相互映射的一个分布式数据库，能够使人更方便的访问互联网，而不用去记住能够被机器直接读取的IP数串。
     // 定级域： .com  .cn, .edu,..   
     // 主域名：aliyun.com, bkjk.com  托管一级域名
@@ -138,6 +122,23 @@
     const isPalindrome = (str) => {
       return str.split('').reverse().join('') === str
     }
+
+    // 函数柯里化
+    function add() {
+      var args = Array.prototype.slice.call(arguments)
+      var addr = function() {
+        args.push(...arguments)
+        return addr
+      }
+      addr.toString = function() {
+        return args.reduce((prev, next) => {
+          return prev + next
+        }, 0)
+      }
+      return addr
+    }
+    // let a = add(1, 2, 3)
+    // let b = add(1)(2)(3)
   </script>
   <!-- <script src="./huawei.js"></script> -->
 </body>
