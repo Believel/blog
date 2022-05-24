@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图片懒加载</title>
+  <style>
+    img {
+      display: block;
+      width: 100%;
+      height: 300px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <img data-src="./images/lazyload.jpg" alt="">
+  <img data-src="./images/lazyload.jpg" alt="">
+  <img data-src="./images/lazyload.jpg" alt="">
+  <img data-src="./images/lazyload.jpg" alt="">
+  <img data-src="./images/lazyload.jpg" alt="">
+  <img data-src="./images/lazyload.jpg" alt="">
+  <img data-src="./images/lazyload.jpg" alt="">
+  <img data-src="./images/lazyload.jpg" alt="">
+  <img data-src="./images/lazyload.jpg" alt="">
+  <img data-src="./images/lazyload.jpg" alt="">
+  <img data-src="./images/lazyload.jpg" alt="">
+  <script>
+    const imgs = document.querySelectorAll('img')
+    // offsetTop 是元素与offsetParent的距离，循环获取直到页面顶部
+    function getTop(e) {
+      // offsetTop 是相对于父元素的
+      let t = e.offsetTop
+      while(e = e.offsetParent) {
+        t += e.offsetTop
+      }
+      return t
+    }
+    function lazyLoad(imgs) {
+      // 可视区域的高度
+      const h = document.documentElement.clientHeight
+      // 文档垂直滚动的像素数
+      const s = document.documentElement.scrollTop || document.body.scrollTop
+
+      for(let i =0 ; i < imgs.length; i++) {
+        if (h + s >= getTop(imgs[i])) {
+          imgs[i].src = imgs[i].getAttribute('data-src')
+        }
+      }
+
+    }
+
+    // 第二种方式实现：getBoundingClientRect
+    function isIn(el) {
+      const bound = el.getBoundingClientRect()
+      const clientHeight = window.innerHeight
+      return bound.top <= clientHeight;
+    }
+    function check() {
+      Array.from(imgs).forEach(function(el) {
+        if (isIn(el)) {
+          loadImg(el)
+        }
+      })
+    }
+    function loadImg(el) {
+      if (!el.src) {
+        const source = el.dataset.src;
+        el.src = source
+      }
+    }
+    window.load = window.onscroll = function() {
+      // lazyLoad(imgs)
+      check()
+    }
+
+    // 懒加载重点：一个是元素到各个边距的距离，二个就是判断元素是否在可视区域内
+  </script>
+</body>
+</html>

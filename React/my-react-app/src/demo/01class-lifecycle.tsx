@@ -120,3 +120,14 @@ export default class Counter extends React.Component<Props, State> {
 // 挂载阶段： constructor -> getDerivedStateFromProps -> render -> componentDidMount
 // 更新阶段： getDerivedStateFromProps -> shouldComponentUpdate -> render -> getSnapshotBeforeUpdate -> componentDidUpdate
 // 卸载阶段： componentWillUnmount
+
+
+
+// 新的生命周期增加了static getDerivedStateFromProps()以及getSnapshotBeforeUpdate()，
+// 废弃了原有的componentWillMount()、componentWillUpdate()以及componentWillReceiveProps()，
+
+// componentWillMount() 
+// 1. 在服务端渲染的话，会在服务端和客户端各执行一次，会导致请求两次，而didMount只会在客户端进行
+// 2. 在Fiber之后，由于任务可中断，willMount可能会被执行多次（fiber算法是异步渲染，异步的渲染，可能因为高优先级任务的出现而打断现有任务导致componentWillMount就可能执行多次）
+
+// 被废弃的三个函数都是在render之前，因为fiber的出现，很可能因为高优先级任务的出现而打断现有任务导致它们会被执行多次
