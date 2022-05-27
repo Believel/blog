@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="div"></div>
+  <button id="btn">开始</button>
+  <script>
+    let btn = document.getElementById('btn')
+    let oDiv = document.getElementById('div')
+    let start;
+    function progress() {
+      oDiv.style.width = oDiv.offsetWidth + 1 + 'px'
+      oDiv.innerHTML = (oDiv.offsetWidth) + '%'
+      if (oDiv.offsetWidth < 100) {
+        let current = Date.now()
+        // 假如说浏览器本身的任务执行是5ms
+        console.log(current - start)
+        start = current
+        requestAnimationFrame(progress);
+      }
+    }
+    btn.addEventListener('click', () => {
+      oDiv.style.width = 0 // 先把宽度清除
+      let current = Date.now()
+      start = current
+      requestAnimationFrame(progress)
+
+    })
+  </script>
+</body>
+</html>
