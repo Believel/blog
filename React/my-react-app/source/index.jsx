@@ -1,5 +1,5 @@
-import { useReducer } from "./kreact/react";
-import ReactDOM from "./kreact/react-dom";
+import { useReducer } from "./react/react";
+import ReactDOM from "./react/react-dom";
 
 import "./index.css";
 
