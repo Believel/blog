@@ -1,17 +1,3 @@
-1. 并发模式
-
-> `window.requestIdleCallback`将在浏览器的空闲时段内调用的函数排队。这使开发者能够在主事件循环上执行后台和低优先级工作，而不会影响延迟关键事件，如动画和输入响应
-
-2. fiber
-
-> fiber 既是一种数据结构，也是一个工作单元。
-
-* 每个fiber都有一个链接指向它的第一个子节点、下一个兄弟节点和它的父节点。这种数据结构可以让我们更方便的查找下一个工作单元。
-
-https://mp.weixin.qq.com/s/9Pox7ovRn4voXbShTAJrXg
-
-
-
 # React 15
 1. reconciler : 负责找出变化的组件
 2. renderer: 负责将变化的组件渲染到页面上
@@ -57,20 +43,8 @@ https://mp.weixin.qq.com/s/9Pox7ovRn4voXbShTAJrXg
 ```
 
 ## Diff 算法
+> diff算法原理图：https://www.processon.com/diagraming/626bb7eae401fd1b2461d85a
 
 1. 混淆概念
   * `current fiber`:如果该`DOM节点`已在页面中，`current fiber`代表该`DOM节点`对应的`Fiber节点`
-  * `workInProgress Fiber`:如果该`DOM节点`将在本次更新中渲染到页面中，`workInprogress fiber` 代表该DOM节点对应的`Fiber节点`
-
-
-## useState 是怎么做缓存的
-
-
-## 怎么解决 useState 闭包的问题
-
-
-
-掌握思想
-掌握关键流程的细节
-掌握整体工作流程、局部细节
-掌握术语、基本实现思路
+  * `workInProgress Fiber`:如果该`DOM节点`将在本次更新中渲染到页面中，`workInProgress fiber` 代表该DOM节点对应的`Fiber节点`

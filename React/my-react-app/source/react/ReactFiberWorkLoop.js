@@ -18,7 +18,6 @@ export function scheduleUpdateOnFiber(fiber) {
 
 function performUnitOfWork() {
   // 1. 处理当前的任务
-  // todo
   const {type} = wip;
   // 是字符串，更新原生标签
   if (isStr(type)) {
@@ -47,11 +46,13 @@ function performUnitOfWork() {
   }
   wip = null;
 }
-
+// IdleDeadline 有两个对象：
+// requestIdleCallback() 可以返回此帧还剩多少时间供用户使用
+// didTimeout 此callback任务是否超时
 function workLoop(IdleDeadline) {
-  while (wip && IdleDeadline.timeRemaining() > 0) {
+  while (wip && IdleDeadline.requestIdleCallback() > 0) {
     performUnitOfWork();
-  }
+  } // 如果说没有剩余时间了，就需要放弃执行任务控制权，执行控制权交还给浏览器
 
   requestIdleCallback(workLoop);
 
@@ -59,7 +60,7 @@ function workLoop(IdleDeadline) {
     commitRoot();
   }
 }
-// window.requestIdleCallback()方法插入一个函数, 这个函数将在浏览器空闲时期被调用
+// window.requestIdleCallback(callback)方法插入一个函数, 这个函数将在浏览器空闲时期被调用
 requestIdleCallback(workLoop);
 
 function commitRoot() {

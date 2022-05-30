@@ -54,11 +54,15 @@ export function useReducer(reducer, initalState) {
   }
 
   const dispatch = (action) => {
-    hook.memeorizedState = reducer(hook.memeorizedState);
+    hook.memeorizedState = reducer ? reducer(hook.memeorizedState, action): action;
 
     // 更新 当前fiber会重新渲染页面，因而 useReducer函数会重新执行
     // 更新 fiber的时候会对 fiber.alternate = {...fiber} 记住老的fiber节点
     scheduleUpdateOnFiber(currentlyRendingFiber);
   };
   return [hook.memeorizedState, dispatch];
+}
+
+export function useState(initalState) {
+  return useReducer(null, initalState)
 }

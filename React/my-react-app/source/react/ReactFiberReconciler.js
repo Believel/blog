@@ -12,7 +12,7 @@ export function updateHostComponent(wip) {
   // 协调子节点
   reconcileChildren(wip, wip.props.children);
 }
-// 更新组件
+// 更新函数组件
 export function updateFunctionComponent(wip) {
   renderWithHooks(wip);
 
@@ -58,7 +58,7 @@ function reconcileChildren(returnFiber, children) {
     if (oldFiber) {
       oldFiber = oldFiber.sibling;
     }
-
+    // 第一个孩子节点
     if (i === 0) {
       returnFiber.child = newFiber;
     } else {
