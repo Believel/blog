@@ -1,4 +1,4 @@
-import { useReducer } from "./react/react";
+import { useReducer, useState } from "./react/react";
 import ReactDOM from "./react/react-dom";
 
 import "./index.css";
@@ -7,17 +7,18 @@ import "./index.css";
 // workInProressHook
 function FunctionComponent(props) {
   const [count2, setCount2] = useReducer((x) => x + 1, 0); //hook1
+  const [count1, setCount1] = useState(2); // hook2
 
   return (
     <div className="border">
       <p>{props.name}</p>
 
-      {/* <button
+      <button
         onClick={() => {
           setCount1(count1 + 1);
         }}>
         {count1}
-      </button> */}
+      </button>
 
       <button
         onClick={() => {

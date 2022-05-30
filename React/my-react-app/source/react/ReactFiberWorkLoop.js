@@ -47,10 +47,10 @@ function performUnitOfWork() {
   wip = null;
 }
 // IdleDeadline 有两个对象：
-// requestIdleCallback() 可以返回此帧还剩多少时间供用户使用
+// timeRemaining() 可以返回此帧还剩多少时间供用户使用
 // didTimeout 此callback任务是否超时
 function workLoop(IdleDeadline) {
-  while (wip && IdleDeadline.requestIdleCallback() > 0) {
+  while (wip && IdleDeadline.timeRemaining() > 0) {
     performUnitOfWork();
   } // 如果说没有剩余时间了，就需要放弃执行任务控制权，执行控制权交还给浏览器
 
