@@ -1,4 +1,4 @@
-import { useReducer, useState } from "./react/react";
+import { useReducer, useState, useEffect, useLayoutEffect, Component } from "./react/react";
 import ReactDOM from "./react/react-dom";
 
 import "./index.css";
@@ -9,6 +9,15 @@ function FunctionComponent(props) {
   const [count2, setCount2] = useReducer((x) => x + 1, 0); //hook1
   const [count1, setCount1] = useState(2); // hook2
 
+  useEffect(() => {
+    console.log(`zjr useEffect, ${count2}`)
+  }, [count2])
+
+  useLayoutEffect(() => {
+    console.log(`zjr useLayoutEffect, ${count2}`)
+  }, [count2])
+
+  console.log('count1', count1)
   return (
     <div className="border">
       <p>{props.name}</p>
@@ -30,11 +39,35 @@ function FunctionComponent(props) {
   );
 }
 
+class ClassComponent extends Component {
+  render() {
+    return (
+      <div className="border">
+        <h3>{this.props.name}</h3>
+        我是classComponent的文本内容
+      </div>
+    )
+  }
+}
+
+function FragmentComponent() {
+  return (
+    <ul>
+      <>
+        <li>part1</li>
+        <li>part2</li>
+      </>
+    </ul>
+  )
+}
+
 const jsx = (
   <div className="border">
     <h1>全栈</h1>
     <a href="https://www.kaikeba.com/">kkb</a>
     <FunctionComponent name="函数" />
+    {/* <ClassComponent name="类组件" />
+    <FragmentComponent /> */}
   </div>
 );
 

@@ -1,14 +1,24 @@
 import {scheduleUpdateOnFiber} from "./ReactFiberWorkLoop";
+import { HookPassive, areHookInputsEqual, HookLayout } from './utils'
 // 当前正在工作的 fiber
 let currentlyRendingFiber = null;
 // 当前正在工作的 hook, 相当于一个伪 hook
-let workInProressHook = null;
+let workInProgressHook = null;
+
+// 老hook
+let currentHook = null;
+
 // 初始化全局变量
 export function renderWithHooks(wip) {
   currentlyRendingFiber = wip;
   // 头 hook
-  currentlyRendingFiber.memeorizedState = null;
-  workInProressHook = null;
+  currentlyRendingFiber.memorizedState = null;
+  workInProgressHook = null;
+
+  // 为了方便，useEffect和useLayoutEffect区分开，并且以数组管理
+  // 源码中是放在一起的，并且是个链表
+  currentlyRendingFiber.updateQueueOfEffect = [];
+  currentlyRendingFiber.updateQueueOfLayout = [];
 }
 // 我的理解：
 // 1. 每个函数中的hook会以链表的形式把对应的值存储起来
@@ -22,26 +32,31 @@ function updateWorkInProgressHook() {
   let current = currentlyRendingFiber.alternate;
   //更新
   if (current) {
-    currentlyRendingFiber.memeorizedState = current.memeorizedState;
-    if (workInProressHook) {
+    currentlyRendingFiber.memorizedState = current.memorizedState;
+    if (workInProgressHook) {
       // 不是第一个hook
-      workInProressHook = hook = workInProressHook.next;
+      workInProgressHook = hook = workInProgressHook.next;
+
+      currentHook = currentHook.next
     } else {
       // 第一个hook
-      workInProressHook = hook = currentlyRendingFiber.memeorizedState;
+      workInProgressHook = hook = currentlyRendingFiber.memorizedState;
+
+      currentHook = current.memorizedState
     }
   } else {
+    currentHook = null
     // 初次渲染 白手起家
     hook = {
-      memeorizedState: null, //状态值
+      memorizedState: null, //状态值
       next: null, //指向下一个hook
     };
-    if (workInProressHook) {
+    if (workInProgressHook) {
       // 不是第一个hook
-      workInProressHook = workInProressHook.next = hook;
+      workInProgressHook = workInProgressHook.next = hook;
     } else {
       // 第一个hook
-      workInProressHook = currentlyRendingFiber.memeorizedState = hook;
+      workInProgressHook = currentlyRendingFiber.memorizedState = hook;
     }
   }
 
@@ -53,20 +68,51 @@ export function useReducer(reducer, initalState) {
 
   // 初次渲染
   if (!currentlyRendingFiber.alternate) {
-    hook.memeorizedState = initalState;
+    hook.memorizedState = initalState;
   }
   // 闭包：作用在函数内，当前hook的值是在内存中的
   const dispatch = (action) => {
     // 更新正在工作的hook对应的最新值
-    hook.memeorizedState = reducer ? reducer(hook.memeorizedState, action): action;
+    hook.memorizedState = reducer ? reducer(hook.memorizedState, action): action;
 
     // 更新 当前fiber会重新渲染页面，因而 useReducer函数会重新执行
     // 更新 fiber的时候会对 fiber.alternate = {...fiber} 记住老的fiber节点
     scheduleUpdateOnFiber(currentlyRendingFiber);
   };
-  return [hook.memeorizedState, dispatch];
+  return [hook.memorizedState, dispatch];
 }
 
 export function useState(initalState) {
   return useReducer(null, initalState)
+}
+
+function updateEffectImp(hooksFlags, create, deps) {
+  const hook = updateWorkInProgressHook()
+  if (currentHook) {
+    const prevEffect = currentHook.memorizedState
+    if (deps) {
+      const prevDeps = prevEffect.deps;
+      if (areHookInputsEqual(deps, prevDeps)) {
+        return
+      }
+    }
+  }
+  const effect = {
+    hooksFlags,
+    create,
+    deps
+  }
+  hook.memorizedState = effect;
+  if (hooksFlags & HookPassive) {
+    currentlyRendingFiber.updateQueueOfEffect.push(effect)
+  } else if (hooksFlags & HookLayout) {
+    currentlyRendingFiber.updateQueueOfLayout.push(effect)
+  }
+
+}
+export function useEffect(create, deps) {
+  return updateEffectImp(HookPassive, create, deps)
+}
+export function useLayoutEffect(create, deps) {
+  return updateEffectImp(HookLayout, create, deps);
 }
