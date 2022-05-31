@@ -30,16 +30,11 @@ function createRoot(container) {
  */
 function updateContainer(element, root) {
   const {containerInfo} = root;
-  console.log('type', containerInfo.nodeName)
   const fiber = createFiber(element, {
     type: containerInfo.nodeName.toLocaleLowerCase(),
     stateNode: containerInfo,
   });
-
-  console.log("fiber", fiber, element); //sy-log
-
-  // 更新fiber
-
+  // 组件初次渲染
   scheduleUpdateOnFiber(fiber);
 }
 export default {createRoot};

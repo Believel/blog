@@ -16,8 +16,6 @@ function FunctionComponent(props) {
   useLayoutEffect(() => {
     console.log(`zjr useLayoutEffect, ${count2}`)
   }, [count2])
-
-  console.log('count1', count1)
   return (
     <div className="border">
       <p>{props.name}</p>
@@ -63,11 +61,11 @@ function FragmentComponent() {
 
 const jsx = (
   <div className="border">
-    <h1>全栈</h1>
-    <a href="https://www.kaikeba.com/">kkb</a>
+    <h1>react</h1>
+    <a href="https://www.kaikeba.com/">zjr</a>
     <FunctionComponent name="函数" />
-    {/* <ClassComponent name="类组件" />
-    <FragmentComponent /> */}
+    <ClassComponent name="类组件" />
+    <FragmentComponent />
   </div>
 );
 

@@ -22,8 +22,6 @@ let wip = null;
 
 // 更新 fiber
 export function scheduleUpdateOnFiber(fiber) {
-  fiber.alternate = {...fiber};
-
   wipRoot = fiber;
   wip = fiber;
 
@@ -112,7 +110,6 @@ function commitWorker(wip) {
   let parentNode = getParentNode(wip.return); // wip.return.stateNode;
   if (flags & Placement && stateNode) {
     const before = getHostSibling(wip.sibling)
-    console.log(wip)
     insertOrAppendPlacementNode(stateNode, before, parentNode)
   }
 

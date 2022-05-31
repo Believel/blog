@@ -1,3 +1,4 @@
+import { func } from "prop-types";
 import {scheduleUpdateOnFiber} from "./ReactFiberWorkLoop";
 import { HookPassive, areHookInputsEqual, HookLayout } from './utils'
 // 当前正在工作的 fiber
@@ -71,16 +72,20 @@ export function useReducer(reducer, initalState) {
     hook.memorizedState = initalState;
   }
   // 闭包：作用在函数内，当前hook的值是在内存中的
-  const dispatch = (action) => {
-    // 更新正在工作的hook对应的最新值
-    hook.memorizedState = reducer ? reducer(hook.memorizedState, action): action;
+  const dispatch = disPatchReducerAction.bind(null, currentlyRendingFiber, hook, reducer)
 
-    // 更新 当前fiber会重新渲染页面，因而 useReducer函数会重新执行
-    // 更新 fiber的时候会对 fiber.alternate = {...fiber} 记住老的fiber节点
-    scheduleUpdateOnFiber(currentlyRendingFiber);
-  };
   return [hook.memorizedState, dispatch];
 }
+function disPatchReducerAction(fiber, hook, reducer, action){
+  // 更新正在工作的hook对应的最新值
+  hook.memorizedState = reducer ? reducer(hook.memorizedState): action;
+
+  // 更新 当前fiber会重新渲染页面，因而 useReducer函数会重新执行
+  // 更新 fiber的时候会对 fiber.alternate = {...fiber} 记住老的fiber节点
+  fiber.alternate = {...fiber};
+  fiber.sibling = null
+  scheduleUpdateOnFiber(fiber);
+};
 
 export function useState(initalState) {
   return useReducer(null, initalState)

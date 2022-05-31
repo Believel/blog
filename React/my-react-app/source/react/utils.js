@@ -35,9 +35,17 @@ export function isUndefined(str) {
 // 更新原生标签的属性，如className、href、id、（style、事件）等
 export function updateNode(node, prevVal, nextVal) {
   Object.keys(prevVal).forEach((k) => {
-    if (k.slice(0, 2) === "on") {
+    if (k === 'children') {
+      if (isStringOrNumber(prevVal[k])) {
+        node.textContent = ''
+      }
+    } else if (k.slice(0, 2) === "on") {
       const eventName = k.slice(2).toLocaleLowerCase();
       node.removeEventListener(eventName, prevVal[k]);
+    } else {
+      if (!(k in nextVal)) {
+        node[k] = ''
+      }
     }
   });
 
