@@ -24,12 +24,12 @@
   <!-- <script src="./07debounce.js"></script> -->
   <!-- <script src="./10eventloop.js"></script> -->
   <!-- <script src="./12deepClone.js"></script> -->
-  <script src="./14algorithm/index.js"></script>
+  <ul id="ul"></ul>
   <script>
     // DNS: 是域名系统（Domain Name System）,是因特网的一项核心服务，它作为可以将域名和IP地址相互映射的一个分布式数据库，能够使人更方便的访问互联网，而不用去记住能够被机器直接读取的IP数串。
-    // 定级域： .com  .cn, .edu,..   
-    // 主域名：aliyun.com, bkjk.com  托管一级域名
-    // 子域名： example.aliyun.com, test.bkjk.com  托管二级域名
+    // 顶级域： .com  .cn, .edu,..   
+    // 主域名：aliyun.com  托管一级域名
+    // 子域名： example.aliyun.com 托管二级域名
     // 子域名的子域： www.example.aliyun.com   托管三级域名
  
     // 如何渲染几万条数据并不卡住界面
@@ -58,88 +58,10 @@
     //   loop()
     // }, 0)
 
-
-    function twoSum (nums, target) {
-      let result = []
-      for (let i = 0; i < nums.length; i++) {
-        const value = target - nums[i];
-        if (nums.includes(value)) {
-          const j = nums.findIndex(v => v === value)
-          if (j !== i) {
-            result = [i, j];
-          }
-        }
-      }
-      return result
-    }
-    // console.log(twoSum([2, 7, 11, 15], 9))
-
-    // 1. 合并两个有序数组
-    // 给定两个有序整数数组 nums1 和 nums2, 请将 nums2 合并到nums1中，使num1成为一个有序数组
-    const nums1 = [1, 2, 3, 0, 0, 0], m = 3;
-    const nums2 = [2, 5, 6], n = 3;
-    function num (nums1, m, nums2, n) {
-      let len1 = m - 1,
-          len2 = n - 1,
-          len = m + n - 1;
-      while (len2 >= 0) {
-        if (len1 < 0) {
-          nums1[len--] = nums2[len2--]
-          continue
-        }
-        nums1[len--] = nums1[len1] >= nums2[len2] ? nums1[len1--] : nums2[len2--]
-      }
-      return nums1
-    }
-
-    // console.log(num(nums1, 3, nums2, n))
-
-    // 2. 数组扁平化、去重、排序
-    const arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9], [11, 12, [12, 13, [14]]]]
-    // 编写一个程序将数组扁平化并去除其中重复部分数据，最终得到一个升序且不重复的数组
-    // console.log([...new Set(arr.flat(Infinity))])
-    // console.log(JSON.stringify(arr).replace(/\[|\]/g, '').split(',').map(v => Number(v)).sort((a, b) => a - b ))
-
-    function flat(arr) {
-      let result = []
-      arr.forEach(v => {
-        if (Array.isArray(v)) {
-          result = result.concat(arguments.callee(v))
-        } else {
-          result.push(v)
-        }
-
-      });
-      return result
-    }
-    function flat2(arr, n) {
-      return n > 0 ? arr.reduce((prev, next) => {
-        return prev.concat(Array.isArray(next) ? flat2(next, n - 1): next)
-      }, []) : arr.slice()
-    }
-    // console.log(flat2(arr, 2))
-
-    // 16. 实现一个函数，判断输入是不是回文字符串
+    // 实现一个函数，判断输入是不是回文字符串
     const isPalindrome = (str) => {
       return str.split('').reverse().join('') === str
     }
-
-    // 函数柯里化
-    function add() {
-      var args = Array.prototype.slice.call(arguments)
-      var addr = function() {
-        args.push(...arguments)
-        return addr
-      }
-      addr.toString = function() {
-        return args.reduce((prev, next) => {
-          return prev + next
-        }, 0)
-      }
-      return addr
-    }
-    // let a = add(1, 2, 3)
-    // let b = add(1)(2)(3)
   </script>
   <!-- <script src="./huawei.js"></script> -->
 </body>

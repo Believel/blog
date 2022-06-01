@@ -10,5 +10,28 @@ export const arr2 = [
  * arr Array
  */
 export default function arrayToTree(arr) {
-  console.log('1111')
+  let result = {}
+  let m = {};
+  // 1. 每一项组成一个哈希表
+  for (let item of arr) {
+    m[item.id] = { ...item, children: [] }
+  }
+  // 遍历每一项，找到根数赋值，其他项赋到对应的children里面
+  arr.forEach(item => {
+    const pid = item.pid;
+    const id = item.id;
+    if (pid === 0) {
+      result = m[id]
+    } else {
+       if (!m[pid]) {
+        m[pid] = {
+          children: []
+        }
+       } 
+       m[pid].children.push(m[id])
+    }
+  })
+  return result
+
 }
+console.log(arrayToTree(arr2))

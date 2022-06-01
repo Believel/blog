@@ -30,8 +30,21 @@ Object.defineProperty(arr, 'age', {
 })
 
 for (let i in  arr) {
-  // console.log(i)
+  console.log(i)
 }
+// 0
+// 1
+// 2
+// name
+// age
+// getLength
+
+for (let item of arr) {
+  // console.log(item) 
+}
+// a
+// b
+// c
 
 
 // 深拷贝
