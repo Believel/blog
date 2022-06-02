@@ -1,11 +1,15 @@
+// new 操作符用于创建一个给定函数的实例对象
 function myNew() {
-  // 新生成一个对象
+  // 1. 新生成一个对象
   const obj = Object.create()
-  // 获得构造函数
+  // 2. 获得构造函数
   const fn = [].shift.call(arguments)
+  // 3. 新对象原型指向构造函数原型对象
   obj.__proto__ = fn.prototype
+  // 4. 将构造函数的this指向新对象
   const result = fn.apply(obj, arguments)
-  return typeof result === 'object' ? result : obj
+  // 5. 根据返回值判断
+  return result instanceof Object ? result : obj
 }
 
 // 闭包

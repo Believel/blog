@@ -32,3 +32,15 @@ function flat2(arr, n) {
 }
 
 console.log(flat2(arr, 2))
+
+// 数组扁平化采用尾递归实现
+function flat3(arr = [], result = []) {
+  arr.forEach(v => {
+    if (Array.isArray(v)) {
+      result = result.concat(flat(v, []))
+    } else {
+      result.push(v)
+    }
+  })
+  return result
+}
