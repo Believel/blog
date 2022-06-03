@@ -128,3 +128,21 @@ function thousand(num) {
 }
 console.log(thousand(1234567))
 ```
+
+## 上拉加载
+
+> 页面触底，或者快要触底时动作, 触底公式：`scrollTop + clientHeight >= scrollHeight`
+## 下拉刷新
+> 页面本身置于顶部时，用户下拉时需要出发的动作
+
+## 单点登录
+
+> `SSO`在多个应用系统中，用户只需要登录一次就可以访问所有相互信任的应用系统
+
+1. `SSO`一般都需要一个独立的认证中心（passport）,子系统的登录均得通过passport,子系统本身将不参与登录操作
+
+2. 同域名下的单点登录
+
+> a.b.com; sso.b.com
+
+  * 要求建立在一个共同的主域名下，如`a.b.com`和`sso.b.com`，他们都建在在`b.com`这个主域名下，那么它们可以将Cookie的domain属性设置为父域的域名（主域名），同事将Cookie的path属性设置为根路径，将Session ID(或token)保存在父域名中.这样所有的子域应用就都可以访问到这个Cookie
