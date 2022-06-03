@@ -3,7 +3,10 @@ import './App.css'
 import TransitionPage from './pages/TransitionPage'
 import UseDeferredValuePage from './pages/UseDeferredValuePage'
 import NewHookApi from './pages/NewHookApi'
+// 栏加载实现 - hook
 // import IntersectionPage from "./pages/IntersectionPage";
+// 简版懒加载
+// import ReactLazyLoad from './pages/reactLazyLoad'
 
 function App() {
   return (
@@ -13,6 +16,7 @@ function App() {
       <UseDeferredValuePage/>
       <NewHookApi />
       {/* <IntersectionPage/> */}
+      {/* <ReactLazyLoad /> */}
     </div>
   )
 }
