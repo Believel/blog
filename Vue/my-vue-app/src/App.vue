@@ -1,8 +1,4 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-// import HelloWorld from './components/HelloWorld.vue'
-// import Animation from './components/Animation.vue'
 </script>
 
 <template>
@@ -13,8 +9,6 @@
   <!-- 路由出口 -->
   <!-- 路由匹配到的组件将渲染在这里 -->
   <router-view></router-view>
-  <!-- <HelloWorld msg="Hello Vue 3 + Vite" /> -->
-  <!-- <Animation /> -->
 </template>
 
 <style>
@@ -24,6 +18,5 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
