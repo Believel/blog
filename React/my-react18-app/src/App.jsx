@@ -8,6 +8,8 @@ import NewHookApi from './pages/NewHookApi'
 // 简版懒加载
 // import ReactLazyLoad from './pages/reactLazyLoad'
 
+import FunOrClass from './pages/FunOrClass'
+
 function App() {
   return (
     <div className="App">
@@ -17,6 +19,7 @@ function App() {
       <NewHookApi />
       {/* <IntersectionPage/> */}
       {/* <ReactLazyLoad /> */}
+      <FunOrClass />
     </div>
   )
 }
