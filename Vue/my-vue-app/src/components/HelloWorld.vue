@@ -1,9 +1,10 @@
 // setup 是一个属性标识，告诉Vue需要在编译时进行转换，来减少使用组合式API时的样板代码
 <script setup>
 import { onMounted, ref, unref, watchEffect, computed } from 'vue'
-import { useMouse } from './useMouse'
+import { useMouse } from '../hooks/useMouse'
 import { mapState, useStore } from 'vuex'
 
+// 自定义指令引入
 import { vFocus }  from './directives'
 
 const { x, y} = useMouse()
@@ -17,12 +18,11 @@ const show = ref(true)
 
 const store = useStore()
 
-
 // 生命周期钩子
 onMounted(() => {
   console.log(`The initial count is ${count.value}`)
 })
-
+// 计算属性
 computed({
   ...mapState(['count1'])
 })

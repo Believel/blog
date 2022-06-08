@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/list/list",
     "pages/index/index",
     "pages/getOpenId/index",
     "pages/getMiniProgramCode/index",
