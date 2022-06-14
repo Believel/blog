@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import 'antd/dist/antd.css';
-import '../source/index'
+import '../react-source/index'
 
 // redux case
 import ReduxDemoApp from './demo/06ReduxDemo'
