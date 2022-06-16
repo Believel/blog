@@ -5,7 +5,14 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        count: 0,
+        type: 1
+    },
+    btnHandler(e) {
+        // 事件传参：使用组件中data-*自定义属性传参，其中*代表的是参数的名字
+        // 获取事件传参
+        const data = e.target.dataset
+        console.log(data.info)
     },
 
     /**

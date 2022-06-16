@@ -1,6 +1,13 @@
 <!--pages/list/list.wxml-->
 <!-- 按钮 -->
-<button type="primary">主色调按钮</button>
+<!-- 事件传参：使用组件中data-*自定义属性传参，其中*代表的是参数的名字 -->
+<button type="primary" bindtap="btnHandler" data-info="{{2}}">主色调按钮</button>
 <button type="warn" plain>镂空按钮</button>
 <!-- 图片 -->
-<image src="../../images/database.png"></image>
+<!-- <image src="../../images/database.png"></image> -->
+
+<block wx:if="{{type === 1}}">
+    <view>view1</view>
+    <view>view2</view>
+</block>
+<view wx:else="{{type !== 1}}">view3</view>

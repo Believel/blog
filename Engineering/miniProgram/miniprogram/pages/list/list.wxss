@@ -1,1 +1,2 @@
 /* pages/list/list.wxss */
+/* rpx(responsive pixel)是微信小程序独有的，用来解决屏适配的尺寸单位。 */
