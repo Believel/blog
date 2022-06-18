@@ -45,23 +45,6 @@
 
 
 ```js
-Promise.myAll = function(arr = []) {
-  if (arr.length === 0) Promise.resolve()
-  return new Promise((resolve, reject)=> {
-    let res = []
-    let allCount = arr.length
-    for (let i =0; i < arr.length; i++) {
-      arr[i].then((curRes) => {
-        res.push(curRes)
-        if (res.length === allCount) {
-          return resolve(res)
-        }
-      }).catch(err => {
-        return reject(err)
-      })
-    }
-  })
-}
 
 const isValid = (s) => {
   if (!s) return true
