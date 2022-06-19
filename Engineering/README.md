@@ -170,3 +170,8 @@ modules.exports = {
 # Webpack 的热更新原理
   * Webpack 的热更新又称热替换（Hot Module Replacement），缩写为 HMR。
   * 大致是：构建bundle的时候，加入一段HTML runtime的js和一段服务器沟通的js。文件修改会触发webpack重新构建，服务器通过向浏览器发送更新消息，浏览器通过jsonp拉取更新的模块文件，jsonp回调触发模块热更新替换逻辑。
+
+
+
+# Vite
+> Vite,一个基于浏览器原生ES import的开发服务器。利用浏览器去解析imports,在服务器端按需编译返回,完全跳过了打包这个概念，服务器随起随用。同时不仅有Vue文件支持，还搞定了热更新，而且热更新的速度不会随着模块的增多而变慢。针对生产环境则可以把一份代码用rollup打包

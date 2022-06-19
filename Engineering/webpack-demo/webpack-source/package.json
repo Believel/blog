@@ -1,0 +1,16 @@
+{
+  "name": "webpack-source",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "loader-runner": "^4.3.0",
+    "loader-utils": "^1.0.4"
+  }
+}

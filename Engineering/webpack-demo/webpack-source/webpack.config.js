@@ -1,7 +1,6 @@
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const threadLoader = require('thread-loader')
-const ESLintPlugin = require('eslint-webpack-plugin')
 const os = require('os')
 const path = require('path')
 
@@ -151,12 +150,6 @@ module.exports = {
     }
   },
   plugins: [
-    new ESLintPlugin({
-      // 指定需要检查的扩展名
-      extensions: ['js', 'tsx', 'ts', 'jsx'],
-      // 启用 Eslint 自动修复特性
-      fix: true
-    }),
     // -- new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       hash: false,
