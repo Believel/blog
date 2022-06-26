@@ -1,5 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
+import { connect } from '../source/react-redux';
 interface Props {
   themeColor: string;
 }
@@ -15,4 +16,8 @@ const mapStateToProps = (state: any) => {
     themeColor: state.themeReducer.themeColor
   }
 }
-export default connect(mapStateToProps)(Header)
+const mapDispatchToProps = () => {
+  return {
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

@@ -1,5 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
+import { connect } from '../source/react-redux';
 import Theme from './Theme'
 
 interface Props {

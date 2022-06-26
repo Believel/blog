@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useCallback } from 'react';
+import { connect, useSelector, useDispatch } from '../source/react-redux';
 import Action from '../store/actions/counter'
 import { Button } from 'antd'
 
@@ -14,11 +14,22 @@ interface Props {
 const Counter = (props: Props) => {
   console.log("props", props)
   const { counter, incrementCounter, decrementCounter, thunkIncrement, promiseIncrement, payloadIncrement } = props;
+
+  // 使用 redux 中 hooks
+  // 获取指定的state值
+  // const counter = useSelector((state: any) => state.counterReducer.number);
+  const dispatch = useDispatch();
+  const add = useCallback(() => {
+    dispatch({ type: "INCREMENT", payload: 2 });
+  }, []);
+
+
   return (
     <>
       <h4>案例2：计数器</h4>
       <p>{counter}</p>
       <Button onClick={incrementCounter} style={{marginRight: '10px'}}>+</Button>
+      <Button onClick={add} style={{marginRight: '10px'}}>hook +</Button>
       <Button onClick={decrementCounter} style={{marginRight: '10px'}}>-</Button>
       <Button onClick={() => {
         setTimeout(incrementCounter, 1000)

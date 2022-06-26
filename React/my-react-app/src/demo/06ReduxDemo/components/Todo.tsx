@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { Input, Button } from 'antd';
 import { Item } from '../store/reducers/todos'
 import Action from '../store/actions/todo'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
+import { connect } from '../source/react-redux';
+
 type ToggleType =  'all' | 'completed' | 'uncompleted';
 interface Props {
   toggleType: ToggleType

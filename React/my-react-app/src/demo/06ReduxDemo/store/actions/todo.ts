@@ -1,5 +1,5 @@
 import * as types from '../actions-types';
-import { store } from '../createStore';
+import { store } from '..';
 import { bindActionCreators } from 'redux';
 const dispatch = store.dispatch;
 

@@ -6,23 +6,23 @@ import 'antd/dist/antd.css';
 
 // redux case
 import ReduxDemoApp from './demo/06ReduxDemo'
-import { store } from './demo/06ReduxDemo/store/createStore'
-// import { Provider } from './demo/06ReduxDemo/store/react-redux'
-import {Provider } from 'react-redux'
+import { store } from './demo/06ReduxDemo/store'
+import { Provider } from './demo/06ReduxDemo/source/react-redux'
+// import {Provider } from 'react-redux'
 
 
 // react source demo entry
 // import '../react-source/index'
 
 // react router demo entry
-import '../react-router-source/index'
+// import '../react-router-source/index'
 
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <App />
-//     <Provider store={store}>
-//       <ReduxDemoApp />
-//     </Provider>
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// )
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+    <Provider store={store}>
+      <ReduxDemoApp />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
+)

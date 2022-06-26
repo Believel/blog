@@ -1,5 +1,5 @@
-// applyMiddleware
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from '../source/redux';
+
 import { rootReducers } from './reducers/rootReducer'
 
 
@@ -46,35 +46,19 @@ const promise = ({ dispatch, getState}: any) => (next: any) => (action: any) => 
   }
 }
 
-const applyMiddleware = function(...middlewares: any[]) {
-  return function(createStore: any) {
-    return function(reducer: any) {
-      let store = createStore(reducer);
-      let dispatch;
-      let middlewareAPI = {
-        getState: store.getState,
-        dispatch: (action: any) => store.dispatch(action)
-      }
-      middlewares = middlewares.map((middleware: any) => middleware(middlewareAPI));
-      dispatch = compose(...middlewares)(store.dispatch)
-      return { ...store, dispatch }
-    }
-  }
-}
-
 // export const store = applyMiddleware(promise, thunk, logger1)(createStore)(rootReducers)
 export const store = createStore(rootReducers, applyMiddleware(promise, thunk, logger1))
 
 
-function add1(str: string) {
-  return str;
-}
-function add2(str: string) {
-  return str + 1
-}
-function add3(str: string) {
-  return str + 2
-}
+// function add1(str: string) {
+//   return str;
+// }
+// function add2(str: string) {
+//   return str + 1
+// }
+// function add3(str: string) {
+//   return str + 2
+// }
 
 // function compose(...fns: any[]) {
 //   if (fns.length === 1) {
@@ -86,14 +70,14 @@ function add3(str: string) {
 // }
 
 // 从右项左开始计算，把每次的计算结果传递给下一个参数中，以此类推
-function compose(...fns: any[]) {
-  return function(...args: any[]) {
-    // 先拿到最后一个参数
-    let last = fns.pop();
-    return fns.reduceRight((val, fn) => {
-      return fn(val);
-    }, last(...args))
-  }
-}
+// function compose(...fns: any[]) {
+//   return function(...args: any[]) {
+//     // 先拿到最后一个参数
+//     let last = fns.pop();
+//     return fns.reduceRight((val, fn) => {
+//       return fn(val);
+//     }, last(...args))
+//   }
+// }
 
-console.log(compose(add3, add2, add1)('aaa'))
+// console.log(compose(add3, add2, add1)('aaa'))

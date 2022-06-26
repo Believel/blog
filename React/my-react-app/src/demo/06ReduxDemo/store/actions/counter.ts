@@ -1,10 +1,11 @@
 import * as types from '../actions-types';
-import { store } from '../createStore';
+import { store } from '..';
 import { bindActionCreators } from 'redux';
 const dispatch = store.dispatch;
 
 const actions = {
   incrementCounter: () => {
+    console.log('进来了')
     dispatch({ type: types.INCREMENT, payload: 1 })
   },
   decrementCounter: () => {
@@ -42,12 +43,4 @@ const actions = {
     }
   }
 }
-
-// bindActionCreators： 主要用来将 actions 转换成 dispatch(action) 这种格式，方便进行 actions 分离，并且使代码更简洁
-// ! 源码实现
-// function bindActionCreator(actionCreator: any, dispatch: any) {
-//   return function() {
-//     return dispatch(actionCreator.apply(this, arguments))
-//   }
-// }
 export default bindActionCreators(actions, dispatch)
