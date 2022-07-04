@@ -17,6 +17,10 @@ import { Provider } from './demo/06ReduxDemo/source/react-redux'
 // react router demo entry
 // import '../react-router-source/index'
 
+
+// redux-saga case
+import './demo/10reduxSagaDemo'
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
