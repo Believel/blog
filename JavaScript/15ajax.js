@@ -1,8 +1,13 @@
 // Ajax: Async JavaScript and XML,即异步的JavaScript和XML,是一种创建交互式网页应用的网页开发技术，可以在不重新加载整个网页的情况下，与服务器交换数据，并且重新部分网页
 function format(params) {
   let str = '';
-  Object.keys(params).forEach(key => {
-    str += `${key}=${params[key]}`
+  const keys = Object.keys(params);
+  keys.forEach((key, index) => {
+    if (index !== keys.length - 1) {
+      str += `${key}=${params[key]}&`
+    } else {
+      str += `${key}=${params[key]}`
+    }
   })
   return str
 }
@@ -21,7 +26,7 @@ function ajax(options) {
   if (options.type === 'GET') {
     // 处理params为字符串：a=b&c=3
     xhr.open('GET', options.url + '?' + format(params), true)
-    xhr.send(url)
+    xhr.send(null)
   } else if (options.type === 'POST') {
     xhr.open('POST', options.url, true)
     xhr.send(params)
