@@ -1,6 +1,9 @@
 import React from 'react'
 import LazyLoad from './LazyLoad'
 
+// 内部实现依赖于  prop-types 库
+// import LazyLoad from 'react-lazyload'
+
 const ulStyle = {
   width: 800,
   margin: '0 auto',
@@ -30,7 +33,7 @@ const ReactLazyLoad = () => {
       <ul style={ulStyle}>
         {
           images.map((image, index) => (
-            <LazyLoad key={index} height={300} throttle={2000}>
+            <LazyLoad key={index} height={300} throttle={2000} scroll={true}>
               <li><img src={image} style={imgStyle} /></li>
             </LazyLoad>
           ))

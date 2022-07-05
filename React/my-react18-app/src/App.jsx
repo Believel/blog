@@ -6,19 +6,19 @@ import NewHookApi from './pages/NewHookApi'
 // 栏加载实现 - hook
 // import IntersectionPage from "./pages/IntersectionPage";
 // 简版懒加载
-// import ReactLazyLoad from './pages/reactLazyLoad'
+import ReactLazyLoad from './pages/reactLazyLoad'
 
 import FunOrClass from './pages/FunOrClass'
 
 function App() {
   return (
     <div className="App">
-      <h4>React version: {React.version}</h4>
+      {/* <h4>React version: {React.version}</h4>
       <TransitionPage/>
       <UseDeferredValuePage/>
-      <NewHookApi />
+      <NewHookApi /> */}
       {/* <IntersectionPage/> */}
-      {/* <ReactLazyLoad /> */}
+      <ReactLazyLoad />
       <FunOrClass />
     </div>
   )
