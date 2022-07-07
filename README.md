@@ -3,12 +3,35 @@
 
 ## HTML&CSS
 ## JavaScript
+1. 上下文this
+2. instanceof
+3. 异步编程： generate、promise、async await
+4. new 函数
+5. 防抖与节流
+6. 事件循环eventloop
+7. 浅克隆与深克隆
+8. 原型与原型链
+9. 继承
 
 ## React
-
+1. `react` 源码的大致实现
+2. `react-router(v4&v6)`实现原理
+3. `redux`和`react-redux`实现原理
+  * `redux-logger`
+  * `redux-thunk`
+  * `redux-promise`
+  * `redux-saga`
+4. HOC 和 Hooks
+5. Context(类组件和函数组件如何使用)
+6. `react18`新特性
+7. 懒加载：`react-lazyload` 和 `react-intersection-observer` 的实现
 
 ## Vue
-
+1. `Object.definepropery`和`Proxy`区别
+2. `Vue2` 与 `Vue3` 之间的变化有哪些
+3. `vue` 实现源理
+3. `vue-router`
+4. `vuex`
 
 ## Node
 
