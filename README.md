@@ -59,3 +59,5 @@
 9. [Vue2.0响应式原理实现](https://github.com/Believel/blog/issues/7)
 10. [jenkins使用publish over ssh插件连接应用机器时，报Message [Auth fail]的问题](https://github.com/Believel/blog/issues/3)
 11. [linux命令积累](https://github.com/Believel/blog/issues/5)
+12. [基于qiankun的微前端应用间通信](https://juejin.cn/post/7121979479236444197)
+13. [基于qiankun的微前端实战](https://juejin.cn/post/7119485382764265503)
