@@ -20,6 +20,7 @@ export function scheduleCallback(callback) {
 function requestHostCallback() {
   port.postMessage(null)
 }
+// MessageChannel   浏览器提供的一种数据通信接口，可用来实现订阅发布。其特点是其两个端口属性支持双向通信和异步发布事件
 // 创建一个新的消息通道，并通过它的两个MessagePort属性发送数据
 // port1: 返回channel的port1,只读
 // port2: 返回channel的port2,只读

@@ -71,7 +71,7 @@ prettier eslint-config-prettier eslint-plugin-prettier prettier
     * `asset/resource` 将资源分割为单独的文件，并导出url,类似之前的file-loader的功能
     * `asset/inline` 将资源导出dataUrl的形式，类似之前的url-loader的小于limit参数时的功能
     * `asset/source` 将资源导出为源码，类似于raw-loader功能
-    * `asset` 会根据文件大小来选择使用哪种类型，当文件小于8KB(默认)的时候会使用asset/inlinem,否则使用asset/resource
+    * `asset` 会根据文件大小来选择使用哪种类型，当文件小于8KB(默认)的时候会使用asset/inline,否则使用asset/resource
 
 ### 优化构建速度
 1. 构建费时分析：`speed-measure-webpack-plugin`
