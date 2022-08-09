@@ -2,7 +2,6 @@
 </script>
 
 <template>
-  <h1>Hello App</h1>
   <!-- 路由导航 -->
   <router-link to="/"> Home </router-link>
   <router-link to="/animation/123">animation</router-link>
