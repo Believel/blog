@@ -5,6 +5,7 @@ import 'element-plus/dist/index.css'
 import App from './App.vue'
 import store from './store'
 import router from './route'
+import i18n from './plugins/i18n'
 // 创建一个 Vue 应用
 const app = createApp(App)
 // 应用实例提供一些来注册应用范围内可用的资源：
@@ -14,6 +15,13 @@ const app = createApp(App)
 
 // 注册指令
 // app.directive('directiveName', Directive)
+
+// 注册插件
+app.use(i18n, {
+    greetings: {
+        hello: 'Bonjour'
+    }
+})
 
 // 将 store 实例作为插件安装
 app.use(store)

@@ -10,9 +10,9 @@ import { vFocus }  from '../components/directives'
 const { x, y} = useMouse()
 
 // Props 声明
-defineProps({
-  msg: String
-})
+// defineProps({
+//   msg: String
+// })
 const rawHtml = `<span style="color: red">This should be red</span>`
 // 创建一个响应式对象或数组
 const state = reactive({ 
@@ -77,23 +77,48 @@ function handleInline(message, event) {
 </script>
 
 <template>
-  <h1>{{ msg }} - {{state.name}} - {{publishBookMessage}}</h1>
-  <p>v-html:<span v-html="rawHtml"></span></p>
-  <button type="button" @click="count++">count is: {{ count }}</button>
-  <p>鼠标位置：{{x}}, {{y}}</p>
-  <input v-focus/>
-  <hr/>
-  <button @click="show = !show">切换动画</button>
-  <transition>
-    <p v-if="show">你好</p>
-  </transition>
-  <hr/>
-  <h4>store用法：</h4>
-  <p class="btn-inline">{{store.state.count1}}</p><button @click="incrementA">点击</button>
-  <hr/>
-  <button @click="handleInline('inline', $event)" class="btn">内联事件使用1：使用特殊的 $event 变量</button>
-  <button @click="(event) => handleInline('inline', event)">内联事件使用2:使用内联箭头函数</button>
-  <hr/>
+  <el-card class="box-card">
+    <template #header>
+      <span class="box-title">表达式</span>
+    </template>
+    <div>{{state.name}} - {{publishBookMessage}}</div>
+    <div>v-html: <span v-html="rawHtml"></span></div>
+  </el-card>
+  <el-card class="box-card">
+    <template #header>
+      <span class="box-title">组合式函数：鼠标功能</span>
+    </template>
+    <p>鼠标位置：{{x}}, {{y}}</p>
+  </el-card>
+  <el-card class="box-card">
+    <template #header>
+      <span class="box-title">自定义指令：输入框焦点</span>
+    </template>
+    <el-input v-focus></el-input>
+  </el-card>
+  <el-card class="box-card">
+    <template #header>
+      <span class="box-title">动画</span>
+    </template>
+    <el-button @click="show = !show" type="primary">切换动画</el-button>
+    <transition>
+      <p v-if="show">你好</p>
+    </transition>
+  </el-card>
+  <el-card class="box-card">
+    <template #header>
+      <span class="box-title">store用法</span>
+    </template>
+    <div>{{store.state.count1}}</div>
+    <el-button type="primary" @click="incrementA">点击</el-button>
+  </el-card>
+  <el-card class="box-card">
+    <template #header>
+      <span class="box-title">内联事件</span>
+    </template>
+    <el-button @click="handleInline('inline', $event)" type='primary'>内联事件使用1：使用特殊的 $event 变量</el-button>
+    <el-button @click="(event) => handleInline('inline', event)" type="success">内联事件使用2:使用内联箭头函数</el-button>
+  </el-card>
   <ul>
     <!-- 此时v-if会警告：Property "book" was accessed during render but is not defined on instance.  -->
     <!-- 因为：v-if优先级比v-for高,所以v-if的条件将无法访问到v-for作用域的变量别名 -->
@@ -122,10 +147,11 @@ a {
 .v-leave-to {
   opacity: 0;
 }
-.btn-inline {
-  display: inline-block;
+.box-card {
+  margin-bottom: 20px;
+  width: 600px;
 }
-.btn {
-  margin-right: 10px;
+.box-title {
+  color: #409eff;
 }
 </style>
