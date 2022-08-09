@@ -1,4 +1,6 @@
 import { createApp } from 'vue'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 // 从一个单文件组件中导入根组件
 import App from './App.vue'
 import store from './store'
@@ -17,5 +19,7 @@ const app = createApp(App)
 app.use(store)
 // 整个应用支持路由
 app.use(router)
+// 安装 element-plus
+app.use(ElementPlus)
 // 挂载 App 组件 , 返回的是根组件实例而不是应用实例
 app.mount('#app')
