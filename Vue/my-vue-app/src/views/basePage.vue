@@ -5,9 +5,11 @@ import { useMouse } from '../hooks/useMouse'
 import { mapState, useStore } from 'vuex'
 
 // 自定义指令引入
-import { vFocus }  from './directives'
+import { vFocus }  from '../components/directives'
 
 const { x, y} = useMouse()
+
+// Props 声明
 defineProps({
   msg: String
 })

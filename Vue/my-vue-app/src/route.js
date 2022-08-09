@@ -1,12 +1,17 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from './components/HelloWorld.vue'
+import basePage from './views/basePage.vue'
+import depthPage from './views/depthPage.vue'
 import Animation from './components/Animation.vue'
 
 
 const routes = [
   {
     path: '/',
-    component: Home
+    component: basePage
+  },
+  {
+    path: '/depth',
+    component: depthPage
   },
   {
     path: '/animation/:id',

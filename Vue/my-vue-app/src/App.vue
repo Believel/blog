@@ -15,7 +15,7 @@ const activeIndex = ref('1')
       <router-link to="/"> Vue3基础 </router-link>
     </el-menu-item>
     <el-menu-item index="2">
-      <router-link to="/animation/123">Vue3深入组件</router-link>
+      <router-link to="/depth">Vue3深入组件</router-link>
     </el-menu-item>
   </el-menu>
   <!-- 路由出口 -->
