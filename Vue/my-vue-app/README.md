@@ -15,3 +15,13 @@ yarn add vuex@next --save
 ```js
 npm install vue-router@4
 ```
+
+# element-plus
+## 自动按需导入
+1. `unplugin-vue-components: 0.22.2` vite启动报错
+
+![](../docs/element-plus%E8%87%AA%E5%8A%A8%E5%AF%BC%E5%85%A5%E9%85%8D%E7%BD%AE%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99.png)
+
+* 解决办法：
+    * method one: you can temporarily add "type": "module" to package.json to fix the problem
+    * method two: you can downgrade to ^0.21.2
