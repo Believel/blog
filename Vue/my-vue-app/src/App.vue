@@ -17,6 +17,9 @@ const activeIndex = ref('1')
     <el-menu-item index="2">
       <router-link to="/depth">Vue3深入组件</router-link>
     </el-menu-item>
+    <el-menu-item index="3">
+      <router-link to="/pinia">Vue3推荐的状态管理器pinia</router-link>
+    </el-menu-item>
   </el-menu>
   <!-- 路由出口 -->
   <!-- 路由匹配到的组件将渲染在这里 -->

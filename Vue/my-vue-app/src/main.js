@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 // 从一个单文件组件中导入根组件
@@ -6,6 +7,7 @@ import App from './App.vue'
 import store from './store'
 import router from './route'
 import i18n from './plugins/i18n'
+const pinia = createPinia()
 // 创建一个 Vue 应用
 const app = createApp(App)
 // 应用实例提供一些来注册应用范围内可用的资源：
@@ -29,5 +31,7 @@ app.use(store)
 app.use(router)
 // 安装 element-plus
 app.use(ElementPlus)
+
+app.use(pinia)
 // 挂载 App 组件 , 返回的是根组件实例而不是应用实例
 app.mount('#app')
