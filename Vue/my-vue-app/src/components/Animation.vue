@@ -18,18 +18,18 @@ const goHome = () => {
 
 <template>
   <h3>Transition 动画</h3>
-  <button @click="show=!show">切换淡入/淡出</button>
-  <button @click="goHome">跳到home</button>
+  <el-button @click="show=!show" type="primary">切换淡入/淡出</el-button>
+  <el-button @click="goHome" type="success">跳到home</el-button>
   <Transition name="slide-fade">
     <p v-if="show">你好</p>
   </Transition>
 
-  <button @click="open = true">打开模态框</button>
+  <el-button @click="open = true" type="primary">打开模态框</el-button>
   <!-- 传送门：内置组件，使我们可以将一个组件的一部门模板传送到该组件的DOM层次结构之外的DOM节点中 -->
   <Teleport to="body">
     <div v-if="open" class="modal">
       <p>你好</p>
-      <button @click="open=false">关闭</button>
+      <el-button @click="open=false">关闭</el-button>
     </div>
   </Teleport>
 </template>
