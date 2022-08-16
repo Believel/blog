@@ -146,3 +146,6 @@ console.log(thousand(1234567))
 > a.b.com; sso.b.com
 
   * 要求建立在一个共同的主域名下，如`a.b.com`和`sso.b.com`，他们都建在在`b.com`这个主域名下，那么它们可以将Cookie的domain属性设置为父域的域名（主域名），同事将Cookie的path属性设置为根路径，将Session ID(或token)保存在父域名中.这样所有的子域应用就都可以访问到这个Cookie
+
+## 闭包
+函数中能够访问其定义时的环境中的变量

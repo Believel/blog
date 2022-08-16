@@ -18,3 +18,11 @@
 5. 组件重复打包
 6. 开启GZip压缩
 7. 使用SSR
+
+# BFC(Blocking Formating Context)块级格式化上下文
+## 什么情况下触发BFC
+1. 根元素（html）
+2. float 属性不为none
+3. position 为absolute或fixed
+4. display 为inline-block，table-cell,table-caption,flex,inline-flex等
+5. overflow不为visible
