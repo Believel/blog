@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG - 语法</title>
+</head>
+<body>
+  <!-- 在不设置宽高的情况下，默认为300 * 150，当内部元素大于300 * 150时，大于部分会被隐藏。 -->
+  <!-- viewBox 属性定义了SVG中可以显示的区域.viewBox="x y w h" x、y为起始点，w、h为显示区域的宽高。viewBox="0 0 100 100" -->
+  <svg width="600" height="600"  version="1.1">
+    <!-- 坐标为（100， 100）的地方绘制一个半径为50的圆 -->
+    <circle cx="100" cy="100" r="50"></circle>
+    <!-- x、y为矩形的起始点坐标，rx、ry为圆角x、y轴方向的半径， width、height为矩形的宽高 -->
+    <rect x="100" y="150" rx="5" ry="5" width="300" height="200"/>
+    <!-- cx、cy为椭圆的坐标，rx为椭圆的x轴半径、ry为椭圆的y轴半径 -->
+    <ellipse cx="300" cy="100" rx="100" ry="50"/>
+    <!-- x1、y1为起点的坐标，x2、y2为终点的坐标 -->
+    <line x1="10" x2="50" y1="110" y2="10" style="stroke:#000000"/>
+    <!-- 折线：points为点集数列，其中每个点都必须包含2个数字，一个是x坐标，一个是y坐标。 -->
+    <polyline points="0 0, 20 40, 70 80, 100 90, 200 30, 250 50" fill="none" style="stroke: #000000;" />
+    <!-- 多边形：points为点集数列，其中每个点都必须包含2个数字，一个是x坐标，一个是y坐标。 -->
+    <polygon points="0 0, 20 40, 70 80, 100 90, 200 30, 250 50" fill="none" style="stroke: #000000;" />
+    <!-- 路径：d为一个点集数列以及其它绘制路径的信息。 -->
+    <path d="M50 50 H 200 V 200 H 50 L 50 50" fill="none" style="stroke: #000000;"/>
+
+    <!--
+      M = Move to
+      L = Line to
+      H = Horizontal Line to
+      V = Vertical Line to
+      Q = Quadratic Bezier Curve to
+      T = Smooth Quadratic Bezier Curve to
+      C = Curve to
+      S = Smooth Curve to
+      A = Elliptical Arc
+      Z = close path
+    -->
+
+
+  </svg>
+</body>
+</html>
