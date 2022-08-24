@@ -1,0 +1,12 @@
+{
+  "presets": [
+    ["latest", {
+      "es2015": {
+        // "modules": false ，否则 Babel 会在 Rollup 有机会做处理之前，将我们的模块转成 CommonJS ，导致 Rollup 的一些处理失败。
+        "modules": false
+      }
+    }]
+  ],
+  // external-helpers: 它允许 Rollup 在包的顶部只引用一次 helpers ，而不是每个使用它们的模块中都引用一遍（这是默认行为
+  "plugins": ["external-helpers"]
+}
