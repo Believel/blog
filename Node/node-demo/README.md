@@ -36,3 +36,23 @@
 * `conclude`: 结论
 * `said`: 名人名言中可选的文字片段
 
+### 包
+```js
+// 替代 progress.argv,不仅可以获取用户输入，还能检测用户的输入是否正确
+npm install command-line-args --save
+// 添加一个--help参数，告知用户有哪些合法的参数以及每个参数的意义
+npm install command-line-usage --save
+
+// 例如输入：node index.js --help
+// 输出： 是经过配置的
+狗屁不通文章生成器
+
+  生成随机的文章段落用于测试 
+
+Options
+
+  --title string   文章的主题。  
+  --min number     文章最小字数。 
+  --max number     文章最大字数。
+
+```
