@@ -15,20 +15,24 @@
 * 使用 process.argv 接收用户参数，根据参数输出不同内容；
 * 利用 fs 模块、二进制模块，将生成的文本内容保存成文本和图片格式。
 
-## 项目目录
+## 具体实现
+### 1.项目目录
 
 ```js
 // bullshit_generator/
 .
-├── corpus
-│   └── data.json
-├── index.js
-├── lib
-│   ├── generator.js
-│   └── random.js
-└── output
+├── README.md
+├── corpus           // 存储语料的目录
+│   └── data.json    // 语料数据 JSON 对象
+├── index.js         // 入口文件
+└── lib              // 内部封装模块目录
+    ├── cmd.js          // 两种命令行参数处理：help 和 必须参数
+    ├── corpus.js       // 处理语料JSON文件：读取文件、保存文件
+    ├── generator.js    // 生成文章内容
+    ├── interact.js     // 两种交互方式，接收参数
+    └── random.js       // 创建随机模块
 ```
-### JSON文件内容
+### 2. JSON对象组成
 * `title`: 文章的主题
 * `famous`: 名人名言
 * `bosh_before`: 废话的前置分句
@@ -36,7 +40,7 @@
 * `conclude`: 结论
 * `said`: 名人名言中可选的文字片段
 
-### 包
+### 3. 用到的库
 ```js
 // 替代 progress.argv,不仅可以获取用户输入，还能检测用户的输入是否正确
 npm install command-line-args --save

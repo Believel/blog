@@ -3,6 +3,7 @@ import { generate } from './lib/generator.js'
 import { createRandomPicker } from './lib/random.js'
 import { options } from './lib/cmd.js'
 import { loadCorpus, saveCorpus } from './lib/corpus.js'
+import { interact1 } from './lib/interact.js'
 
 // fs.readFile: 异步读取文件内容
 // fs.readFileSync：同步读取文件内容
@@ -62,11 +63,27 @@ function parseOptions(options = {}) {
 // 获取语料数据
 const corpus = loadCorpus('corpus/data.json')
 const pickTitle = createRandomPicker(corpus.title)
-const title = options.title || pickTitle()
-// 获取文章数组内容
-const article = generate(title, { corpus, ...options })
-// 保存文章输入在文件中
-saveCorpus(title, article)
+let title = options.title || pickTitle();
+(
+  async function() {
+    // 命令无参数输入时，采用问答时交互方式输入
+    if (Object.keys(options).length <= 0) {
+      const answers = await interact1([
+        {text: '请输入文章主题', value: title},
+        {text: '请输入最小字数', value: 6000},
+        {text: '请输入最大字数', value: 10000},
+      ])
+      title = answers[0]
+      options.min = answers[1]
+      options.max = answers[2]
+    }
+    // 获取文章数组内容
+    const article = generate(title, { corpus, ...options })
+    // 保存文章输入在文件中
+    saveCorpus(title, article)
+  }()
+);
+
 
 
 

@@ -6,7 +6,7 @@ import moment from 'moment'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 // 读取文件
 export function loadCorpus(src) {
-  const path = resolve(__dirname, src)
+  const path = resolve(__dirname, '..',  src)
   const data = readFileSync(path, { encoding: 'utf-8'})
   return JSON.parse(data)
 }
