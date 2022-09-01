@@ -45,6 +45,12 @@ enum Day {
   FRIDAY,
   SATURDAY
 }
+// 函数的泛型: 不仅可以约束整个参数的类型，还可以约束参数属性、成员的类型。
+function reflect<p>(param: p) {
+  return param
+}
+
+reflect<string>('1')
 
 
 
