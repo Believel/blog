@@ -4,9 +4,13 @@
   "description": "ts",
   "main": "index.js",
   "scripts": {
-    "tsc": "tsc 01.basic.ts"
+    "tsc": "tsc 01.basic.ts",
+    "start": "zpp-serve -p 3001"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "zpp-serve": "^1.0.1"
+  }
 }
