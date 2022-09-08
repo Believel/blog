@@ -1,5 +1,7 @@
 // app.js
+// 注册一个程序，是一个单例对象，在其他JS脚本中可以使用宿主环境提供的 getApp() 来获取程序实例
 App({
+  // 小程序初始化完成时（全局只触发一次）触发回调
   onLaunch: function () {
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力');
@@ -14,6 +16,8 @@ App({
       });
     }
 
-    this.globalData = {};
+    this.globalData = {
+      globalName: 'zhangsan'
+    };
   }
 });

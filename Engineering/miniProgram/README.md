@@ -10,3 +10,10 @@
 
 - [云开发文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)
 
+
+# 记录
+1. 避免频繁的去setData
+2. 避免每次 setData 都传递大量新数据
+
+> 小程序的双线程(渲染层webview线程，逻辑层jsCore线程)设计，主要是为了管控安全，避免操作DOM
+
