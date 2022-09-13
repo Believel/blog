@@ -57,7 +57,7 @@ if (true) {
 ```
 2. 缓存：缓存策略可以降低资源的重复加载提高网页的整体加载速度。
   * 2.1 强缓存
-  
+
   > 实现强缓存可以通过两种响应头实现：`Expires` 和 `Cache-Control` 。强缓存表示在缓存期间不需要请求，state code 为 200
 
   ```js
@@ -68,22 +68,35 @@ if (true) {
   // HTTP/1.1  优先级高于 Expires
   // 表示资源会在30s后过期，需要再次请求
   Cache-control: max-age=30
+  Cache-control: no-store   // 拒绝一切形式的缓存
+  Cache-control: no-cache   // 是否每次都需要向服务器进行缓存有效确认
+  Cache-control:  private / public // 考虑该资源是否可以被代理服务器缓存
   ```
 
   * 2.2 协商缓存
     * 方式1：`Last-Modified` 和 `If-Modified-Since`
     ```js
-      Last-Modified 表示本地文件最后修改日期
-      If-Modified-Since 会将 Last-Modified 的值发送给服务器，询问服务器在该日期后资源是否更新
+      Last-Modified 表示本地文件最后修改日期   - Response Headers
+      If-Modified-Since 会将 Last-Modified 的值发送给服务器，询问服务器在该日期后资源是否更新 (Request Headers)
 
       但是如果本地打开了缓存文件，就会造成last-modified被修改，所以在 http/1.1 出现了 ETag
+
+      弊端：不能感知文件内容的变化
     ```
     * 方式2： `ETag` 和 `If-None-Match`
 
     ```js
     ETag 类似于文件指纹，If-None-Match 会将当亲 ETag 发送给服务器，询问该资源 ETag 是否变动，有变动的话就将新的资源发送回来
+    ETag 是由服务器为每个资源生成的唯一的标识字符串，这个标识字符串是基于文件内容编码的，只要文件内容不同，他们对应的Etag就是不同的，反之亦然。因此ETag能够精准的感知文件的变化。
 
     并且 ETag 的优先级高于 Last-Modified
+    // Response Headers: 当首次请求时，我们会在响应头里获取一个最初的标识字符串
+    ETag: W/"2a3b-1602480f459"
+
+    // Request Headers: 下一次请求时，请求头里就会带上一个值相同的。名为if-none-match的字符串供服务器比对：
+    If-None-Match: W/"2a3b-1602480f459"
+
+    Etag 的生成过程需要服务器额外付出开销，会影响服务端的性能，这是它的弊端
     ```
 
 ## 安全
@@ -149,3 +162,34 @@ console.log(thousand(1234567))
 
 ## 闭包
 函数中能够访问其定义时的环境中的变量
+
+## 本地存储
+1. cookie
+  * 大小 - 4KB
+  * 存储少量的信息
+  * cookie 是区别在顶级域名下，二级域名可以共享
+
+> Cookie实现跨域共享要求根域必须是一样才行，比如都是www.baidu.com和map.baidu.com的根域都是 baidu.com
+
+* Cookie的域和路径
+  * Cookie是不可以跨域的，隐私安全机制禁止网站非法获取其他网站(域)的Cookie。概念上咱不用长篇大论，举个例子你应该就懂了：
+
+ > 淘宝有两个页面：A页面`a.taotao.com/index.html`和B页面`b.taotao.com/index.html`，默认情况下A页面和B页面的Cookie是互相独立不能共享的。若现在有需要共享（如单点登录共享token ），我们只需要这么做：将A/B页面创建的Cookie的`path`设置为“/”，`domain`设置为“.taobtao.com”，那么位于a.taotao.com和b.taotao.com域下的所有页面都可以访问到这个Cookie了。
+
+  * `domain`：创建此cookie的服务器主机名（or域名），服务端设置。但是不能将其设置为服务器所属域之外的域（若这都允许的话，你把Cookie的域都设置为baidu.com，那百度每次请求岂不要“累死”）
+    * 注：端口和域无关，也就是说Cookie的域是不包括端口的
+  * `path`：域下的哪些目录可以访问此cookie，默认为`/`，表示所有目录均可访问此cookie
+2. web storage
+  * local Storage
+    * 持久化的本地存储，存储在其中的数据是永远不会过期，除非手动删除
+    * 遵循同源策略
+  * session Storage
+    * 临时性的本地存储，它是会话级别的存储，当会话结束（页面被关闭）时，存储内容也随之被释放
+    * 遵循同源策略, 即便是相同域名下的两个页面，只要它们不在同一个浏览器窗口中打开，那么它们的 Session Storage 内容便无法共享。
+  * 上面两个特性
+    * 存储容量大： Web Storage 根据浏览器的不同，存储容量可以达到 5-10M 之间。
+    * 仅位于浏览器端，不与服务端发生通信。
+3. indexedDB
+  * 一个运行在浏览器上的非关系型数据库。理论上来说，IndexedDB 是没有存储上限的（一般来说不会小于 250M）。它不仅可以存储字符串，还可以存储二进制数据。
+
+## `CDN`的缓存与回源机制解析
