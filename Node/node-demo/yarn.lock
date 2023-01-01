@@ -92,6 +92,11 @@
   "resolved" "https://registry.npmmirror.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz"
   "version" "4.3.0"
 
+"mime@^3.0.0":
+  "integrity" "sha512-jSCU7/VB1loIWBZe14aEYHU/+1UMEHoaO7qxCOVJOw9GgH72VAWppxNcjU+x9a2k3GSIBXNKxXQFqRvvZ7vr3A=="
+  "resolved" "https://registry.npmjs.org/mime/-/mime-3.0.0.tgz"
+  "version" "3.0.0"
+
 "moment@^2.29.4":
   "integrity" "sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w=="
   "resolved" "https://registry.npmmirror.com/moment/-/moment-2.29.4.tgz"

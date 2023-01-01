@@ -20,9 +20,16 @@ const server = http.createServer((req, res) => {
       const content = fs.readFileSync(filePath); // 读取文件内容
       const { ext } = path.parse(filePath)
       if (ext === '.png') {
-        res.writeHead(200, {'Content-Type': 'image/png'}); 
+        res.writeHead(200, {
+          'Content-Type': 'image/png',
+          'Cache-Control': 'max-age=86400' // 缓存一天
+        });
       } else {
-        res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'}); 
+        res.writeHead(200, {
+          'Content-Type': 'text/html; charset=utf-8', 
+          'Cache-Control': 'max-age=86400' // 缓存一天
+        });
+        // 浏览器的强缓存策略，在不是通过地址栏访问资源的情况下，需要强制刷新才能更新资源
       }
       return res.end(content); // 返回文件内容
     }
