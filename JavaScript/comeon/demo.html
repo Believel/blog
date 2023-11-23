@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>重学前端</title>
+  <style>
+    html, body {
+      text-align: center;
+      margin: 0 auto;
+      padding: 0;
+    }
+    .circle {
+      height: 100px;
+      width: 100px;
+      border-radius: 50%;
+      background-color: black;
+    }
+    .box {
+      background-color: red;
+      overflow: hidden;
+    }
+    .child {
+      background-color: pink;
+      margin-top: 10px;
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <!-- <h1>重学前端</h1> -->
+  <!-- <div class="circle" id="circle"></div> -->
+  <div class="box">
+    <div class="child"></div>
+  </div>
+  <script>
+  //  我们现在要实现一个红绿灯，把一个圆形 div 按照绿色 3 秒，黄色 1 秒，红色 2 秒循环改变背景色
+    var cirlceDiv = document.getElementById('circle')
+    function sleep(duration) {
+      return new Promise(function(resolve, reject) {
+        setTimeout(resolve, duration)
+      })
+    }
+    async function changeColor(duration, color) {
+      cirlceDiv.style.backgroundColor = color
+      await sleep(duration)
+    }
+    async function main() {
+      while(true) {
+        await changeColor(3000, 'green')
+        await changeColor(1000, 'yellow')
+        await changeColor(2000, 'red')
+      }
+    }
+    // main()
+  </script>
+  <script>
+
+  </script>
+</body>
+</html>
