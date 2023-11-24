@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <!-- <router-view/> -->
-    <ComponentDemo></ComponentDemo>
+    <button @click="hideComponentDemo">隐藏</button>
+    <ComponentDemo v-if="visible"></ComponentDemo>
   </div>
 </template>
 
@@ -9,8 +10,18 @@
 import ComponentDemo from './components/ComponentsDemo/index.vue'
 export default {
   name: 'App',
+  data () {
+    return {
+      visible: true
+    }
+  },
   components: {
     ComponentDemo
+  },
+  methods: {
+    hideComponentDemo () {
+      this.visible = false
+    }
   }
 }
 </script>

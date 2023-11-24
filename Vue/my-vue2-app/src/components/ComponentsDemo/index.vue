@@ -27,6 +27,24 @@ export default {
       ]
     }
   },
+  created () {
+    console.log('index created')
+  },
+  mounted () {
+    console.log('index mounted')
+  },
+  beforeUpdate () {
+    console.log('index beforeUpdate')
+  },
+  updated () {
+    console.log('index updated')
+  },
+  beforeDestroy () {
+    console.log('index beforeDestory')
+  },
+  destroyed () {
+    console.log('index destoryed')
+  },
   methods: {
     addTitle (title) {
       this.lists.push({
