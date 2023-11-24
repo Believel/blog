@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import App from './App'
-import router from './router'
+// import router from './router'
 import './utils/eventBus'
-import './source/render'
+// import './source/render'
 // import './source/proxy2'
 // import './source/03computed'
 // import './source/04watch'
@@ -15,7 +15,7 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  router,
+  // router,
   render: h => h(App)
 })
 
