@@ -17,6 +17,8 @@ export default {
       // 调用父组件的事件
       this.$emit('add', this.title)
 
+      // 调用自定义事件 —— 通过插件注册挂载在Vue.prototype.$bus上
+      this.$bus.$emit('onAddTitle', this.title)
       this.title = ''
     }
   }
