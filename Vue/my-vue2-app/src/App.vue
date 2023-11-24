@@ -3,13 +3,15 @@
     <!-- <router-view/> -->
     <button @click="hideComponentDemo">隐藏</button>
     <!-- <ComponentDemo v-if="visible"></ComponentDemo> -->
-    <NextTick></NextTick>
+    <!-- <NextTick></NextTick> -->
+    <AdvanceUse></AdvanceUse>
   </div>
 </template>
 
 <script>
 // import ComponentDemo from './components/ComponentsDemo/index.vue'
-import NextTick from './components/AdvanceUse/NextTick.vue'
+// import NextTick from './components/AdvanceUse/NextTick.vue'
+import AdvanceUse from './components/AdvanceUse/index.vue'
 export default {
   name: 'App',
   data () {
@@ -19,7 +21,8 @@ export default {
   },
   components: {
     // ComponentDemo,
-    NextTick
+    // NextTick,
+    AdvanceUse
   },
   methods: {
     hideComponentDemo () {
