@@ -2,12 +2,14 @@
   <div id="app">
     <!-- <router-view/> -->
     <button @click="hideComponentDemo">隐藏</button>
-    <ComponentDemo v-if="visible"></ComponentDemo>
+    <!-- <ComponentDemo v-if="visible"></ComponentDemo> -->
+    <NextTick></NextTick>
   </div>
 </template>
 
 <script>
-import ComponentDemo from './components/ComponentsDemo/index.vue'
+// import ComponentDemo from './components/ComponentsDemo/index.vue'
+import NextTick from './components/AdvanceUse/NextTick.vue'
 export default {
   name: 'App',
   data () {
@@ -16,7 +18,8 @@ export default {
     }
   },
   components: {
-    ComponentDemo
+    // ComponentDemo,
+    NextTick
   },
   methods: {
     hideComponentDemo () {
