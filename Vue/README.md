@@ -29,3 +29,26 @@
 5. `nextTick`
   * 数据变化到DOM的重新渲染是一个异步过程，发生在下一个tick
   
+
+## Vue2 原理
+1. 组件化
+  * 数据驱动视图 MVVM
+2. 响应式
+  * 核心API - Object.defineProperty
+  * 如何实现响应式
+  * Object.defineProperty的一些缺点
+    * 深度监听，需要递归到底，一次性计算量大
+    * 无法监听新增属性/删除属性(Vue.set Vue.delete)
+    * 无法原生监听数组，需要特殊处理
+3. vdom 和 diff
+
+4. 模板编译
+5. 渲染过程
+6. 前端路由
+
+
+### Vue和react diff算法有哪些不一样的地方
+> 回答他们对于 children 的比较策略的不同
+
+* vue - 双端比较
+* react - 仅右移策略
