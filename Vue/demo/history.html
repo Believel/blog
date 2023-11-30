@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H5 history</title>
+</head>
+<body>
+  <button id="btn">change</button>
+
+  <script>
+    const btn = document.getElementById('btn')
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('hash:',location.pathname)
+    })
+    btn.addEventListener('click', () => {
+      const state = {
+        name: 'page1'
+      }
+      history.pushState(state, '', 'page1')
+    })
+    // 监听浏览器前进、后退
+    window.onpopstate = (event) => {
+      console.log('onpopstate', event.state, location.pathname)
+    }
+  </script>
+</body>
+</html>

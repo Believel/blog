@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue面试题</title>
+</head>
+<body>
+  <button id="btn">change</button>
+  <script>
+    const btn = document.getElementById('btn')
+    window.addEventListener('hashchange', function(event) {
+      console.log(event.oldURL, event.newURL)
+    })
+    // HTML页面加载完成，但是图片，js等资源还未加载
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('hash:',location.hash)
+    })
+    btn.addEventListener('click', function() {
+      location.href = '#/about'
+    })
+
+  </script>
+</body>
+</html>

@@ -69,7 +69,8 @@ class Vue {
 // demo
 let o = new Vue({
   data: {
-    test: 'I am test'
+    test: 'I am test',
+    name: 'zhangsan'
   }
 })
 o._data.test = 'hello,world'
