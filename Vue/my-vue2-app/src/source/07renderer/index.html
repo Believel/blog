@@ -103,7 +103,7 @@
           setElementText(container, n2.children)
         } else if (Array.isArray(n2.children)) {
           // 第二种情况：说明新节点时一组子节点
-          
+
           // 判断旧子节点是否也是一组子节点
           if (Array.isArray(n1.children)) {
             // 核心的 Diff 算法
@@ -234,7 +234,7 @@
               patchChildren(n1, n2, container)
             }
           }
-          
+
         }
       }
       // 渲染函数
@@ -324,8 +324,8 @@
             // 新的事件绑定函数不存在，且之前绑定的 invoker 存在，则移除绑定
             el.removeEventListener(name, invoker)
           }
-          
-          
+
+
 
         }
         // 设置 class属性，使用 className 性能更好些
@@ -362,37 +362,37 @@
       }
       return res.trim();
     }
-    // const vnode = {
-    //   type: 'div',
-    //   props: {
-    //     id: 'foo',
-    //     class: normalizeClass({
-    //       foo: true,
-    //       bar: true
-    //     })
-    //   },
-    //   children: [
-    //     {
-    //       type: 'p',
-    //       props: {
-    //         // class: 'foo bar'
-    //         class: normalizeClass([
-    //           'foo bar',
-    //           { baz: true }
-    //         ])
+    const vnode = {
+      type: 'div',
+      props: {
+        id: 'foo',
+        class: normalizeClass({
+          foo: true,
+          bar: true
+        })
+      },
+      children: [
+        {
+          type: 'p',
+          props: {
+            // class: 'foo bar'
+            class: normalizeClass([
+              'foo bar',
+              { baz: true }
+            ])
 
-    //       },
-    //       children: 'hello world'
-    //     }
-    //   ]
-    // }
-    // const appElement = document.getElementById('root')
-    // // 首次渲染
-    // renderer.render(vnode, appElement)
-    // // 第二次渲染
-    // setTimeout(() => {
-    //   renderer.render(null, appElement)
-    // }, 2000)
+          },
+          children: 'hello world'
+        }
+      ]
+    }
+    const appElement = document.getElementById('root')
+    // 首次渲染
+    renderer.render(vnode, appElement)
+    // 第二次渲染
+    setTimeout(() => {
+      renderer.render(null, appElement)
+    }, 2000)
 
     // 2. 区分 vnode 类型
     // const vnode = {
@@ -446,56 +446,56 @@
     // })
 
     // 5 diff 算法
-    const vnode1 = {
-      type: 'div',
-      children: [
-        {
-          type: 'p',
-          children: 'p1',
-          key: '1'
-        },
-        {
-          type: 'p',
-          children: 'p2',
-          key: '2'
-        },
-        {
-          type: 'p',
-          children: 'p3',
-          key: '3'
-        }
-      ]
-    }
-    const vnode2 = {
-      type: 'div',
-      children: [
-        {
-          type: 'p',
-          children: 'p3',
-          key: '3'
-        },
-        {
-          type: 'p',
-          children: 'p1',
-          key: '1'
-        },
-        {
-          type: 'p',
-          children: 'p4',
-          key: '4'
-        },
-        {
-          type: 'p',
-          children: 'p2',
-          key: '2'
-        }
-      ]
-    }
+    // const vnode1 = {
+    //   type: 'div',
+    //   children: [
+    //     {
+    //       type: 'p',
+    //       children: 'p1',
+    //       key: '1'
+    //     },
+    //     {
+    //       type: 'p',
+    //       children: 'p2',
+    //       key: '2'
+    //     },
+    //     {
+    //       type: 'p',
+    //       children: 'p3',
+    //       key: '3'
+    //     }
+    //   ]
+    // }
+    // const vnode2 = {
+    //   type: 'div',
+    //   children: [
+    //     {
+    //       type: 'p',
+    //       children: 'p3',
+    //       key: '3'
+    //     },
+    //     {
+    //       type: 'p',
+    //       children: 'p1',
+    //       key: '1'
+    //     },
+    //     {
+    //       type: 'p',
+    //       children: 'p4',
+    //       key: '4'
+    //     },
+    //     {
+    //       type: 'p',
+    //       children: 'p2',
+    //       key: '2'
+    //     }
+    //   ]
+    // }
 
-    renderer.render(vnode1, document.getElementById('root'))
-    setTimeout(() => {
-      renderer.render(vnode2, document.getElementById('root'))
-    }, 2000)
+    // renderer.render(vnode1, document.getElementById('root'))
+    // setTimeout(() => {
+    //   renderer.render(vnode2, document.getElementById('root'))
+    // }, 2000)
 
 
   </script>

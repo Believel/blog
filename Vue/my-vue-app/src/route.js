@@ -3,6 +3,7 @@ import basePage from './views/basePage.vue'
 import depthPage from './views/depthPage.vue'
 import Animation from './components/Animation.vue'
 import piniaPage from '@/views/piniaPage.vue'
+import lifeCycle from '@/views/lifeCycle.vue'
 
 
 const routes = [
@@ -21,6 +22,10 @@ const routes = [
   {
     path: '/pinia',
     component: piniaPage
+  },
+  {
+    path: '/cycle',
+    component: lifeCycle
   }
 ]
 

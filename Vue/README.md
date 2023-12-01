@@ -1,4 +1,4 @@
-# Vue
+# Vue2
 
 ## Vue中的重用逻辑
 1. 组件: 主要关注构建视图区块
@@ -109,3 +109,49 @@
 
 * vue - 双端比较
 * react - 仅右移策略
+
+
+# Vue3
+1. vue3 比 vue2 有什么优势
+  * 性能更好
+  * 体积更小
+  * 更好的ts支持
+  * 更好的代码组织
+  * 更好的逻辑抽离
+  * 更多新功能
+2. 描述 Vue3 生命周期
+  * option API
+    * beforeCreate
+    * created
+    * beforeMount
+    * mounted
+    * beforeUpdate
+    * updated
+    * beforeUnmount (注意：vue2是 beforeDestroy)
+    * unmounted （注意：vue2是 destroyed）
+  * composition API
+    * onMounted
+    * onBeforeMount
+    * onBeforeUpdate
+    * onUpdated
+    * onUnmounted
+    * onBeforeUnmount
+3. 如何看待 Composition API 和 Options API
+
+4. 如何理解 ref toRef 和 toRefs
+
+5. Vue3升级了哪些重要的功能
+
+6. Composition API 如何实现代码逻辑复用
+
+7. Vue3 如何实现响应式
+
+8. watch 和 watchEffect 的区别是什么
+
+9. setup 中如何获取组件实例
+
+10. Vue3 为何比 Vue2快
+
+11. Vite 是什么
+
+12. Composition API 和 React Hooks 的对比
