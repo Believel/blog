@@ -137,8 +137,23 @@
     * onUnmounted
     * onBeforeUnmount
 3. 如何看待 Composition API 和 Options API
+  * Composition API带来了什么?
+    * 更好的代码组织
+    * 更好的逻辑复用
+    * 更好的类型推导
+  * 如何选择?
+    * 不建议共用，会引起混乱
+    * 小型项目，业务逻辑简单，用Options API
+    * 中大型项目、逻辑复杂项目，用 Composition API
+  * 别误解 Composition API
+    * Composition API 属于高阶技巧，不是基础必会
+    * Composition API 是为了解决复杂业务逻辑而设计
+    * Composition API 就像Hooks在React中地位
 
 4. 如何理解 ref toRef 和 toRefs
+  * 是什么
+  * 最佳使用方式
+  * 深入理解
 
 5. Vue3升级了哪些重要的功能
 

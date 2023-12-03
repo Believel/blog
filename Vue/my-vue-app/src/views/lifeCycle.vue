@@ -1,6 +1,10 @@
 <script>
 import { onMounted, onBeforeMount, onBeforeUpdate, onUpdated, onUnmounted, onBeforeUnmount } from 'vue'
+import Ref from './Ref.vue'
 export default {
+  components: {
+    Ref
+  },
   // 选项式生命周期 - option API
  beforeCreate() {
   console.log('beforeCreate')
@@ -55,6 +59,6 @@ export default {
 <template>
   <div>
     <h1>生命周期</h1>
-
+    <Ref></Ref>
   </div>
 </template>
