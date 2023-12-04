@@ -234,8 +234,12 @@
   * 在 setup 中引用 useXXX 函数
 
 7. Vue3 如何实现响应式
+  * Proxy
 
 8. watch 和 watchEffect 的区别是什么
+  * 两者都可监听 data 属性变化
+  * watch 需要明确监听哪个属性
+  * watchEffect 会根据其中的属性，自动监听其变化
 
 9. setup 中如何获取组件实例
 

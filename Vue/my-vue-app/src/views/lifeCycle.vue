@@ -1,9 +1,11 @@
 <script>
 import { onMounted, onBeforeMount, onBeforeUpdate, onUpdated, onUnmounted, onBeforeUnmount } from 'vue'
-import Ref from './Ref.vue'
+// import Ref from './Ref.vue'
+import Watch from './watch.vue'
 export default {
   components: {
-    Ref
+    // Ref,
+    Watch
   },
   // 选项式生命周期 - option API
  beforeCreate() {
@@ -59,6 +61,7 @@ export default {
 <template>
   <div>
     <h1>生命周期</h1>
-    <Ref></Ref>
+    <!-- <Ref></Ref> -->
+    <Watch></Watch>
   </div>
 </template>
