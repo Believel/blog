@@ -242,9 +242,54 @@
   * watchEffect 会根据其中的属性，自动监听其变化
 
 9. setup 中如何获取组件实例
+```js
+import { getCurrentInstance, onMounted } from 'vue';
+export default {
+  name: 'getinstance',
+  data() {
+    return {
+      x: 1,
+      y: 2
+    }
+  },
+  setup() {
+    onMounted(() => {
+      // setup中获取组件实例
+      const instance = getCurrentInstance()
+
+      console.log(instance.data.x)
+    })
+  }
+}
+```
 
 10. Vue3 为何比 Vue2快
+  * proxy响应式
+  * patchFlag
+    * 编译模版时，动态节点做标记
+    * 标记，分为不同的类型，如TEXT PROPS
+    * diff 算法时，可以区分静态节点，以及不同类型的动态节点
+  * hoistStatic
+    * 将静态节点的定义，提升到父作用域，缓存起来
+    * 多个相邻的静态节点，会被合并起来
+    * 典型的拿空间换时间的优化策略
+  * cacheHandler
+    * 缓存事件
+  * SSR优化
+    * 静态节点直接输出，绕过了vdom
+    * 动态节点，还是需要动态渲染
+  * tree-shaking
+    * 编译时，根据不同的情况，引入不同的API
 
 11. Vite 是什么
+  * 一个前端的打包工具，Vue 作者发起的项目
+  * 借助 Vue 的影响力，发展很快，和 webpack 竞争
+  * 为何启动快？
+    * 开发环境使用 ES6 Module,无需打包——非常快
+    * 生产环境使用 rollup, 并不会快很多
 
 12. Composition API 和 React Hooks 的对比
+  * 前者 setup 只会被调用一次，而后者函数会被多次调用
+  * 前者无需使用 useMemo useCallback,因为setup只调用一次
+  * 前者无需顾虑调用顺序，而后者需要保证hooks的顺序一致
+  * 前者 reactive + ref 比后者 useState,要难理解
