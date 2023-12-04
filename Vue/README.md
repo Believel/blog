@@ -154,10 +154,84 @@
   * 是什么
   * 最佳使用方式
   * 深入理解
+    * 为何需要 `ref`?
+      * 返回值类型，会丢失响应式
+      * 如在setup、computed、合成函数、都有可能返回值类型
+      * Vue如不定义ref,用户将自造ref,反而会混乱
+    * 为何需要 `.value`?
+      * ref 是一个对象（不丢失响应式），value存储值
+      * 通过.value 属性的get和set实现响应式
+      * 用于模版、reactive时，不需要.value,其他情况都需要
+    * 为何需要 `toRef` `toRefs`?
+      * 初衷：不丢失响应式的情况下，把对象数据分散/扩散
+      * 前提：针对的是响应式对象(reactive封装的)非普通对象
+      * 注意：不创造响应式，而是延续响应式
 
 5. Vue3升级了哪些重要的功能
+  * createApp
+  ```js
+  // vue2
+  const app = new Vue({/* 选项 */})
+  Vue.use()
+  Vue.mixin()
+  Vue.component()
+  Vue,.directive()
+  // vue3
+  const app = Vue.createApp(/* 选项 */)
+  app.use()
+  app.mixin()
+  app.component()
+  app.directive()
+  ```
+  * emits属性
+  * 生命周期
+  * 多事件
+  ```js
+  // 在methods里定义 one two 两个函数
+  <button @click="one(),two($event)">
+  submit
+  </button>
+  ```
+  * Fragement
+  * 移除.sync
+  ```js
+  // vue2
+  <MyComponent :title.sync="title" />
+  // vue3
+  <MyComponent v-model:title="title"/>
+  ```
+  * 异步组件的写法
+  ```js
+  // vue2
+  new Vue({
+    components: {
+      'my-component': () => import('./my-async-component.vue')
+    }
+  })
+
+  // vue3
+  import { createApp, defineAsyncComponent } from 'vue'
+  createApp({
+    components: {
+      AsyncComponent: defineAsyncComponent(() => import('./my-async-component.vue'))
+    }
+  })
+  ```
+  * 移除filter
+  * Teleport
+  * Suspense
+  * Composition API
+    * reactive
+    * ref相关
+    * readonly
+    * watch 和 watchEffect
+    * setup
+    * 生命周期钩子函数
 
 6. Composition API 如何实现代码逻辑复用
+  * 抽离逻辑代码到一个函数
+  * 函数命名约定为 useXXX 格式
+  * 在 setup 中引用 useXXX 函数
 
 7. Vue3 如何实现响应式
 

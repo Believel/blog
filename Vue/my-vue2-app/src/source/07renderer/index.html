@@ -362,43 +362,43 @@
       }
       return res.trim();
     }
-    const vnode = {
-      type: 'div',
-      props: {
-        id: 'foo',
-        class: normalizeClass({
-          foo: true,
-          bar: true
-        })
-      },
-      children: [
-        {
-          type: 'p',
-          props: {
-            // class: 'foo bar'
-            class: normalizeClass([
-              'foo bar',
-              { baz: true }
-            ])
+    // const vnode = {
+    //   type: 'div',
+    //   props: {
+    //     id: 'foo',
+    //     class: normalizeClass({
+    //       foo: true,
+    //       bar: true
+    //     })
+    //   },
+    //   children: [
+    //     {
+    //       type: 'p',
+    //       props: {
+    //         // class: 'foo bar'
+    //         class: normalizeClass([
+    //           'foo bar',
+    //           { baz: true }
+    //         ])
 
-          },
-          children: 'hello world'
-        }
-      ]
-    }
-    const appElement = document.getElementById('root')
-    // 首次渲染
-    renderer.render(vnode, appElement)
-    // 第二次渲染
-    setTimeout(() => {
-      renderer.render(null, appElement)
-    }, 2000)
+    //       },
+    //       children: 'hello world'
+    //     }
+    //   ]
+    // }
+    // const appElement = document.getElementById('root')
+    // // 首次渲染
+    // renderer.render(vnode, appElement)
+    // // 第二次渲染
+    // setTimeout(() => {
+    //   renderer.render(null, appElement)
+    // }, 2000)
 
     // 2. 区分 vnode 类型
-    // const vnode = {
-    //   type: 'p'
-    // }
-    // renderer.render(vnode, document.getElementById('root'))
+    const vnode = {
+      type: 'p'
+    }
+    renderer.render(vnode, document.getElementById('root'))
     // const vnode2 = {
     //   type: 'input'
     // }
