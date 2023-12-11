@@ -61,7 +61,7 @@ export default class Counter extends React.Component<Props, State> {
   }
   constructor(props: Props ) {
     // state的初始化工作或者给自定义方法绑定this
-    console.log('constructor')
+    console.log('parent constructor')
     super(props)
   }
   readonly state = {
@@ -91,14 +91,14 @@ export default class Counter extends React.Component<Props, State> {
   }
   componentDidMount() {
     // 组件挂载完成以后， 也就是DOM元素已经插入页面后调用
-    console.log('3. componentDidMount 组件挂载完成')
+    console.log('parent componentDidMount 组件挂载完成')
   }
   componentWillUnmount() {
     //  组件对应的DOM元素从页面中删除之前调用。
-    console.log('componentWillUnmount 组件卸载')
+    console.log('parent componentWillUnmount 组件卸载')
   }
   render() {
-    console.log('2. render 渲染')
+    console.log('parent render 渲染')
     return (
       <div>
         父计数器：{this.state.count}

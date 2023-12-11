@@ -23,3 +23,45 @@ Concurrent调度模式是一种支持`同时执行多个更新任务`的调度�
 * 调度中优先级
 * 如何实现优先级插队
 * 调度中的核心参数：expirationTime(过期时间)
+
+# React 面试题
+1. React组件如何通讯
+  * 父子之间 —— 通过props传递属性和方法
+  * context —— 更深组件直接共享数据
+  * redux
+2. JSX本质是什么
+  * `JavaScript`的语法扩展
+3. context 是什么，有何用途
+
+4. shouldComponentUpdate 的用途
+
+5. 描述 redux 单项数据流
+
+6. react16.3新增的生命周期，在V17中删除了哪些生命周期
+  * componentWillMount
+  * componentWillReceiveProps
+  * componentWillUpdate
+
+7. setState
+  * 不可变值
+  * 可能是异步更新
+    * React<=17
+      * React 组件事件：异步更新 + 合并 state
+      * DOM事件、setTimeout: 同步更新 + 不合并 state
+    * React 18
+      * React 组件事件：异步更新 + 合并 state
+      * DOM事件、setTimeout: 异步更新 + 合并 state
+      * Automatic Batching 自动批处理
+      * 若想变成同步更新：
+        * `ReactDOM.flushSync(() => {})`
+  * 可能会被合并
+    * 传入对象，会被合并
+    * 传入函数，不会被合并
+8. 函数组件
+  * 纯函数，输入props,输出JSX
+  * 没有实例，没有生命周期，没有state
+  * 不能扩展其他方法
+9. 非受控组件
+  * ref
+  * 当必须操作DOM的时候使用，比如上传文件，富文本编辑器等等
+

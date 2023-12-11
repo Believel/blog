@@ -10,7 +10,7 @@ class StateDemo extends React.Component<any, S>{
     }
   }
   // increase = () => {
-    // 传入对象
+    // 传入对象 会被合并
     // this.setState({
     //   count: this.state.count + 1
     // })
@@ -21,7 +21,7 @@ class StateDemo extends React.Component<any, S>{
     //   count: this.state.count + 1
     // })
 
-    // 传入函数
+    // 传入函数 不会被合并
 
     // this.setState(prevState => {
     //   return {

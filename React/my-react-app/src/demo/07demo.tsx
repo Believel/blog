@@ -52,9 +52,9 @@ class Demo extends React.Component<any, S> {
   }
   increase = () => {
     // 传入对象
-    this.setState({
-      count: this.state.count + 1
-    })
+    // this.setState({
+    //   count: this.state.count + 1
+    // })
     // this.setState({
     //   count: this.state.count + 1
     // })

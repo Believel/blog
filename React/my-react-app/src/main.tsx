@@ -19,14 +19,14 @@ import { Provider } from './demo/06ReduxDemo/source/react-redux'
 
 
 // redux-saga case
-import './demo/10reduxSagaDemo'
+// import './demo/10reduxSagaDemo'
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
-    <Provider store={store}>
+    {/* <Provider store={store}>
       <ReduxDemoApp />
-    </Provider>
+    </Provider> */}
   </React.StrictMode>,
   document.getElementById('root')
 )
