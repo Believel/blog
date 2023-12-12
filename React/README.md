@@ -79,3 +79,19 @@ Concurrent调度模式是一种支持`同时执行多个更新任务`的调度�
   * import()
   * React.lazy
   * React.Suspense
+13. 性能优化
+  * shouldComponentUpdate(简称SCU)
+    * SCU 默认返回 true, 即React默认重新渲染所有子组件
+    * 必须配合“不可变值”一起使用
+  * PureComponent 和 React.memo
+    * PureComponent 中 SCU 中实现了浅比较
+    * memo, 函数组件中的 PureComponent
+  * 不可变值 immutable.js
+14. 组件复用
+  * 高阶组件 HOC
+    * 一个函数中接收一个组件，返回一个新的组件，并在新组件中做公共逻辑抽离
+  * render props
+    * 给公用组件添加一个属性，属性值是函数组件
+  * HOC vs render props
+    * HOC: 模式简单，但会增加组件层级
+    * render props: 代码简洁，学习成本较高
