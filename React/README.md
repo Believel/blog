@@ -64,4 +64,18 @@ Concurrent调度模式是一种支持`同时执行多个更新任务`的调度�
 9. 非受控组件
   * ref
   * 当必须操作DOM的时候使用，比如上传文件，富文本编辑器等等
-
+10. Portals
+  * 组件默认会按照既定层次嵌套渲染
+  * 如何让组件渲染到父组件以外？
+  * 使用场景：
+    * overflow: hidden
+    * 父组件 z-index 值太小
+    * fixed 需要放在 body 第一层级
+11. context
+  * 公共信息（语言、主题）如何传递给每个组件？
+  * 用 props 太繁琐
+  * 用 redux 小题大做
+12. 异步组件
+  * import()
+  * React.lazy
+  * React.Suspense
