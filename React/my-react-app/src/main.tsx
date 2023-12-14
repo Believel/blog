@@ -23,10 +23,10 @@ import { Provider } from './demo/06ReduxDemo/source/react-redux'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
-    {/* <Provider store={store}>
+    {/* <App /> */}
+    <Provider store={store}>
       <ReduxDemoApp />
-    </Provider> */}
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 )

@@ -21,6 +21,7 @@ const thunk = ({ dispatch, getState } : any) => (next: any) => (action: any) => 
   if (typeof action === 'function') {
     action(dispatch, getState)
   } else {
+    // 旧的dispatch
     next(action)
   }
 }

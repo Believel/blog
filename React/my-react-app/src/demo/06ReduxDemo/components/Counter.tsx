@@ -28,9 +28,9 @@ const Counter = (props: Props) => {
     <>
       <h4>案例2：计数器</h4>
       <p>{counter}</p>
-      <Button onClick={incrementCounter} style={{marginRight: '10px'}}>+</Button>
-      <Button onClick={add} style={{marginRight: '10px'}}>hook +</Button>
-      <Button onClick={decrementCounter} style={{marginRight: '10px'}}>-</Button>
+      <Button onClick={incrementCounter} style={{marginRight: '10px'}}>+1</Button>
+      <Button onClick={add} style={{marginRight: '10px'}}>hook +2</Button>
+      <Button onClick={decrementCounter} style={{marginRight: '10px'}}>-1</Button>
       <Button onClick={() => {
         setTimeout(incrementCounter, 1000)
       }} style={{marginRight: '10px'}}>过一秒后+</Button>

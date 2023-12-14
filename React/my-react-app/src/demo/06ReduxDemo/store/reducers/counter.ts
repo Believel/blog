@@ -9,7 +9,7 @@ export const counterReducer = (state: State, action: any) => {
     case types.INCREMENT:
       return { ...state, number: state.number + action.payload }
     case types.DECREMENT:
-      return { ...state, number: state.number + action.payload }
+      return { ...state, number: state.number - action.payload }
     case types.THUNKINCREMENT:
       return { ...state, number: state.number + action.payload }
     default:
