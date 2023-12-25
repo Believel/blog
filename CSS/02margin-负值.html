@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>margin 负值</title>
+  <style type="text/css">
+    body {
+      margin: 20px;
+    }
+
+    .float-left {
+      float: left;
+    }
+    .clearfix:after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+    .container {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    .container .item {
+      width: 100px;
+      height: 100px;
+    }
+
+    .container .border-blue {
+      border: 1px solid blue;
+    }
+
+    .container .border-red {
+      border: 1px solid red;
+    }
+
+  </style>
+</head>
+<body>
+  <!--
+    * margin-top 和 margin-left负值，元素向上、向左移动
+    * margin-right 负值，右侧元素左移，自身不受影响
+    * margin-bottom 负值，下方元素上移，自身不受影响
+  -->
+  <p>用于测试 margin top bottom 的负值情况</p>
+  <div class="container">
+    <div class="item border-blue" style="margin-bottom: -20px;">
+      this is item1
+    </div>
+    <div class="item border-red">
+      this is item2
+    </div>
+  </div>
+
+  <p>用于测试 margin left right 的负值情况</p>
+  <div class="container clearfix">
+    <div class="item border-blue float-left" style="margin-right: -20px;">
+      this is item3
+    </div>
+    <div class="item border-red float-left">
+      this is item4
+    </div>
+  </div>
+</body>
+</html>
