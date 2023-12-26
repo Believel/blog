@@ -72,9 +72,39 @@
   * 6.1 flex实现一个三点的色子
 
 ## 定位
+1. absolute 和 relative 分别依据什么定位？
+  * relative 自身定位
+  * absolute 依据最近一层的定位元素定位
+2. 居中对齐的实现方式
+  * 水平居中
+    * inline 元素：`text-align: center`
+    * block 元素：`margin: auto`
+    * absolute 元素：`left: 50% + margin-left负值`
+
+  * 垂直居中
+    * inline 元素：`line-height值等于height值`
+    * absolute 元素：`top: 50% + margin-top负值`
+    * absolute 元素: `transform(-50%, -50%)`
+    * absolute 元素：`top,left,bottom,right=0 + margin: auto`
 
 ## 图文样式
+1. line-height 如何继承
 
 ## 响应式
+1. rem 是什么
+  * rem 是一个长度单位，
+    * px 是绝对长度单位，最常用
+    * em 是相对长度单位，相对于父元素，不常用
+    * rem 是相对长度单位，相对于根元素，常用于响应式布局
+2. vw/vh
+  ```js
+  window.innerHeight === 100vh
+
+  window.innerWidth === 100vw
+  ```
+2. 响应式的常见方式
+  * media-query,根据不同的屏幕宽度设置根元素font-size
+  * rem,基于根元素的相对单位
+
 
 ## CSS3

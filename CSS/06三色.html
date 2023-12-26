@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三色</title>
+  <style>
+    .box {
+      width: 200px;
+      height: 200px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      /* flex 布局 */
+      display: flex;
+      /* 两端对齐 */
+      justify-content: space-between;
+    }
+    .item {
+      display: block;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #666;
+    }
+    .item:nth-child(2) {
+      /* 第二项居中对齐 */
+      align-self: center;
+    }
+
+    .item:nth-child(3) {
+      /* 第三项尾对齐 */
+      align-self: flex-end;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="box">
+    <span class="item"></span>
+    <span class="item"></span>
+    <span class="item"></span>
+  </div>
+</body>
+</html>
