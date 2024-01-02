@@ -122,3 +122,5 @@ class Child extends Parent {
 
 const c1 = new Child('zpp', '21')
 c1.getName()
+
+console.log(typeof Parent) // function 函数

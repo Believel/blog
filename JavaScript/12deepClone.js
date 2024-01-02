@@ -40,7 +40,7 @@ for (let i in  arr) {
 // getLength
 
 for (let item of arr) {
-  // console.log(item) 
+  // console.log(item)
 }
 // a
 // b
@@ -89,20 +89,27 @@ var data = {
         { name: "summer",  sex: "woman"},
         { name: "daWen",   sex: "woman"},
         { name: "yang",    sex: "man" }  ], 
-  work: { 
-          time: "2019", 
+  work: {
+          time: "2019",
           project: { name: "test",obtain: ["css", "html", "js"]} 
-        }, 
+        },
   play: function() {    console.log("玩滑板");  }
 }
 
+// 判断是否是对象
 const isObj = val =>  typeof val === 'object' && val !== null
+
+// 判断是否是数组
+// 方式1： Array.isArray(newObj)
+// 方式2：newObj instanceof Array
+
 function deepClone(obj) {
   if (!isObj(obj) ) {
-    throw new TypeError('传入的参数不是对象')
+    // throw new TypeError('传入的参数不是对象')
+    return obj
   }
   let newObj = {}
-
+  // 遍历对象
   Object.keys(obj).forEach(item => {
     const currentValue = obj[item]
     if (!isObj(currentValue)) {
@@ -121,5 +128,7 @@ function deepClone(obj) {
   return newObj
 }
 
-const newObj =  deepClone(data)
-// console.log('deepClone', newObj )
+const newObj =  deepClone([1,2,3])
+console.log('deepClone', newObj )
+
+// obj.hasOwnProperty 判断是否是自身对象
