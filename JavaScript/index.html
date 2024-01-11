@@ -23,14 +23,17 @@
 <body>
   <img src="./diaoyu0.png" class="img">
   <h4> Hello JavaScript!</h4>
-  <a href="#">instanceof</a>
-  <a href="#">this</a>
-  <a href="#">Promise</a>
-  <a href="#">Regex</a>
-  <a href="#">new</a>
-  <a href="#">deepClone</a>
-  <a href="#">debounce</a>
-  <a href="#">throttle</a>
+  <div id="box">
+    <a href="#">instanceof</a>
+    <a href="#">this</a>
+    <a href="#">Promise</a>
+    <a href="#">Regex</a>
+    <a href="#">new</a>
+    <a href="#">deepClone</a>
+    <a href="#">debounce</a>
+    <a href="#">throttle</a>
+    <button>更多。。。</button>
+  </div>
   <!-- <script src="./01instanceof.js"></script> -->
   <!-- <script src="./02this.js"></script> -->
   <!-- <script src="./04promise.js"></script> -->
@@ -42,7 +45,7 @@
   <!-- <script src="./13extend.js"></script> -->
   <!-- <script src="./17Array.js"></script> -->
   <!-- <script src="./temp.js"></script> -->
-  <script src="./19macro-micro.js"></script>
+  <!-- <script src="./19macro-micro.js"></script> -->
   <ul id="ul"></ul>
   <script>
     // DNS: 是域名系统（Domain Name System）,是因特网的一项核心服务，它作为可以将域名和IP地址相互映射的一个分布式数据库，能够使人更方便的访问互联网，而不用去记住能够被机器直接读取的IP数串。
@@ -163,23 +166,81 @@
 
   // 100 400 300 200
 
-  async function async1() {
-    console.log('async1 start') // 2
-    await async2() // undefined
-    // await 的后面，都可以看做是 callback 里面的内容，即异步
-    // 类似， event loop, setTimeout(cb1)
-    // setTimeout(() => { console.log('async1 end')})
-    // Promise.resolve().then(() => { console.log('async1 end')})
-    console.log('async1 end') // 5
-  }
+  // async function async1() {
+  //   console.log('async1 start') // 2
+  //   await async2() // undefined
+  //   // await 的后面，都可以看做是 callback 里面的内容，即异步
+  //   // 类似， event loop, setTimeout(cb1)
+  //   // setTimeout(() => { console.log('async1 end')})
+  //   // Promise.resolve().then(() => { console.log('async1 end')})
+  //   console.log('async1 end') // 5
+  // }
 
-  async function async2() {
-    console.log('async2') // 3
-  }
+  // async function async2() {
+  //   console.log('async2') // 3
+  // }
 
-  console.log('script start') // 1
-  async1()
-  console.log('script end') // 4
+  // console.log('script start') // 1
+  // async1()
+  // console.log('script end') // 4
+
+
+
+  // DOM 操作性能优化
+  // 减少DOM操作：将多次 DOM 操作变成一次操作
+  // const fragment = document.createDocumentFragment()
+
+  // for(let i = 0; i < 10; i++) {
+  //   const a = document.createElement('a')
+  //   a.innerHTML = i
+  //   fragment.appendChild(a)
+  // }
+
+  // document.body.appendChild(fragment)
+
+
+
+  // const boxEle = document.getElementById('box')
+  // // 事件代理：也就是利用的冒泡
+  // boxEle.addEventListener('click', event => {
+  //   const target = event.target
+  //   if (target.nodeName === 'A') {
+  //     alert(target.innerHTML)
+  //   }
+  //  })
+
+
+  //  function bindEvent(elem, type, selector, fn) {
+  //   if (fn == null) {
+  //     fn = selector
+  //     selector = null
+  //   }
+
+  //   elem.addEventListener(type, event => {
+  //     const target = event.target
+  //     if (selector) {
+  //       // 代理绑定
+  //       if (target.matches(selector)) {
+  //         fn.call(target, event)
+  //       }
+  //     } else {
+  //       // 普通绑定
+  //       fn.call(target, event)
+  //     }
+  //   })
+  //  }
+
+  // // get请求
+  // const xhr = new XMLHttpRequest()
+  // xhr.open('GET', '/api', false)
+  // xhr.onreadystatechange = function() {
+  //   if (xhr.readyState === 4) {
+  //     if (xhr.status === 200) {
+  //       alert(xhr.responseText)
+  //     }
+  //   }
+  // }
+  // xhr.send(null)
 
 
 

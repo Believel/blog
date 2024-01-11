@@ -236,3 +236,124 @@ function loadImg(src) {
 15. 前端使用异步的场景有哪些
   * 网络请求，如ajax图片加载
   * 定时任务，如setTimeout
+17. DOM操作
+  1. 编写一个通用的事件监听函数
+  ```js
+   function bindEvent(elem, type, selector, fn) {
+    if (fn == null) {
+      fn = selector
+      selector = null
+    }
+
+    elem.addEventListener(type, event => {
+      const target = event.target
+      if (selector) {
+        // 代理绑定
+        if (target.matches(selector)) {
+          fn.call(target, event)
+        }
+      } else {
+        // 普通绑定
+        fn.call(target, event)
+      }
+    })
+   }
+  ```
+  2. 描述事件冒泡的流程
+    * 基于DOM树形结构
+    * 事件会顺着触发元素往上冒泡
+    * 应用场景：事件代理
+  3. 无限下拉的图片列表，如何监听每个图片的点击？
+    * 事件代理
+    * 用`e.target`获取触发元素
+    * 用`matches`来判断是否是触发元素
+
+  4. 事件绑定、事件冒泡、事件代理
+  ```js
+  // 事件绑定
+  const btn = document.getElementById('btn')
+  btn.addEventListener('click', event => {
+    console.log('clicked')
+  })
+
+  // 事件代理
+    // 代码简洁、减少浏览器内存占用、但是，不要滥用
+  ```
+  5. ajax 的核心API - XMLHttpRequest
+  ```js
+  // get请求
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', '/api', false)
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          alert(xhr.responseText)
+        }
+      }
+    }
+    xhr.send(null)
+  ```
+
+  6. 什么是浏览器的同源策略
+    * 同源策略
+      * ajax请求时，浏览器要求当前网页和server必须同源（安全）
+      * 同源：协议、域名、端口，三者必须一致
+      * 加载图片css js可无视同源策略
+        * <img src=跨域的图片地址/>
+        * <link href=跨域的css地址/>
+        * <script src=跨域的js地址></script>
+        * <img/>可用于统计打点，可使用第三方统计服务
+        * <link/><script>可使用CDN，CDN一般都是外域
+        * <script></script>可使用JSONP
+    * 跨域
+      * 所有的跨域，都必须经过server端允许和配合
+      * 未经server端允许就实现跨域，说明浏览器有漏洞，危险信号
+
+  7. 实现跨域的常见方式 - jsonp 和 CORS
+    * jsonp
+    ```js
+    // 写好自己提前定义的callback名字
+    window.jsonpcallback = function(data) {
+      console.log(data)
+    }
+    <script src="http://127.0.0.1:9001/jsonp.js?callback=jsonpcallback"></script>
+
+    // jsonp.js
+    jsonpcallback(
+      {
+        name: 'zhangsan'
+      }
+    )
+    ```
+    * CORS
+    ```js
+    // 服务器设置 http header
+    response.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080')
+    response.setHeader('Access-Control-Allow-Headers', 'X-Requested-With')
+    response.setHeader('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
+    // 设置接收跨域的 cookie
+    response.setHeader('Access-Control-Allow-Credentials', 'true')
+    ```
+
+  8. 实际项目中 ajax 的常用插件
+    * jQuery
+    * Fetch
+    * axios
+
+  9. 如何理解 `cookie`
+    * 本身用于浏览器和server通讯
+    * 被“借用”到本地存储来
+    * 可用`document.cookie=''`来修改
+    * `cookie` 的缺点：
+      * 存储大小，最大4kB
+      * http请求时需要发送到服务端，增加请求数据量
+      * 只能用`document.cookie=''`来修改，太过简陋
+
+  10. `localStorage` `SessionStorage` 和 `cookie` 的区别
+    * `localStorage` 和 `sessionStorage`
+      * `HTML5`专门为存储而设计，最大可存5M
+      * API简单易用`setItem` `getItem`
+      * 不会随着`http`请求被发送出去
+      * 区别
+        * `localStorage`数据会永久存储，除非代码或手动删除
+        * `sessionStorage`数据只存在当前会话，浏览器关闭则清空

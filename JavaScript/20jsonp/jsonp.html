@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jsonp</title>
+</head>
+<body>
+  <p>一段文字</p>
+  <script>
+    // 写好自己提前定义的callback名字
+    window.jsonpcallback = function(data) {
+      console.log(data)
+    }
+
+    // $.ajax({
+    //   url: 'http://localhost:8882/x-origin.json',
+    //   dataType: 'jsonp',
+    //   jsonpCallback: 'callback',
+    //   success: function (data) {
+    //     console.log(data)
+    //   }
+    // })
+  </script>
+  <script src="http://127.0.0.1:9001/jsonp.js?callback=jsonpcallback"></script>
+
+  
+</body>
+</html>
