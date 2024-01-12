@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>load 和 DOMContentLoaded 区别</title>
+</head>
+<body>
+  <p>一段文字 1</p>
+  <p>一段文字 2</p>
+  <p>一段文字 3</p>
+  <img id="img1" src="https://gimg3.baidu.com/search/src=http%3A%2F%2Fpics4.baidu.com%2Ffeed%2F0e2442a7d933c8952fbb4dc67bc811fd800200ab.jpeg%40f_auto%3Ftoken%3Dc4ed37d1ddfdcc21436c6722e66c6b05&refer=http%3A%2F%2Fwww.baidu.com&app=2021&size=f360,240&n=0&g=0n&q=75&fmt=auto?sec=1705165200&t=e6a98a17f827690383f4e1e657ac73c2" alt="">
+  <script>
+    const img1 = document.getElementById('img1')
+    img1.onload = function() {
+      console.log('img loaded')
+    }
+    window.addEventListener('load', function() {
+      console.log('window loaded')
+    })
+
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('dom content loaded')
+    })
+  </script>
+</body>
+</html>

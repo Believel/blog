@@ -445,3 +445,35 @@ function loadImg(src) {
         * 强制缓存失效，协商缓存有效
       * 强制刷新：ctl + F5
         * 强制缓存失效，协商缓存失效
+
+19. 从输入url到渲染出页面的整个过程
+  * 加载资源的形式
+    * html 代码
+    * 媒体文件，如图片、视频等
+    * javascript css
+
+  * 加载资源的过程
+    1. DNS 解析：域名 -> IP地址
+    2. 浏览器根据 IP 地址向服务器发起http请求
+    3. 服务器处理http请求，并返回给浏览器
+
+  * 渲染页面的过程
+    1. 根据 HTML 代码生成 DOM Tree
+    2. 根据 CSS 代码生成 CSSOM
+    3. 将 DOM Tree 和 CSSOM 整合生成 Render Tree
+    4. 根据 Render Tree 来布局，计算每个节点的位置
+    5. 遇到 <script></script>则暂停渲染，优先加载并执行JS代码，完成再继续
+    6. 调用 GPU 绘制，合成图层，显示在屏幕上
+
+20. `window.onload` 和 `DOMContentLoaded` 的区别
+  * load 事件触发代表页面中的DOM、CSS、JS，图片,视频已经全部加载完毕
+  ```js
+  window.addEventListener('load', function(){})
+  ```
+  * DOMContentLoaded 事件触发代表初始HTML被完全加载和解析，不需要等待CSS、JS,图片，视频加载
+  ```js
+  document.addEventListener('DOMContentLoaded', function(){})
+  ```
+
+
+

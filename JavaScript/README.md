@@ -27,17 +27,6 @@ if (true) {
 数据存储大小 | 4k | 5M | 5M |无限
 与服务器端通信 | 每次都会携带在 header 中，对于请求性能影响;服务端也可以写cookie到客户端 | 不参与 | 不参与 | 不参与
 
-## 渲染机制
-1. 处理 HTML 并构建 DOM树
-2. 处理 CSS 构建 CSSOM树
-3. 将 DOM 和 CSSOM 合并成一个渲染树
-4. 根据渲染树来布局，计算每个节点的位置
-5. 调用 GPU 绘制，合成图层，显示在屏幕上
-
-## Load 和 DOMContentLoaded区别
-1. load 事件触发代表页面中的DOM、CSS、JS，图片已经全部加载完毕
-2. DOMContentLoaded 事件触发代表初始HTML被完全加载和解析，不需要等待CSS、JS,图片加载
-
 ## 重绘(Repaint)和回流(Reflow)
 1. Repaint: 当节点需要更改外观而不影响布局的，比如改变`color`就叫重绘
 2. Reflow: 布局或几何属性需要改变就称为回流
