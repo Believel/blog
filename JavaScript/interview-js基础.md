@@ -357,3 +357,91 @@ function loadImg(src) {
       * 区别
         * `localStorage`数据会永久存储，除非代码或手动删除
         * `sessionStorage`数据只存在当前会话，浏览器关闭则清空
+18. http面试题
+  1. http 常见的状态码有哪些
+    * 状态码分类
+      * 1xx 服务器收到请求
+      * 2xx 请求成功，如 200
+      * 3xx 重定向，如 302
+        * `301` 永久重定向（配合 `location`,浏览器自动处理）
+        * `302` 临时重定向（配合 `location`,浏览器自动处理）
+        * `304` 资源未被修改
+      * 4xx 客户端错误，如
+        * `404` 资源未找到
+        * `403` 没有权限
+      * 5xx 服务端错误，如
+        * `500` 服务器错误
+        * `504` 网关超时
+  2. http 常见的 header 有哪些
+    * Request Headers
+      * Accept 浏览器可接收的数据格式
+      * Accept-Encoding 浏览器可接收的压缩算法，如`gzip`
+      * Accept-Languange 浏览器可接收的语言，如`zh-CN`
+      * Connection:keep-alive 一次TCP连接重复使用
+      * Cookie
+      * Host
+      * User-Agent 浏览器信息
+      * Content-type 发送数据的格式
+    * Response Headers
+      * Content-type 返回数据的格式，如`application/json`
+      * `Content-length` 返回数据的大小，多少字节
+      * Content-Encoding 返回数据的压缩算法，如gzip
+      * Set-Cookie
+
+  3. 什么是 Restful API
+    * 一种新的 API 设计方法
+    * 传统API设计：把每个url当做一个功能
+    * Restful API 设计：把每个url当做一个唯一的资源
+  4. 描述一下 http 的缓存机制（重要）
+    * 缓存：缓存策略可以降低资源的重复加载提高网页的整体加载速度。
+    * 强制缓存
+
+      > 实现强缓存可以通过两种响应头实现：`Expires` 和 `Cache-Control` 。强缓存表示在缓存期间不需要请求，state code 为 200
+
+      ```js
+      // HTTP/1.0
+      // 受限于本地时间，如果修改了本地时间，可能会造成缓存失效
+      Expires: Wed, 22 Oct 2018 08:41:00 GMT
+
+      // HTTP/1.1  优先级高于 Expires
+      // 表示资源会在30s后过期，需要再次请求
+      Cache-control: max-age=30
+      Cache-control: no-store   // 拒绝一切形式的缓存
+      Cache-control: no-cache   // 是否每次都需要向服务器进行缓存有效确认
+      Cache-control:  private / public // 考虑该资源是否可以被代理服务器缓存
+      ```
+    * 协商缓存（对比缓存）
+
+    > 服务器端缓存策略，服务器判断客户端资源，是否和服务端资源一样，一致则返回304，否则返回200和最新的资源
+
+      * 方式1：`Last-Modified` 和 `If-Modified-Since`
+      ```js
+        Last-Modified 表示本地文件最后修改日期   - Response Headers
+        If-Modified-Since 会将 Last-Modified 的值发送给服务器，询问服务器在该日期后资源是否更新 (Request Headers)
+
+        但是如果本地打开了缓存文件，就会造成last-modified被修改，所以在 http/1.1 出现了 ETag
+
+        弊端：不能感知文件内容的变化
+      ```
+      * 方式2： `ETag` 和 `If-None-Match`
+
+      ```js
+      ETag 类似于文件指纹，If-None-Match 会将当亲 ETag 发送给服务器，询问该资源 ETag 是否变动，有变动的话就将新的资源发送回来
+      ETag 是由服务器为每个资源生成的唯一的标识字符串，这个标识字符串是基于文件内容编码的，只要文件内容不同，他们对应的Etag就是不同的，反之亦然。因此ETag能够精准的感知文件的变化。
+
+      并且 ETag 的优先级高于 Last-Modified
+      // Response Headers: 当首次请求时，我们会在响应头里获取一个最初的标识字符串
+      ETag: W/"2a3b-1602480f459"
+
+      // Request Headers: 下一次请求时，请求头里就会带上一个值相同的。名为if-none-match的字符串供服务器比对：
+      If-None-Match: W/"2a3b-1602480f459"
+
+      Etag 的生成过程需要服务器额外付出开销，会影响服务端的性能，这是它的弊端
+      ```
+    * 刷新操作对缓存的影响
+      * 正常操作：地址栏输入url,跳转链接，前进后退等
+        * 强制缓存有效，协商缓存有效
+      * 手动刷新：F5,点击刷新按钮，右击菜单刷新
+        * 强制缓存失效，协商缓存有效
+      * 强制刷新：ctl + F5
+        * 强制缓存失效，协商缓存失效

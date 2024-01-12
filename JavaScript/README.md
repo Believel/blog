@@ -55,50 +55,6 @@ if (true) {
 // DNS 解析需要时间，可以通过预解析的方式来预先获得域名所对应的 IP
 <link rel="dns-prefetch" href="//yuchengkai.cn" />
 ```
-2. 缓存：缓存策略可以降低资源的重复加载提高网页的整体加载速度。
-  * 2.1 强缓存
-
-  > 实现强缓存可以通过两种响应头实现：`Expires` 和 `Cache-Control` 。强缓存表示在缓存期间不需要请求，state code 为 200
-
-  ```js
-  // HTTP/1.0
-  // 受限于本地时间，如果修改了本地时间，可能会造成缓存失效
-  Expires: Wed, 22 Oct 2018 08:41:00 GMT
-
-  // HTTP/1.1  优先级高于 Expires
-  // 表示资源会在30s后过期，需要再次请求
-  Cache-control: max-age=30
-  Cache-control: no-store   // 拒绝一切形式的缓存
-  Cache-control: no-cache   // 是否每次都需要向服务器进行缓存有效确认
-  Cache-control:  private / public // 考虑该资源是否可以被代理服务器缓存
-  ```
-
-  * 2.2 协商缓存
-    * 方式1：`Last-Modified` 和 `If-Modified-Since`
-    ```js
-      Last-Modified 表示本地文件最后修改日期   - Response Headers
-      If-Modified-Since 会将 Last-Modified 的值发送给服务器，询问服务器在该日期后资源是否更新 (Request Headers)
-
-      但是如果本地打开了缓存文件，就会造成last-modified被修改，所以在 http/1.1 出现了 ETag
-
-      弊端：不能感知文件内容的变化
-    ```
-    * 方式2： `ETag` 和 `If-None-Match`
-
-    ```js
-    ETag 类似于文件指纹，If-None-Match 会将当亲 ETag 发送给服务器，询问该资源 ETag 是否变动，有变动的话就将新的资源发送回来
-    ETag 是由服务器为每个资源生成的唯一的标识字符串，这个标识字符串是基于文件内容编码的，只要文件内容不同，他们对应的Etag就是不同的，反之亦然。因此ETag能够精准的感知文件的变化。
-
-    并且 ETag 的优先级高于 Last-Modified
-    // Response Headers: 当首次请求时，我们会在响应头里获取一个最初的标识字符串
-    ETag: W/"2a3b-1602480f459"
-
-    // Request Headers: 下一次请求时，请求头里就会带上一个值相同的。名为if-none-match的字符串供服务器比对：
-    If-None-Match: W/"2a3b-1602480f459"
-
-    Etag 的生成过程需要服务器额外付出开销，会影响服务端的性能，这是它的弊端
-    ```
-
 ## 安全
 1. XSS : Cross-site Script 跨网站指令码， 是代码注入的一种
   * 如何防御：转义输出的内容
