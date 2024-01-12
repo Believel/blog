@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>防抖示例</title>
+</head>
+<body>
+  <input placeholder="请输入" id="text"/>
+
+  <script>
+    const text = document.getElementById('text')
+
+    function debounce(fn, delay) {
+      let timer = null
+
+      return function() {
+        if (timer) {
+          clearTimeout(timer)
+        }
+        timer = setTimeout(() => {
+            fn.apply(this, arguments)
+            timer = null
+          }, delay)
+      }
+    }
+
+    // 按下键就会触发文本框输入
+    text.addEventListener('keyup', debounce(function() {
+      console.log(text.value)
+    }, 1000))
+  </script>
+</body>
+</html>

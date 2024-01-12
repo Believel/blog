@@ -17,6 +17,7 @@ function debounce(fn, wait = 1000) {
     if (timer) clearTimeout(timer)
     timer = setTimeout(() => {
       fn.apply(this, args)
+      timer = null
     }, wait)
   }
 }
