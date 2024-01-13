@@ -44,12 +44,6 @@ if (true) {
 // DNS 解析需要时间，可以通过预解析的方式来预先获得域名所对应的 IP
 <link rel="dns-prefetch" href="//yuchengkai.cn" />
 ```
-## 安全
-1. XSS : Cross-site Script 跨网站指令码， 是代码注入的一种
-  * 如何防御：转义输出的内容
-2. CSRF：跨站请求伪造（Cross Site Request Forgery）， 利用用户的登录态发起恶意请求。
-  * 如何防御：get请求不对数据进行修改；不让第三方网站访问到用户cookie；阻止第三方网站请求接口；请求时附带验证信息
-
 ## HTTP
 1. http/1.0和http/1.1有什么区别
   * 长链接：http/1.1支持长连接和请求的流水线，在一个TCP连接上可以传送多个http请求，避免了因为多次建立TCP连接的时间消耗和延时

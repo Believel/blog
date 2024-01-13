@@ -475,5 +475,21 @@ function loadImg(src) {
   document.addEventListener('DOMContentLoaded', function(){})
   ```
 
+21. 安全
+  1. 常见的web前端攻击方式有哪些？
+    * XSS 跨站请求攻击（Cross-site Script）
+      * 场景：一个博客网站，我发表一篇博客，其中嵌入`<script>`脚本,脚本内容：获取cookie，发送到我的服务器（服务器配合跨域），发布这篇博客，有人查看它，我轻松收割访问者的cookie
+      * 如何预防
+        * 替换特殊字符，如 `<` 变成`$lt`; `>` 变为`$gt`
+        * 前端要替换，后端也要替换，都做总不会出错
+
+    * XSRF 跨站请求伪造（Cross Site Request Forgery）
+      * 场景：你正在购物，看中了某个商品，商品id是100，付费接口是`xxx.com/pay?id=100`但是没有任何验证；我是攻击者，我看中一个商品，id是200；我向你发送一个电子邮件，邮件标题很吸引人，但是邮件正文隐藏着`<img src=xxx.com/>pay?id=200 />`;你一查看邮件，就帮我购买了id是200的商品
+      * 如何预防？
+        * get请求不对数据进行修改；使用post接口
+        * 不让第三方网站访问到用户cookie；
+        * 阻止第三方网站请求接口；
+        * 请求时附带验证信息
+
 
 
