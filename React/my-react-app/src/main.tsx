@@ -12,7 +12,7 @@ import { Provider } from './demo/06ReduxDemo/source/react-redux'
 
 
 // react source demo entry
-// import '../react-source/index'
+import '../react-source/index'
 
 // react router demo entry
 // import '../react-router-source/index'
@@ -23,10 +23,10 @@ import { Provider } from './demo/06ReduxDemo/source/react-redux'
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
+    {/* <App />
     <Provider store={store}>
       <ReduxDemoApp />
-    </Provider>
+    </Provider> */}
   </React.StrictMode>,
   document.getElementById('root')
 )
