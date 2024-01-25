@@ -73,55 +73,7 @@ prettier eslint-config-prettier eslint-plugin-prettier prettier
     * `asset/source` 将资源导出为源码，类似于raw-loader功能
     * `asset` 会根据文件大小来选择使用哪种类型，当文件小于8KB(默认)的时候会使用asset/inline,否则使用asset/resource
 
-### 优化构建速度
-1. 构建费时分析：`speed-measure-webpack-plugin`
-2. 优化`resolve`配置：配置`alias（别名）`、`extension(文件扩展名)`、`modules(告诉webpack解析模块时应该搜索的目录)`
-3. 缩小范围：配置loader时，指定`include`和`exclude`
-4. noParse: 不需要解析依赖的第三方类库等，可以通过这个字段进行配置
-```js
-module.exports = {
-  module: {
-    noParse: /jquery|lodash/,
-    rules: [
-      ...
-    ]
-  }
-}
-```
-5. IgnorePlugin: 防止在`import`和`require`调用时，生成以下正则表达式匹配的模块
-```js
-const webpack = require('webpack')
-modules.exports = {
-  plugins: [
-    // 目的是将插件中的非中文语言排除掉
-    new webpack.IgnorePlugin({
-      // 匹配资源请求路径的正则表达式
-      resourceRegExp: /^\.\/locale$/,
-      // 匹配资源上下文的正则表达式
-      contextRegExp: /moment$/
-    })
-  ]
-}
-```
-6. 多进程配置：`thread-loader`
-
-> 配置在`thread-loader` 之后的loader都会在一个单独的worker池中运行
-
-7. 利用缓存
-  * `babel-loader` 开启缓存
-
-  ```js
-  // babel在转译js过程中时间开销比较大，将babel-loader的执行结果缓存起来，重新打包的时候，直接读取缓存
-  // 缓存位置：`node_modules/.cache/babel-loader`
-    {
-      loader: 'babel-loader',
-      options: {
-        cacheDirectory: true
-      }
-    }
-  ```
-
-  ### 优化构建结果
+  ### 优化构建结果（产出代码） - 产品性能
   1. 结果分析插件：`webpack-bundle-analyzer`
   2. 压缩CSS, 单独提取CSS
   3. 压缩JS:`terser-webpack-plugin`, webpack5已经内置
