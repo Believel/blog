@@ -142,7 +142,27 @@
     * IngorePlugin
     * 使用 CDN 加速
     * 使用 production
+      * 自动开启代码压缩
+      * Vue React 等会自动删掉调试代码（如开发环境的 warning）
+      * 启动 Tree-Shaking: 剔除没有使用的代码
+        * webpack默认支持，需要在`.babelrc`里面设置：`modules: false`,即可在生产环境默认开启
+        * 注意：ES6 Module 语法才能让 tree-shaking 生效，commonjs 就不行
     * Scope Hosting
+      * webpack 默认支持，在生产环境下默认开启
+      ```js
+      // 即作用域提升，原理是将多个模块放在同一个作用域下，并重命名防止命名冲突，通过这种方式可以减少函数声明和内存开销
+
+      // hello.js
+      export default 'hello world'
+
+      // main.js
+      import str from './hello.js'
+      console.log(str)
+      ```
+      * 好处：
+        * 代码体积更小
+        * 创建函数作用域更小
+        * 代码可读性更好
 
 6. `babel-runtime` 和 `babel-polyfill` 的区别
 
@@ -154,5 +174,10 @@
   * 项目比较大，打包比较慢，开启多进程能提高速度
   * 项目比较小，打包很快，开启多进程会降低速度（进程开销）
   * 按需使用
+
+9. ES6 Module 和 Commonjs区别
+  * ES6 Module 静态引入，编译时引入
+  * Commonjs 动态引入，执行时引入
+  * 只有 ES6 Module 才能静态分析，实现 tree-shaking
 
 

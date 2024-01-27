@@ -73,23 +73,13 @@ prettier eslint-config-prettier eslint-plugin-prettier prettier
     * `asset/source` 将资源导出为源码，类似于raw-loader功能
     * `asset` 会根据文件大小来选择使用哪种类型，当文件小于8KB(默认)的时候会使用asset/inline,否则使用asset/resource
 
-  ### 优化构建结果（产出代码） - 产品性能
-  1. 结果分析插件：`webpack-bundle-analyzer`
-  2. 压缩CSS, 单独提取CSS
-  3. 压缩JS:`terser-webpack-plugin`, webpack5已经内置
-  4. 清除无用的css:`purgecss-webpack-plugin`: 注释掉的代码还是会打包进去的
-  5. Tree-shaking: 剔除没有使用的代码
-    * webpack默认支持，需要在`.babelrc`里面设置：`modules: false`,即可在生产环境默认开启
-  6. Scope Hoisting:即作用域提升，原理是将多个模块放在同一个作用域下，并重命名防止命名冲突，通过这种方式可以减少函数声明和内存开销
-    * webpack 默认支持，在生产环境下默认开启
-  7. 优化运行时体验：按需加载
-  8. splitChunks分包配置
-    * 默认情况下，它只会影响到按需加载的chunks，因为修改initial chunks 会影响到项目的HTMl文件中的脚本标签。
-    * webpack会根据一下条件自动拆分chunks:
-      * 新的chunk 可以被共享，或者模块来自`node_modules`文件夹
-      * 新的chunk体积大于20Kb
-      * 当按需加载chunks时并行请求的最大数量小于或者等于30
-      * 当加载初始化页面时，并行请求的最大数量小于或等于30 
+7. splitChunks分包配置
+  * 默认情况下，它只会影响到按需加载的chunks，因为修改initial chunks 会影响到项目的HTMl文件中的脚本标签。
+  * webpack会根据一下条件自动拆分chunks:
+    * 新的chunk 可以被共享，或者模块来自`node_modules`文件夹
+    * 新的chunk体积大于20Kb
+    * 当按需加载chunks时并行请求的最大数量小于或者等于30
+    * 当加载初始化页面时，并行请求的最大数量小于或等于30 
 
 
 # webpack 构建流程
